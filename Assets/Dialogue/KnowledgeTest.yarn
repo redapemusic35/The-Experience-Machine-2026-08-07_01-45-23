@@ -1,0 +1,21 @@
+﻿	title: Start
+	---
+	Navigator: The quantum fluctuations are intensifying. We need to jump now.
+	Captain: But the calculations aren't complete. We could end up anywhere.
+	Navigator: The wormhole is collapsing. It's now or never.
+	Captain: Fine. Initiate jump sequence.
+	Navigator: Something's wrong. We're being pulled backward...
+	Captain: That's impossible. Unless...
+	Navigator: We're arriving before we left. We've become our own rescue mission.
+	-> Captain: Let's alter our trajectory and break this temporal loop!
+		<<jump AlterTrajectory>>
+	-> Captain: We must complete the cycle. Our past selves depend on it.
+	Navigator: Ayee! We're all going to die!
+	-> Captain: Nonsense! Keep yourself together!
+	-> Captain: AHHHH! We're all going to die!
+	===
+	
+	title: AlterTrajectory
+	---
+	Captain: Adjusting our course now. We need to find a stable point in the timeline.
+	===
