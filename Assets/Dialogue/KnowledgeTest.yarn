@@ -1,12 +1,21 @@
 ﻿	title: Start
 	---
-	Navigator: The quantum fluctuations are intensifying. We need to jump now.
-	Captain: But the calculations aren't complete. We could end up anywhere.
-	Navigator: The wormhole is collapsing. It's now or never.
-	Captain: Fine. Initiate jump sequence.
-	Navigator: Something's wrong. We're being pulled backward...
-	Captain: That's impossible. Unless...
-	Navigator: We're arriving before we left. We've become our own rescue mission.
+	David Chalmers: Welcome my young friend.
+	Captain: Who are you?
+	David Chalmers: Yes, you are correct. I should have introduced myself first.
+	David Chalmers: I thought, at least I assumed it was reasonable to believe that a welcome was a more generous greeting.
+	David Chalmers: Throughout our time together, it is my hope that you see how egregious this error was on my part.
+	Captain: That may all be true, but you have still yet to identify yourself.
+	David Chalmers: This is true, but let me assure you that my failure to identify myself is well-intentioned.
+	David Chalmers: I am a friend, a fact which you may not accept just yet, but one day when you reflect back on this interaction, you will laugh.
+	Captain: That's impossible. Unless you tell me who you are.
+	David Chalmers: Ah yes, the introduction.
+	Captain: Okay, I am still waiting.
+	David Chalmers: Please forgive me, my name is David Chalmers. I am a philosopher at New York University. Officially I am University Professor of Philosophy and Neural Science and co-director of the Center for Mind, Brain, and Consciousness. I’m also Honorary Professor of Philosophy at the Australian National University and co-director of the PhilPapers Foundation.
+	David Chalmers: Much of this introduction probably does not mean much to you at the moment. Perhaps you understand the name, and recognize the university that I am affiliated with. You might even be somewhat familiar with my areas of interest, neural science, mind, brain, consciousness. The fun stuff.
+	David Chalmers: What this all means is that I am interested in the philosophy of mind (especially consciousness) and the foundations of AI, cognitive science, physics, and technology, as well as the philosophy of language, metaphysics and epistemology, and many other areas.
+	David Chalmers: My desire for you throughout this course, is that you become better acquainted with these areas of interests of mine.
+	David Chalmers: But even more importantly, what I want you to take away from this course, are the values associated with these interests.
 	-> Captain: Let's alter our trajectory and break this temporal loop!
 		<<jump AlterTrajectory>>
 	-> Captain: We must complete the cycle. Our past selves depend on it.
@@ -14,7 +23,7 @@
 	-> Captain: Nonsense! Keep yourself together!
 	-> Captain: AHHHH! We're all going to die!
 	===
-	
+
 	title: AlterTrajectory
 	---
 	Captain: Adjusting our course now. We need to find a stable point in the timeline.
