@@ -11,20 +11,88 @@
 	Captain: That's impossible. Unless you tell me who you are.
 	David Chalmers: Ah yes, the introduction.
 	Captain: Okay, I am still waiting.
-	David Chalmers: Please forgive me, my name is David Chalmers. I am a philosopher at New York University. Officially I am University Professor of Philosophy and Neural Science and co-director of the Center for Mind, Brain, and Consciousness. I’m also Honorary Professor of Philosophy at the Australian National University and co-director of the PhilPapers Foundation.
+	David Chalmers: Please forgive me, my name is David Chalmers. I am a philosopher at New York University. 
+	-> Captain: A philosopher? So do you believe in birds?
+		<<jump RepairingTheImage>>
+	-> Captain: Is the earth really round?
+		<<jump RepairingTheImage>>
+	-> Captain: Did astronauts ever land on the moon?
+		<<jump RepairingTheImage>>
+	-> Captain: I've heard about philosophy, but like religion, I thought it was something people didn't do anymore.
+		<<jump WhyPhilosophyisImportant>>
+	===
+	
+	title: continue_1
+	---
+	David Chalmers: Officially I am University Professor of Philosophy and Neural Science and co-director of the Center for Mind, Brain, and Consciousness. I’m also Honorary Professor of Philosophy at the Australian National University and co-director of the PhilPapers Foundation.
 	David Chalmers: Much of this introduction probably does not mean much to you at the moment. Perhaps you understand the name, and recognize the university that I am affiliated with. You might even be somewhat familiar with my areas of interest, neural science, mind, brain, consciousness. The fun stuff.
 	David Chalmers: What this all means is that I am interested in the philosophy of mind (especially consciousness) and the foundations of AI, cognitive science, physics, and technology, as well as the philosophy of language, metaphysics and epistemology, and many other areas.
 	David Chalmers: My desire for you throughout this course, is that you become better acquainted with these areas of interests of mine.
-	David Chalmers: But even more importantly, what I want you to take away from this course, are the values associated with these interests.
-	-> Captain: Let's alter our trajectory and break this temporal loop!
-		<<jump AlterTrajectory>>
-	-> Captain: We must complete the cycle. Our past selves depend on it.
-	Navigator: Ayee! We're all going to die!
-	-> Captain: Nonsense! Keep yourself together!
-	-> Captain: AHHHH! We're all going to die!
+	Captain: But you could have all the titles in the world, there have been plenty of people with lofty titles, they didn't make philosophy any more relevant than religion.
+	David Chalmers: I should clarify. I don't think that I can make philosophy relevant. What I want to do, is show you why you should care.
+		<<jump why>>
 	===
 
-	title: AlterTrajectory
+	title:why
 	---
-	Captain: Adjusting our course now. We need to find a stable point in the timeline.
+	David Chalmers: That's why I designed this course. But even more importantly, what I want you to take away from this course, are the values associated with these interests.
+	-> Captain: Okay, fine, tell me more about consciousness.
+		<<jump consciousness>>
+	-> Captain: I get that these are very interesting areas of research. But what do they have to do with me?
+		<<jump assurances>>
+	===
+	
+	title: consciousness
+	---
+	David Chalmers: I would love to tell you about consciousness and other things. But you must understand that it is not so simple.
+	-> Captain: I don't think I do. You're the expert. Tell me about consciousness.
+	-> Captain: Fine, if you won't tell me about consciousness, then tell me what I need to do to get a good grade in your course.
+	===
+
+	title: RepairingTheImage
+	---
+	David Chalmers: Unfortunately, philosophy has gotten a bit of a bad rep lately. In part, this is one of my greatest concerns.
+	-> Captain: What do you do again?
+		<<jump continue_1>>
+	-> Captain: Who are you?
+		<<jump continued_introductions>>
+	===
+
+	title: WhyPhilosophyisImportant
+	---
+	David Chalmers: This will actually be one of our learning goals! I hope to show why philosophy is important and as important as ever! Not only this, but, unlike many other disciplines, it is not only important for a select few, but important for every one!
+	-> Captain: Why is this your goal?
+		<<jump why>>
+	-> Captain: What do you do that you think you can make philosophy *and* religion relevant again?
+		<<jump continue_1>>
+	-> Captain: What is consciousness then?
+		<<jump consciousness>>
+	===
+
+	title: assurances
+	---
+	David Chalmers: My dear young friend, I assure you that, like myself, you may not even understand what this means.
+	-> Captain: Another one of your impossible tasks it seems.
+		<<jump impossible>>
+	-> Captain: Okay, tell me about this and consciousness if you wish. But it seems to me that you are making promises you will not be able to keep.
+		<<jump continued_introductions>>
+	===
+
+	title: continued_introductions
+	---
+	David Chalmers: I promise you that I make no such promises! But let me tell you some more about myself.
+		<<jump continue_1>>
+	===
+
+	title: impossible
+	---
+	David Chalmers: There are many things that seem impossible now that may not be impossible in the future.
+	Captain: Ehhh, I am not convinced that that's true.
+	David Chalmers: Would you agree that there have been things in the past that seemed impossible but that are not a part of our reality?
+	Captain: Like what?!
+	David Chalmers: Oh I don't know, like space travel.
+	Captain: Okay, whatever. What's the point.
+	David Chalmers: Something may seem impossible now, but it doesn't mean that we shouldn't try.
+	Captain: Fine, but what is the point of you telling me all this?
+		<<jump RepairingTheImage>>
 	===
