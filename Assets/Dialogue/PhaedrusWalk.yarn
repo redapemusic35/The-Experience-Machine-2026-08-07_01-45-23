@@ -1,0 +1,102 @@
+title: Socrates_Join
+---
+Socrates: Captain! Where are you going, and where have you come from?
+Captain: Nowhere. Away from here.
+Socrates: Away from here. And yet you walk with great purpose, for a man going nowhere.
+Captain: I wanted to think. Alone.
+Socrates: Alone! Then I have arrived at exactly the wrong moment, which is my custom.
+Captain: You don't seem sorry.
+Socrates: I am never sorry to interrupt a man who is about to think. Thinking alone is how most bad thinking gets done.
+Captain: And thinking with a stranger is better?
+Socrates: Immeasurably. A stranger will ask you what you mean. You will not.
+Captain: I'm not going to be rid of you, am I.
+Socrates: Not before that plane tree, at any rate. Do you see it? The tall one, past the flowers.
+Captain: I see it.
+Socrates: There is shade there, and I am told the ground is soft. Lead on — I'll keep up.
+===
+
+title: Walk_1
+---
+Socrates: Tell me — what were you going to think about, before I ruined it?
+Captain: I don't know yet. That's why I was going to think.
+Socrates: A man walks out of the city to consider a question he does not yet have. Remarkable.
+Captain: You're mocking me.
+Socrates: I'm envying you. I have far too many questions. You have room for one good one.
+===
+
+title: Walk_2
+---
+Captain: You said thinking alone is how bad thinking gets done. Prove it.
+Socrates: I can't prove it. I can only ask whether you have ever been wrong.
+Captain: Of course I have.
+Socrates: And while you were wrong — did it feel any different from being right?
+Captain: ...No.
+Socrates: That is the whole difficulty. And we are not even at the tree yet.
+===
+
+title: Walk_3
+---
+Socrates: Mind the roots here.
+Captain: You're not even winded.
+Socrates: I walk very little, but I argue constantly. It is the same exercise.
+===
+
+title: PlaneTree
+---
+Socrates: There. Sit, if you like. I'll stand — I think better on my feet and worse when I'm comfortable.
+Socrates: Now. You came out here to think, and you hadn't chosen a question. Let me lend you one.
+Socrates: You believe you know a great many things. Your own name. The color of the sky. What you ate this morning.
+Socrates: Do you know them? Or do you only believe them?
+-> Captain: There's a difference?
+	<<jump PlaneTree_Difference>>
+-> Captain: I know them. I can see the sky right now.
+	<<jump PlaneTree_Senses>>
+-> Captain: Knowledge is belief that happens to be true, and that you have some reason for.
+	<<jump PlaneTree_JTB>>
+===
+
+title: PlaneTree_Difference
+---
+Socrates: An excellent question, and one I would much rather you asked than answered.
+Socrates: Suppose you believe the hull will hold. And it holds. Were you right, or were you lucky?
+Captain: ...Both, I suppose.
+Socrates: Then tell me which of the two you would want your crew to have.
+	<<jump PlaneTree_ToChalmers>>
+===
+
+title: PlaneTree_Senses
+---
+Socrates: You can see it. And have your eyes never lied to you?
+Captain: Rarely.
+Socrates: Rarely is an interesting word. It means yes.
+Socrates: When you dream, does the dream announce itself as a dream?
+Captain: No.
+Socrates: Then at night your eyes lie to you perfectly, and you believe them completely. What is different now?
+	<<jump PlaneTree_ToChalmers>>
+===
+
+title: PlaneTree_JTB
+---
+Socrates: Careful — you have answered too well. Men who answer well stop looking.
+Socrates: Suppose you watch your navigator go below deck. You believe he is below. You have reason: you saw him go.
+Socrates: But he climbed out the far hatch, and he is standing behind you at this moment.
+Captain: Then I was wrong.
+Socrates: And yet a man is below deck. Another of the same name, whom you have never met, is down there now.
+Socrates: Your belief was true. You had your reason. Did you know?
+	<<jump PlaneTree_ToChalmers>>
+===
+
+title: PlaneTree_ToChalmers
+tags: 
+position: null,null
+---
+Captain: You're not going to answer any of this, are you.
+Socrates: I have never answered anything. It is the only discipline I have kept.
+Socrates: But I can tell you where to go next.
+Socrates: There is a man in these woods who has thought about this longer than I have been dead. He is called Chalmers.
+Captain: You're dead?
+Socrates: Let us call that his question rather than mine.
+Socrates: Go and find him. Ask him what you asked me. He is far more generous with answers than I am — you may come to find that a mixed blessing.
+Captain: You're not coming?
+Socrates: I have walked far enough. And you meant to think alone. Go on — you are better prepared for it now.
+===

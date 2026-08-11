@@ -1,33 +1,43 @@
-﻿{
+{
+     "$schema": "",
     "projectFileVersion": 4,
     "sourceFiles": [
         "**/*.yarn"
     ],
     "excludeFiles": [
-        "**/*~/*",
         "./Samples/Yarn Spinner*/*"
     ],
-    "localisation": {},
+    "localization": {},
     "baseLanguage": "en",
     "compilerOptions": {
         "diagnosticsSeverity": {}
     },
     "projectName": "Wisdom Project",
     "authorName": [
-        "montaque"
+        ""
     ],
     "editorOptions": {
         "yarnScriptEditor": {
             "characters": [
                 {
                     "name": "Captain",
-                    "colour": "#cc25d4"
+                    "color": "#cc25d4"
                 },
                 {
                     "name": "David Chalmers",
-                    "colour": "#a44332"
+                    "color": "#a44332"
                 }
-            ]
+            ],
+            "projectGraphPositions": {
+                "KnowledgeTest.yarn": {
+                    "x": 12,
+                    "y": 287
+                },
+                "PhaedrusWalk.yarn": {
+                    "x": 12,
+                    "y": 12
+                }
+            }
         }
     }
 }
