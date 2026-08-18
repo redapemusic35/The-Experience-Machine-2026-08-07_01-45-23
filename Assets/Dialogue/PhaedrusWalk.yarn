@@ -1,86 +1,110 @@
 title: Socrates_Join
+position: 636,515
 ---
-Socrates: Captain! Where are you going, and where have you come from?
-Captain: Nowhere. Away from here.
-Socrates: Away from here. And yet you walk with great purpose, for a man going nowhere.
-Captain: I wanted to think. Alone.
-Socrates: Alone! Then I have arrived at exactly the wrong moment, which is my custom.
-Captain: You don't seem sorry.
-Socrates: I am never sorry to interrupt a man who is about to think. Thinking alone is how most bad thinking gets done.
-Captain: And thinking with a stranger is better?
-Socrates: Immeasurably. A stranger will ask you what you mean. You will not.
-Captain: I'm not going to be rid of you, am I.
-Socrates: Not before that plane tree, at any rate. Do you see it? The tall one, past the flowers.
-Captain: I see it.
-Socrates: There is shade there, and I am told the ground is soft. Lead on — I'll keep up.
+SOCRATES: Dear Phaedrus, where are you going to and where are you coming from? 
+Phaedrus: I have been with Lysias, the son of Cephalus, and I am going for a walk outside the  walls for I have spent a long time sitting with him since early this morning. On the advice of Acumenus,2 your friend and mine, I take my walks on the open roads, for he says that these walks are more refreshing than those through the streets.
+Socrates: Ah, I have thought that Lysias was in town.
+Phaedrus: Yes he is. He's been staying with Epicrates, in the house that once belonged to Morychus, close to the Olympieum.
+Socrates: Well then, how have you spent your time with our friend Lysias, or should it be obvious that Lysias regaled you with his famous speeches?
+Phaedrus: If you have time, I would love for you to join me. I will tell you all about it.
+Socrates: Well you lead on, where should we go?
+-> Phaedrus: Anywhere is fine, friend, it's the company that matters.
+	<<jump Walk_1>>
+-> Phaedrus: Perhaps you have suggestions?
+	<<jump Walk_2>>
+-> Phaedrus: It is not often that I get outside the city walls, I wouldn't know where to begin.
+	<<jump Walk_3>>
 ===
 
 title: Walk_1
+position: 672,106
 ---
 Socrates: Tell me — what were you going to think about, before I ruined it?
-Captain: I don't know yet. That's why I was going to think.
-Socrates: A man walks out of the city to consider a question he does not yet have. Remarkable.
-Captain: You're mocking me.
-Socrates: I'm envying you. I have far too many questions. You have room for one good one.
+Phaedrus: I don't know yet. That's why I was going to think.
+Socrates: A man walks out of the city to consider a question he does not yet have. Remarkable. Do you see the large tree at the top of the hill there?
+-> Phaedrus: You're mocking me. I don't see it.
+	<<jump Walk_4>>
+===
+
+title: Walk_4
+---
+Socrates: I assure you that I am doing no such thing. In fact, I am envying you. I have far too many questions. You have room for one good one.
+Socrates: Amazing! You do realize do you not, that as Pindar has put it, there is no more worthwhile pursuit than hearing about your time with Lysias!
+Socrates: The large tree is just over there. Here, follow me while you regale me with tales of your time with Lysias.
+Phaedrus: Well, for starters, I think that you are going to like hearing this. Lysias did regale us with his famous speeches. This one however was in fact about love. He wrote a speech about a beautiful boy who was tempted, but not by a lover. This is what makes this such a remarkable speech, for Lysias argues that we should pursue those we are not in love with more than those we are. Or that we should pursue those we are not attracted to rather than those we are.
+Socrates: This is a noble argument I suppose, though I wish he would write about favoring the poor rather than the rich, or the old rather than the young, referring qualities that I and others like myself possess. These sorts of arguments really are clever and beneficial to the public. Either way, I am very interested in what you have to say, that I will not leave you, even if you walk as far as Megara and, like Heordicus, go back once more when you reach the city walls.
+Phaedrus: why Socrates, you flatter me. Do you truly think that I myself could recall from memory speeches by a writer as formidable as Lysias, who himself undoubtedly used his leisure to compose? Though this is an ability I would love more than anything in the world, alas, it is not one that I possess unfortunately.
+Socrates: Phaedrus, my dear Phaedrus. If I do not know you, then I do not know anyone. Do you not think that I am very well aware of your character? That not only did you listen to Lysias' speech once, but asked him to repeat it many times and Lysias, being the generous man he is, obeyed eagerly. But knowing you, as I do, even this was not enough. Rather you, I am sure, found a written script of the speech from goodness knows where. In addition, you studied those parts of the script that you were most interested in. You did this repeatedly, until you got tired and went out for a walk, having learned the speech by heart unless it was particularly long. Upon this, you went outside the city walls where you could rehearse the speech where you were accosted by someone who never let the opportunity for a good discussion go to waste. The two met and exchanged pleasantries inviting one another. Hereupon you my dear Phaedrus, put on an act that you were not able to recount Lysias' speech, but in the end you would do so even if no one was prepared to listen.
+Phaedrus: Perhaps this may be true, but either way even if it were not, I do not think that you will leave me be until I recite Lysias' speech.
+Socrates: This is quite true my dear friend.
+Phaedrus: By your words dearest Socrates, this is what I will do. However, I have not learned the words by heart, but I do understand what the speech meant, what Lysias meant by it, and so I can give you a summary of each of the points in his argument starting with the first.
+Socrates: I think that it is well okay that you give me the summary, however, I see that you are hiding something underneath your coat. In fact, it looks like a copy of the actual speech. Since you have it on you, why should I accept a mere summary?
+Phaedrus: I was going to practice my summary on you, but you have caught on. How about we walk along towards that tree there in the distance. This is a nice time of year for a walk while the weather is moderate.
 ===
 
 title: Walk_2
+position: 110,-672
 ---
-Captain: You said thinking alone is how bad thinking gets done. Prove it.
+Phaedrus: You said thinking alone is how bad thinking gets done. Prove it.
 Socrates: I can't prove it. I can only ask whether you have ever been wrong.
-Captain: Of course I have.
+Phaedrus: Of course I have.
 Socrates: And while you were wrong — did it feel any different from being right?
-Captain: ...No.
+Phaedrus: ...No.
 Socrates: That is the whole difficulty. And we are not even at the tree yet.
 ===
 
 title: Walk_3
+position: 404,-783
 ---
 Socrates: Mind the roots here.
-Captain: You're not even winded.
+Phaedrus: You're not even winded.
 Socrates: I walk very little, but I argue constantly. It is the same exercise.
 ===
 
 title: PlaneTree
+position: 447,-567
 ---
 Socrates: There. Sit, if you like. I'll stand — I think better on my feet and worse when I'm comfortable.
 Socrates: Now. You came out here to think, and you hadn't chosen a question. Let me lend you one.
 Socrates: You believe you know a great many things. Your own name. The color of the sky. What you ate this morning.
 Socrates: Do you know them? Or do you only believe them?
--> Captain: There's a difference?
+-> Phaedrus: There's a difference?
 	<<jump PlaneTree_Difference>>
--> Captain: I know them. I can see the sky right now.
+-> Phaedrus: I know them. I can see the sky right now.
 	<<jump PlaneTree_Senses>>
--> Captain: Knowledge is belief that happens to be true, and that you have some reason for.
+-> Phaedrus: Knowledge is belief that happens to be true, and that you have some reason for.
 	<<jump PlaneTree_JTB>>
 ===
 
 title: PlaneTree_Difference
+position: 666,-293
 ---
 Socrates: An excellent question, and one I would much rather you asked than answered.
 Socrates: Suppose you believe the hull will hold. And it holds. Were you right, or were you lucky?
-Captain: ...Both, I suppose.
+Phaedrus: ...Both, I suppose.
 Socrates: Then tell me which of the two you would want your crew to have.
 	<<jump PlaneTree_ToChalmers>>
 ===
 
 title: PlaneTree_Senses
+position: -136,394
 ---
 Socrates: You can see it. And have your eyes never lied to you?
-Captain: Rarely.
+Phaedrus: Rarely.
 Socrates: Rarely is an interesting word. It means yes.
 Socrates: When you dream, does the dream announce itself as a dream?
-Captain: No.
+Phaedrus: No.
 Socrates: Then at night your eyes lie to you perfectly, and you believe them completely. What is different now?
 	<<jump PlaneTree_ToChalmers>>
 ===
 
 title: PlaneTree_JTB
+position: 288,616
 ---
 Socrates: Careful — you have answered too well. Men who answer well stop looking.
 Socrates: Suppose you watch your navigator go below deck. You believe he is below. You have reason: you saw him go.
 Socrates: But he climbed out the far hatch, and he is standing behind you at this moment.
-Captain: Then I was wrong.
+Phaedrus: Then I was wrong.
 Socrates: And yet a man is below deck. Another of the same name, whom you have never met, is down there now.
 Socrates: Your belief was true. You had your reason. Did you know?
 	<<jump PlaneTree_ToChalmers>>
@@ -88,15 +112,15 @@ Socrates: Your belief was true. You had your reason. Did you know?
 
 title: PlaneTree_ToChalmers
 tags: 
-position: null,null
+position: -188,-448
 ---
-Captain: You're not going to answer any of this, are you.
+Phaedrus: You're not going to answer any of this, are you.
 Socrates: I have never answered anything. It is the only discipline I have kept.
 Socrates: But I can tell you where to go next.
 Socrates: There is a man in these woods who has thought about this longer than I have been dead. He is called Chalmers.
-Captain: You're dead?
+Phaedrus: You're dead?
 Socrates: Let us call that his question rather than mine.
 Socrates: Go and find him. Ask him what you asked me. He is far more generous with answers than I am — you may come to find that a mixed blessing.
-Captain: You're not coming?
+Phaedrus: You're not coming?
 Socrates: I have walked far enough. And you meant to think alone. Go on — you are better prepared for it now.
 ===

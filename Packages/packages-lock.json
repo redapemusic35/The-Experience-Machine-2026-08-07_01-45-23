@@ -218,6 +218,28 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.services.cloud-build": {
+      "version": "2.0.8",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.collab-proxy": "2.11.3",
+        "com.unity.services.core": "1.16.0",
+        "com.unity.nuget.newtonsoft-json": "3.2.2"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.services.core": {
+      "version": "1.18.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.2.2",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.settings-manager": {
       "version": "2.1.1",
       "depth": 2,
@@ -315,16 +337,6 @@
       "source": "git",
       "dependencies": {},
       "hash": "bfc5b6a2e8bc8978e777caeea3a827a0d408cc7d"
-    },
-    "dev.yarnspinner.unity.samples": {
-      "version": "https://github.com/YarnSpinnerTool/YarnSpinner-Unity-Samples.git#current",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "dev.yarnspinner.unity": "3.1.0",
-        "com.unity.shadergraph": "14.0.0"
-      },
-      "hash": "13f258df535f432de0517b2db519af9a19561a0b"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

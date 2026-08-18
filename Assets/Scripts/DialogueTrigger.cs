@@ -6,6 +6,7 @@ public class PhaedrusWalk : MonoBehaviour
     enum Phase { Waiting, Joining, Walking, Arrived, Dismissed }
 
     [Header("Dialogue")]
+    [SerializeField] private Animator animator; 
     [SerializeField] private DialogueRunner dialogueRunner;
     [SerializeField] private string joinNode = "Socrates_Join";
     [SerializeField] private string[] walkingNodes;      // fired en route, in order
@@ -109,7 +110,10 @@ public class PhaedrusWalk : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, player.position);
         FaceTarget(player.position);
-        if (distance <= stopDistance) return;
+
+        bool moving = distance > stopDistance;
+        if (animator != null) animator.SetBool("IsWalking", moving);
+        if (!moving) return;
 
         Vector3 flat = new Vector3(player.position.x, transform.position.y, player.position.z);
         Vector3 dir = (flat - transform.position).normalized;
