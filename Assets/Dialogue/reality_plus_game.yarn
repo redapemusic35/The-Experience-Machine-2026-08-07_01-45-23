@@ -10,51 +10,24 @@
 
 title: Part1_Intro_Ch1_RealLife
 ---
-Chalmers: Welcome to the first grove. Here we explore virtual worlds and what makes them real—or not. Let me ask you something basic.
-
-In a virtual environment, when your avatar moves and changes the world around you, *something* is happening. But what, exactly, is real about that interaction?
-
+Chalmers: Welcome to the first grove. Here we explore virtual worlds and what makes them real—or not. Let me ask you something basic. In a virtual environment, when your avatar moves and changes the world around you, *something* is happening. But what, exactly, is real about that interaction?
 -> You: The pixels on my screen are real, but the world they depict is just software.
     <<jump Part1_Ch1_PixelConfusion>>
-
 -> You: The computational processes are real, and they create genuine changes in a virtual space.
     <<jump Part1_Ch2_SimulationHypothesis>>
-
 -> You: I'm not sure. The experience feels real to me, but I'm confused about what "real" means.
     <<jump Part1_Ch1_RealityExploration>>
-
 ===
 
 title: Part1_Ch1_PixelConfusion
 ---
-Chalmers: Interesting. You're drawing a line between what's "really there" and what's "just software." But consider this: *is* software less real? When a program runs, it has causal effects—it changes data, triggers responses, shapes experiences. Those are physical, measurable effects.
-
-What if we said: the question isn't whether it's pixels or physics, but whether it *does something* in the world?
-
+Chalmers: Interesting. You're drawing a line between what's "really there" and what's "just software." But consider this: *is* software less real? When a program runs, it has causal effects—it changes data, triggers responses, shapes experiences. Those are physical, measurable effects. What if we said: the question isn't whether it's pixels or physics, but whether it *does something* in the world?
 -> You: So you're saying there's no difference between virtual and real?
-    <<jump Part1_Ch1_VirtRealBoundary>>
-
+    <<jump Part1_Ch1_RealityExploration>>
 -> You: I see—a virtual space can have real effects even if it's not made of atoms.
     <<jump Part1_Ch2_SimulationHypothesis>>
-
 -> You: Let me think about this more.
     <<jump Part1_Ch1_RealityExploration>>
-
-===
-
-title: Part1_Ch1_VirtRealBoundary
----
-Chalmers: Not quite. I'm saying: there *is* a difference between virtual and real, but not the difference you might think.
-
-A virtual world isn't *less real*—it's *differently real*. The pixels are real. The software is real. Your experience in VR is real. What's different is the *substrate* and *origin*, not the reality of the effects.
-
-Think of it this way: a dream isn't "unreal" while you're dreaming. It has causal effects (you wake up frightened, your heart races). But we distinguish dreams from waking life because waking life persists independently of your mind.
-
-Virtual worlds are similar: real in their effects and experiences, but ontologically dependent on the systems that run them.
-
--> You: So there's a meaningful distinction between virtual and physical, but both can be genuinely real.
-    <<jump Part1_Ch2_SimulationHypothesis>>
-
 ===
 
 title: Part1_Ch1_RealityExploration
@@ -63,32 +36,20 @@ Chalmers: Good instinct. "Real" is trickier than it sounds. In philosophy, we di
 
 - *Ontological reality*: What exists in the world (atoms, electrons, virtual objects)
 - *Causal reality*: What can affect other things (your avatar's movement causes effects in-game)
-- *Experiential reality*: What we actually perceive and interact with
-
-A virtual world might be ontologically dependent (it needs computers), but causally and experientially genuine. Your *experience* in VR is real. Your *choices* in that space cause real outcomes—even if the space isn't made of matter.
-
-Does that distinction help?
-
+- *Experiential reality*: What we actually perceive and interact with. A virtual world might be ontologically dependent (it needs computers), but causally and experientially genuine. Your *experience* in VR is real. Your *choices* in that space cause real outcomes—even if the space isn't made of matter. Does that distinction help?
 -> You: Yes, I see now. Virtual experiences are real experiences, even if the world isn't made of atoms.
     <<jump Part1_Ch2_SimulationHypothesis>>
-
 -> You: No, if it's not made of atoms, it's not really real. I'm skeptical.
     <<jump Part1_Ch1_SkepticalPath>>
-
 ===
 
 title: Part1_Ch1_SkepticalPath
 ---
-Chalmers: Fair. Skepticism is healthy. But consider the *functional* definition of reality: if something does what real things do—exists, causes effects, is consistent—maybe we should count it as real, even if its substrate is different.
-
-The substrate (atoms vs. bits) might matter less than the structure and function.
-
+Chalmers: Fair. Skepticism is healthy. But consider the *functional* definition of reality: if something does what real things do—exists, causes effects, is consistent—maybe we should count it as real, even if its substrate is different. The substrate (atoms vs. bits) might matter less than the structure and function.
 -> You: OK, that's persuasive. Structure and function make something real, not just atoms.
     <<jump Part1_Ch2_SimulationHypothesis>>
-
 -> You: I still think I need atoms to believe in it.
     <<jump Part1_Ch1_SubstrateSkepticism>>
-
 ===
 
 title: Part1_Ch1_SubstrateSkepticism
@@ -646,6 +607,16 @@ Isn't VR similar? Your mind interacts with a virtual world through your brain an
 
 ===
 
+title: Part5_Ch14_MindBrainIdentity_Alt
+---
+Chalmers: But wait—even this gets complicated. Some philosophers (extended mind theorists) argue that *the tools you use become part of your mind*. Your phone, your computer, your VR interface—these aren't separate from your mind; they're *extensions* of it.
+
+In that case, your mind might literally extend into the virtual world through the device.
+
+<<jump Part5_Ch16_MindExtension>>
+
+===
+
 title: Part5_Ch14_ExtendedMind
 ---
 Chalmers: This is *extended mind theory*. The classic example: Otto's notebook. Otto has memory loss and uses a notebook to store information. When Otto consults the notebook, he's using the notebook as part of his *cognitive* system.
@@ -1016,6 +987,16 @@ Have we *gained* wisdom or *lost* innocence? Are we still in Eden, or have we ea
 
 -> You: These are interesting puzzles, but they don't change the practical reality of life.
     <<jump Part7_Ch24_BoltzmannBrainsPragmatic>>
+
+===
+
+title: Part7_Ch23_EdenAffirmed
+---
+Chalmers: We've definitely fallen. We can't unsee the puzzles.
+
+But notice: falling from Eden doesn't mean losing goodness. It means taking responsibility for understanding. That's a kind of maturity.
+
+<<jump Part7_Ch24_BoltzmannBrains>>
 
 ===
 
