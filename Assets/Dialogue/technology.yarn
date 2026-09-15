@@ -22,7 +22,7 @@
 // In this scene, Socrates, walking with the player to the "Plane tree", sets the scene for the entire game. This scene is based on Plato's Phaedrus where Socrates questions the young Phaedrus. At first it appears that the questioning is about the true nature of love, but by the end of the dialogue, we come to discover that what Socrates means by love is "love of Wisdom", the highest form of love their is. Along the way, Socrates addresses questions about what "good" philosophy looks like, is it written? Spoken? Sung? In the end, true philosophy isn't one of these things but rather a desire to discover truth whatever that may be. This is good for this project since we are using games to discover truth and thereby using video games to do real philosophy.
 
 title: technology
-position: -204,-79
+position: -272,-137
 ---
 Socrates: Who goes there?! Come over this way and let me see who you are! Please!!!
 ===
@@ -35,7 +35,7 @@ Socrates: Who goes there?! Come over this way and let me see who you are! Please
 // Start the scene
 
 title: technology_greeting
-position: 1,-271
+position: -106,-312
 ---
 You: Socrates! It's just me! I am going for a walk outside the walls. I have been with our friend Lysias since early this morning. It was recommended to me that I take these walks outside the city walls since they are more refreshing than the city streets of Athens.
 Socrates: Malarky! Who says that the country roads are more refreshing than the city streets!? I for one find the company of excellent conversationalist such as yourself to be much more refreshing than any dumb bird or cicada! Irregardless however! Please tell me, how did your time with Lysias go? For this is a question of utmost importance!
@@ -73,6 +73,7 @@ position: 531,-24
 ---
 Socrates: My dear Phaedrus, you surprise me! Did we not first say that we should allow Lysias out of your pocket once we are in the shade of the plane tree?
 Lysias, being our guest as he is, mustn't be allowed out until we've prepared an environment suitable for such an esteemed guest as our dearest friend Lysias! But moving on, the environment that must be prepared is both conceptual and physical. So, what form should our discussion take? How should we best prepare for our dear friend's arrival?
+    <<jump clarification>>
 ===
 
 title: banned_poets
@@ -81,6 +82,8 @@ position: 386,185
 Phaedrus: Besides Socrates, I thought that we shouldn't accept poets into our esteemed society? With such an esteemed guest as our Lysias, isn't it even more the case that we shouldn't dare subject the ears of our beautiful Lysias to such an abomination as the poets declare openly?
 Socrates: Normally, that would certainly be the case my dear boy. However I believe that you misunderstand me. For one, I know that this is actually how Lysias would have us deliver our speech, would he not?
 Phaedrus: Yes that is such the case. Our dear fellow is indeed gifted for driving us into a wild frenzy.
+    <<jump clarification>>
+<<jump majority_rules>>
 ===
 
 title: clarification
@@ -103,7 +106,7 @@ Socrates: So look here, we near to our destination. Lets allow the plane tree to
 // section 5.1, for commentary on this passage's role in the dialogue's account of rhetoric.
 
 title: plane_tree
-position: -53,518
+position: -319,66
 ---
 Phaedrus: We are here Socrates and before we get on, you must first tell me whether or not poetry is sufficient for us as we are?
 Socrates: My dear, what do you take me to be?
@@ -124,7 +127,7 @@ Socrates: Well first my dear boy, one who speaks on love, if he is to do it well
 ===
 
 title: majority_rules
-position: -44,58
+position: 69,262
 ---
 Socrates: Whatever the wise may say, Phaedrus, ‘must not be cast aside’.24 Instead we should ask  ourselves if they are right, and this statement in particular should not be dismissed.
 If I were to persuade you to acquire a horse to repel our enemies, and we were both  ignorant about horses, but I did happen to know this much about you: that Phaedrus believes that a horse is ‘the tame animal with the largest ears...’
@@ -135,7 +138,7 @@ Phaedrus: Then it would be utterly ridiculous Socrates!
 ===
 
 title: moving_on
-position: -258,252
+position: -278,477
 ---
 Phaedrus: I am afraid that we have not yet set the environment Socrates!
 Socrates: I do believe that you are right Phaedrus. I do not think we can. Perhaps you should first speak to my Friend David Chalmers. Professor Chalmers is just over the ridge there. Facing the plane tree from where we came, Chalmers will be standing to your right, on the second large hill. I think that once you've spoken with him, then he will be of great service to us in our quest for the true nature of love.

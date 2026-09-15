@@ -828,7 +828,7 @@ MonoBehaviour:
   triggerRadius: 3
   destination: {fileID: 1296193215}
   arriveDistance: 3
-  sitSpot: {fileID: 0}
+  sitSpot: {fileID: 1296193215}
   dialogueAnimator: {fileID: 735400815}
   characterController: {fileID: 735400817}
   followSpeed: 3
