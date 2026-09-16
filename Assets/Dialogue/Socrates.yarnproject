@@ -1,5 +1,8 @@
 {
+<<<<<<< HEAD
     "$schema": "",
+=======
+>>>>>>> 832efc3fd40e7a47bef314cb67bfd48c45b53c8f
     "projectFileVersion": 4,
     "sourceFiles": [
         "**/*.yarn"
@@ -18,24 +21,11 @@
     ],
     "editorOptions": {
         "yarnScriptEditor": {
-            "characters": [
-                {
-                    "name": "Captain",
-                    "color": "#cc25d4"
-                },
-                {
-                    "name": "David Chalmers",
-                    "color": "#a44332"
-                }
-            ],
+            "characters": [],
             "projectGraphPositions": {
-                "KnowledgeTest.yarn": {
+                "reality_plus_game.yarn": {
                     "x": 12,
                     "y": 287
-                },
-                "PhaedrusWalk.yarn": {
-                    "x": 12,
-                    "y": 12
                 }
             }
         }
