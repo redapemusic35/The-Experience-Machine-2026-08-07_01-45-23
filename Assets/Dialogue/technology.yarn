@@ -22,7 +22,7 @@
 // In this scene, Socrates, walking with the player to the "Plane tree", sets the scene for the entire game. This scene is based on Plato's Phaedrus where Socrates questions the young Phaedrus. At first it appears that the questioning is about the true nature of love, but by the end of the dialogue, we come to discover that what Socrates means by love is "love of Wisdom", the highest form of love their is. Along the way, Socrates addresses questions about what "good" philosophy looks like, is it written? Spoken? Sung? In the end, true philosophy isn't one of these things but rather a desire to discover truth whatever that may be. This is good for this project since we are using games to discover truth and thereby using video games to do real philosophy.
 
 title: technology
-position: -272,-137
+position: 12,12
 ---
 Socrates: Who goes there?! Come over this way and let me see who you are! Please!!!
 ===
@@ -35,7 +35,7 @@ Socrates: Who goes there?! Come over this way and let me see who you are! Please
 // Start the scene
 
 title: technology_greeting
-position: -106,-312
+position: -81,-459
 ---
 You: Socrates! It's just me! I am going for a walk outside the walls. I have been with our friend Lysias since early this morning. It was recommended to me that I take these walks outside the city walls since they are more refreshing than the city streets of Athens.
 Socrates: Malarky! Who says that the country roads are more refreshing than the city streets!? I for one find the company of excellent conversationalist such as yourself to be much more refreshing than any dumb bird or cicada! Irregardless however! Please tell me, how did your time with Lysias go? For this is a question of utmost importance!
@@ -45,7 +45,7 @@ You: That sounds like an excellent idea Socrates. You are correct, I am barefoot
 ===
 
 title: Walk_Checkpoint_1
-position: 344,-238
+position: 975,12
 ---
 Chalmers: So as you know, I first wanted to ask you about love since you have learned so much from our dear friend and who happens to be the premier expert of lov, and who also happens to be there in your pocket. However, we've already agreed that we shall pepper him with our questions as we bathe our feet in the cool grass beneath the plane tree flowing. Let me do something else instead. 
 As we begin our journey, let me first ask you something more basic. Now you are the perfect victim here, for I know of a young student who once heard a speech. This young student then pestered the speaker to repeat the speech not only once, but no, multiple times a hundred times! This young student then went and found a copy of the very same speech, since hearing it multiple times a hundred was not enough for him. After getting his hands on the speech, he then went for a walk outside of the Athenian walls where he sought out solitude so that he could rehearse the speech to himself. 
@@ -59,7 +59,7 @@ Unfortunately he was discovered by one who suffers from a love of discourse and 
 ===
 
 title: proper_loves
-position: 175,-24
+position: 1205,237
 ---
 Socrates: Should we understand ourselves to be rhetoricians? Or poets? 
 Phaedrus: Well Socrates, if poet, what is the correct form of poetry for such a topic as ours? 
@@ -69,7 +69,8 @@ Phaedrus: Maybe we should make fun of the lovers we have often, and in our own w
 ===
 
 title: establish_method_first
-position: 531,-24
+tags: 
+position: 925,237
 ---
 Socrates: My dear Phaedrus, you surprise me! Did we not first say that we should allow Lysias out of your pocket once we are in the shade of the plane tree?
 Lysias, being our guest as he is, mustn't be allowed out until we've prepared an environment suitable for such an esteemed guest as our dearest friend Lysias! But moving on, the environment that must be prepared is both conceptual and physical. So, what form should our discussion take? How should we best prepare for our dear friend's arrival?
@@ -77,7 +78,7 @@ Lysias, being our guest as he is, mustn't be allowed out until we've prepared an
 ===
 
 title: banned_poets
-position: 386,185
+position: 1205,462
 ---
 Phaedrus: Besides Socrates, I thought that we shouldn't accept poets into our esteemed society? With such an esteemed guest as our Lysias, isn't it even more the case that we shouldn't dare subject the ears of our beautiful Lysias to such an abomination as the poets declare openly?
 Socrates: Normally, that would certainly be the case my dear boy. However I believe that you misunderstand me. For one, I know that this is actually how Lysias would have us deliver our speech, would he not?
@@ -87,7 +88,7 @@ Phaedrus: Yes that is such the case. Our dear fellow is indeed gifted for drivin
 ===
 
 title: clarification
-position: 336,406
+position: 959,687
 ---
 Socrates: Additionally my friend, it is not so much the poets at fault here. 
 Phaedrus: How do you mean Socrates?
@@ -106,7 +107,7 @@ Socrates: So look here, we near to our destination. Lets allow the plane tree to
 // section 5.1, for commentary on this passage's role in the dialogue's account of rhetoric.
 
 title: plane_tree
-position: -319,66
+position: 1485,462
 ---
 Phaedrus: We are here Socrates and before we get on, you must first tell me whether or not poetry is sufficient for us as we are?
 Socrates: My dear, what do you take me to be?
@@ -127,7 +128,7 @@ Socrates: Well first my dear boy, one who speaks on love, if he is to do it well
 ===
 
 title: majority_rules
-position: 69,262
+position: 1272,687
 ---
 Socrates: Whatever the wise may say, Phaedrus, ‘must not be cast aside’.24 Instead we should ask  ourselves if they are right, and this statement in particular should not be dismissed.
 If I were to persuade you to acquire a horse to repel our enemies, and we were both  ignorant about horses, but I did happen to know this much about you: that Phaedrus believes that a horse is ‘the tame animal with the largest ears...’
@@ -138,11 +139,216 @@ Phaedrus: Then it would be utterly ridiculous Socrates!
 ===
 
 title: moving_on
-position: -278,477
+position: 1272,912
 ---
 Phaedrus: I am afraid that we have not yet set the environment Socrates!
 Socrates: I do believe that you are right Phaedrus. I do not think we can. Perhaps you should first speak to my Friend David Chalmers. Professor Chalmers is just over the ridge there. Facing the plane tree from where we came, Chalmers will be standing to your right, on the second large hill. I think that once you've spoken with him, then he will be of great service to us in our quest for the true nature of love.
 Phaedrus: But we haven't even let Lysias out yet!
 Socrates: No we haven't, but there is nothing we can do about that.
 Now go my dear friend!
+===
+
+// Introduction Adventures in Technophilosophy
+// Part I 
+// Virtual Worlds
+// Chapter 1 Is this the Real Life?
+title: real_life
+position: 296,-237
+---
+Chalmers: Why hello there dear fellow! And who might you be? 
+Player: That's why I've come to you Mr. Chalmers. I am having somewhat of an identity crisis.
+Chalmers: How so?
+Player: I am trying to decide what I want to do with my life.
+Chalmers: That doesn't seem too difficult.
+Come, lets take a walk together. There's a special rock that I have been trying to find, perhaps with your help I'll be sucessful.
+Player: Okay, will this help me with my problem?
+Chalmers: I don't know. I do need to know more about your problem, but even then, if I am honest,
+I cannot promise that it will help.
+But maybe we'll at least find the rock.
+    <<jump real_life_first_walk>>
+===
+
+title: real_life_first_walk
+position: 705,12
+---
+Chalmers: Do you know why I've invited you on this walk?
+Player: Because you wanted to know more about my problem while finding your rock?
+				<<jump stop>>
+===
+
+title: stop
+---
+Chalmers: You nailed it. Let's stop for a minute.
+So why don't you begin telling me about your problem?
+But first, look around towards that hill there? Do you see what I am pointing at?
+-> Player: Yes I do.
+				<<jump hill>>
+-> Player: Not quite I don't think.
+				<<jump real_life_second_walk>>
+===
+
+title: hill
+position: 705,237
+---
+Chalmers: Good, because that's where we'll walk to.
+-> Player: Great.
+				<<jump real_life_second_walk>>
+-> Player: I really want to talk about my problem.
+				<<jump problem>>
+===
+
+title: real_life_second_walk
+position: 672,462
+---
+Chalmers: This terrain is more taxing than I expected it would be.
+Let's sit here a minute and you can finally explain your situation in more detail to me.
+Player: Okay Mr. Chalmers.
+I want to know what I should major in. However, there are very many issues thwarting my ability to know what would be best, specifically for me..
+For one, there are not too many people in my society who believe me to be capable of anything beyond sports, entertainment, or crime.
+Even my "allies", I am sure, think this.
+				<<jump problem>>
+===
+
+title: problem
+position: 705,687
+---
+Chalmers: This is really not my area, so I am very much at a loss here.
+I think you should go speak to my friend Sam Carter. There are other things we can talk about, but I don't want to be dismissive of your problem.
+-> Player: Thank you for your time. Maybe once I talk to Mr. Carter, I can come back or meet you at the rock where we can finish our conversation?
+				<<jump sam_1>>
+-> Player: That's fine Mr. Chalmers. I don't mind helping you find your rock.
+				<<jump rock>>
+===
+
+title: sam_1
+---
+Sam: Who goes there?!
+Player: Hi Mr. Carter. It's me. David Chalmers said I should talk to you about choosing a major.
+I want to know what I should major in. 
+Sam: That seems pretty easy, have you talked to your academic counselor? 
+Player: Well, I think it's a bit more difficult than that.
+Sam: How so?
+Player: I do know what I want.
+There are very many issues thwarting my ability to know what would be best, specifically for me.
+Sam: Oh please do tell me more! This might turn out to be somewhat interesting. Before you do however, lets walk, I do my best thinking while walking.
+Player: I know this seems like a silly issue, but one, there are not too many people in my society who believe me to be capable of anything beyond sports, entertainment, or crime.
+Even my "allies", I am sure, think this.
+Sam: Perhaps it would help if you tell me why it matters what others "in your society" think?
+Before you do so, I think that I am sufficiently rested. Lets continue our journey shall we?
+				<<jump walk1_sam>>
+===
+
+title: walk1_sam
+position: 705,912
+---
+Sam: Now that our legs are moving, please tell me, why you should think what others believe should matter for what you do? This is not how decisions are made I think.
+Player: How do you mean?
+Sam: When choosing between two kinds of lives, how do we determine which is worse and which is better?
+-> Player: Well, I think that we would just do whatever it is that promises the most valuable outcome.
+				<<jump mv>>
+-> Player: Maybe we should just do whatever is best?
+				<<jump state_ambivalence>>
+===
+
+title: mv
+position: 705,1137
+---
+Sam: Okay, lets imagine that the following represents a decision problem between two choices, like the 
+Ty Dollar $ign Diggs song says:
+
+- I could “Stack my own bread so that I can buy my own Mercedes (Vroom, vroom) and ultimately become my own boss, which would allow me to “do it my own way (Way)”
+
+This is a normative rational choice theory. According to it, we should exercise expected utility and maximize the expected value of our actions as shown by Jeffrey 1965; Lewis 1981; Skyrms 1982; Eells 1982; Armendt 1986. 
+You might also look at section 6 of Sam Carter's "Planning for Mistakes".
+Player: Sure, that seems fine to me. I should do whatever it is that I think will provide me with the most expected value.
+Sam: Yes perhaps, but although this may be good advice to follow, it cannot only be good advice as a matter of how well things will go for the agent.
+Player: I am sorry, but you've lost me.
+Sam: Good, because there is a slight problem.
+Player: What is it?
+Sam: It requires us to assume actions we perform will not depend on what kind of mental state we're in.
+Player: I still don't follow.
+Sam: Well, its a question of what determines an outcome's value.
+Whether the value of the outcome is independent from the state of the agent.
+Player: So if the state I am in makes material success valuable, then the Diggs outcome will be valuable for me?
+Sam: Exactly.
+-> Player: Maybe we should do whatever is best?
+				<<jump state_ambivalence>>
+-> Player: Well, what happens if the value of the outcome is dependent on my state. 
+For instance, I might be in the kind of state where I'm "fancy" like Walker Hayes is fancy.
+				<<jump fancy>>
+===
+
+title: fancy
+position: 705,1362
+---
+Sam: Ha! I don't think I follow!
+Player: Sure, the Walker Hayes song, "Fancy Like".
+				Yeah, we fancy like Applebee's on a date night
+				Got some Bourbon Street steak with the Oreo shake
+				Get some whipped cream on the top, too
+				Two straws, one check, girl, I got you
+Sam: Oh I see. Well then I guess that would depend on a couple of other factors. 
+But at least here, it seems that Walker Hayes is saying that he would be just fine without "being his own boss."
+Player: Yes, I think that is what he is saying.
+Sam: So the outcome's value depends on the state of the agent. The state Walker is in determines his appreciation for the simple pleasures in life.
+Player: So the action with the best outcome depends on our state.
+Sam: Yes it would appear so.
+-> Player: But how does the agent know the state he is in?
+				<<jump mv>>
+-> Player: So, in deciding what to do, normative choice theory says that we should do whatever has the most expected value. 
+But this is only about how well things go for the "agent". So whatever has the most expected value for the agent.
+But if that's the case, then why not just say; "do whatever has the most value"?
+				<<jump state_ambivalence>>
+===
+
+title: state_ambivalence
+---
+Sam: Remember? The problem with this approach is that it depends on the agent.
+Which requies understanding the state the agent is in."
+Player: Oh that's right. 
+We should maximize value,
+But we are often unsure about which of  the actions that are available to us will have the best outcome.
+This leads to mistakes like those made in the song Rich and Sad by Post Malone.
+Sam: I am unfamiliar with that example.
+Player: “All of the stuntin' above couldn't satisfy my soul -oul), Although I have a hundred big places, I am still alone -one”
+Sam: Oh I see, assuming you chose to "maximize value", when valuing to become your own boss.
+Player: But like Post Malone, you were in the wrong state when you made that choice.
+Sam: Or by the time of your outcome, you were in the wrong state. 
+Maximizing value is hard to do. We are not certain which of the actions available to us will have the best outcome. 
+In trying to follow it, we will often, fail. Jackson (1991), Dreier (1996), Howard-Snyder (1997), Wiland (2005), Feldman (2006), and Bacon (2022).
+Player: This has been helpful. I am going to go see if Chalmers still needs help finding the rock. Perhaps he'll be able to help me now.
+				<<jump real_value>>
+===
+
+// Introduction Adventures in Technophilosophy
+// Part I 
+// Virtual Worlds
+// Chapter 1 Is this the Real Life?
+title: real_value
+position: 705,1587
+---
+Chalmers: Welcome back! Do you know what you want to be now?
+Player: Nope, but at least now I know why.
+Chalmers: I don't know if I would be as satisfied as you are with that outcome.
+Player: Exactly! It's all about outcomes! I don't know who I am.
+Chalmers: Hmmm?
+Player: So I don't know what is valuable for me! I can either maximize expected value, but all this means is that I should do what is best for me.
+Therefore I should just maximize my value.
+Chalmers: I think I am still missing something. Sure, maximize your value.
+Player: What do I value?
+Chalmers: Okay, I don't know why you don't know what you value.
+Player: I don't either. But it has something to do with causal decision theory and evidential decision theory.
+Causal decision theorists say that what I do does not effect what I value.
+On the other hand, evidential decision theorists say that what I do provides me some evidence about what state I am and therefore what I value.
+Chalmers: Oh I see. Well I see. I don't think that I could really help you there.
+However, I wonder about choices you make in virtual worlds?
+Player: That seems like a digression.
+Chalmers: It very well might be, but consider this. Some choices are made in the real world. But what if you're playing a video game.
+Then you might make choices in a virtual world. Should I attack the innocent player minding his own business? Should I only focus on loot?
+Should I be more interested in playing with friends? Or maybe enjoying the art work rather than the game mechanics.
+Player: Oh I see. The question then becomes whether those decisions are based on the state that I am in.
+An evidentialist would say that what I do will provide evidence of my state
+A causalist would say that it would not.
+Chalmers: I think so, that might be something you need to ask Sam, but before you do, lets run the experiment.
+Player: Sure
 ===
