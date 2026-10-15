@@ -1,8 +1,5 @@
 {
-<<<<<<< HEAD
     "$schema": "",
-=======
->>>>>>> 832efc3fd40e7a47bef314cb67bfd48c45b53c8f
     "projectFileVersion": 4,
     "sourceFiles": [
         "**/*.yarn"
@@ -26,6 +23,10 @@
                 "reality_plus_game.yarn": {
                     "x": 12,
                     "y": 287
+                },
+                "technology.yarn": {
+                    "x": 23,
+                    "y": -216
                 }
             }
         }

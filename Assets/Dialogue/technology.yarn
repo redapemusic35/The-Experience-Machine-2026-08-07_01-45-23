@@ -21,8 +21,8 @@
 // Location: The Rock Garden - Identifying Rock: Crystal Prism
 // In this scene, Socrates, walking with the player to the "Plane tree", sets the scene for the entire game. This scene is based on Plato's Phaedrus where Socrates questions the young Phaedrus. At first it appears that the questioning is about the true nature of love, but by the end of the dialogue, we come to discover that what Socrates means by love is "love of Wisdom", the highest form of love their is. Along the way, Socrates addresses questions about what "good" philosophy looks like, is it written? Spoken? Sung? In the end, true philosophy isn't one of these things but rather a desire to discover truth whatever that may be. This is good for this project since we are using games to discover truth and thereby using video games to do real philosophy.
 
-title: technology
-position: 12,12
+title: Start
+position: -71,-400
 ---
 Socrates: Who goes there?! Come over this way and let me see who you are! Please!!!
 ===
@@ -35,23 +35,21 @@ Socrates: Who goes there?! Come over this way and let me see who you are! Please
 // Start the scene
 
 title: technology_greeting
-position: -81,-459
+position: -57,-234
 ---
-You: Socrates! It's just me! I am going for a walk outside the walls. I have been with our friend Lysias since early this morning. It was recommended to me that I take these walks outside the city walls since they are more refreshing than the city streets of Athens.
+Phaedrus: Socrates! It's just me! I am going for a walk outside the walls. I have been with our friend Lysias since early this morning. It was recommended to me that I take these walks outside the city walls since they are more refreshing than the city streets of Athens.
 Socrates: Malarky! Who says that the country roads are more refreshing than the city streets!? I for one find the company of excellent conversationalist such as yourself to be much more refreshing than any dumb bird or cicada! Irregardless however! Please tell me, how did your time with Lysias go? For this is a question of utmost importance!
-You: That's just something people say Socrates, we can't all be such as yourself and cicadas sometime provide a pleasant backdrop. Anyway, it is appropriate that you hear this. You see, the speech  on which we spent our time was, in a certain sense, concerned with love. Yes, in fact, Lysias wrote about some beautiful fellow being tempted, but not by a lover. That was the clever aspect of this, for he says that one should favour a non-lover more than a lover.
+Phaedrus: That's just something people say Socrates, we can't all be such as yourself and cicadas sometime provide a pleasant backdrop. Anyway, it is appropriate that you hear this. You see, the speech  on which we spent our time was, in a certain sense, concerned with love. Yes, in fact, Lysias wrote about some beautiful fellow being tempted, but not by a lover. That was the clever aspect of this, for he says that one should favour a non-lover more than a lover.
 Socrates: That is all fine and well my dear boy. It seems fortunate then that I happen to be barefoot when I found you, and you, of course, are not always as I am now, though fortunate for us both, you are now. My dearest, you may not yet realize this, but you have shown me what exactly you are holding in your left hand, there, underneath your cloak. Indeed, I suspect you have the actual speech! And if that is what it is, then you must appreciate that although I do love you very much, you cannot really expect that I shall allow you to practice on me when Lysias is actually present. So come on, show it to me, so that it is very easy for us to walk along to the stream by the large plane tree and bathe our feet, not an unpleasant prospect, especially at this time of year and this hour of day, and while there, listen to the pleasing sounds of our friend Lysias.
-You: That sounds like an excellent idea Socrates. You are correct, I am barefoot such as you are and I can think of nothing more pleasant than walking with you, both of us with unshod feet until we rest in the shade of the large plane tree. So yes, lets.
+Phaedrus: That sounds like an excellent idea Socrates. You are correct, I am barefoot such as you are and I can think of nothing more pleasant than walking with you, both of us with unshod feet until we rest in the shade of the large plane tree. So yes, lets.
 ===
 
 title: Walk_Checkpoint_1
 position: 975,12
 ---
-Chalmers: So as you know, I first wanted to ask you about love since you have learned so much from our dear friend and who happens to be the premier expert of lov, and who also happens to be there in your pocket. However, we've already agreed that we shall pepper him with our questions as we bathe our feet in the cool grass beneath the plane tree flowing. Let me do something else instead. 
+Socrates: So as you know, I first wanted to ask you about love since you have learned so much from our dear friend and who happens to be the premier expert of lov, and who also happens to be there in your pocket. However, we've already agreed that we shall pepper him with our questions as we bathe our feet in the cool grass beneath the plane tree flowing. Let me do something else instead. 
 As we begin our journey, let me first ask you something more basic. Now you are the perfect victim here, for I know of a young student who once heard a speech. This young student then pestered the speaker to repeat the speech not only once, but no, multiple times a hundred times! This young student then went and found a copy of the very same speech, since hearing it multiple times a hundred was not enough for him. After getting his hands on the speech, he then went for a walk outside of the Athenian walls where he sought out solitude so that he could rehearse the speech to himself. 
 Unfortunately he was discovered by one who suffers from a love of discourse and when he found him, he accosted him and forced him to share his speech he so coveted. Now Phaedrus, in the end you are going to speak anyway, so please, tell me, before we discuss the true nature of love, what form should our discussion of love take?
--> You: (Looking around) What is the proper way to speak of love my dear Socrates? How do you mean?!
-    <<jump proper_loves>>
 -> You: My dear Socrates! However do you mean, "the proper way to speak of love"?
     <<jump proper_loves>>
 -> You: Well I could tell you what Lysias says.
@@ -88,7 +86,7 @@ Phaedrus: Yes that is such the case. Our dear fellow is indeed gifted for drivin
 ===
 
 title: clarification
-position: 959,687
+position: 994,840
 ---
 Socrates: Additionally my friend, it is not so much the poets at fault here. 
 Phaedrus: How do you mean Socrates?
@@ -165,7 +163,6 @@ Player: Okay, will this help me with my problem?
 Chalmers: I don't know. I do need to know more about your problem, but even then, if I am honest,
 I cannot promise that it will help.
 But maybe we'll at least find the rock.
-    <<jump real_life_first_walk>>
 ===
 
 title: real_life_first_walk
@@ -177,6 +174,7 @@ Player: Because you wanted to know more about my problem while finding your rock
 ===
 
 title: stop
+position: -147,342
 ---
 Chalmers: You nailed it. Let's stop for a minute.
 So why don't you begin telling me about your problem?
@@ -217,10 +215,11 @@ I think you should go speak to my friend Sam Carter. There are other things we c
 -> Player: Thank you for your time. Maybe once I talk to Mr. Carter, I can come back or meet you at the rock where we can finish our conversation?
 				<<jump sam_1>>
 -> Player: That's fine Mr. Chalmers. I don't mind helping you find your rock.
-				<<jump rock>>
+				<<jump real_life_second_walk>>
 ===
 
 title: sam_1
+position: -167,691
 ---
 Sam: Who goes there?!
 Player: Hi Mr. Carter. It's me. David Chalmers said I should talk to you about choosing a major.
@@ -302,6 +301,7 @@ But if that's the case, then why not just say; "do whatever has the most value"?
 ===
 
 title: state_ambivalence
+position: -95,1129
 ---
 Sam: Remember? The problem with this approach is that it depends on the agent.
 Which requies understanding the state the agent is in."
@@ -317,37 +317,40 @@ Sam: Or by the time of your outcome, you were in the wrong state.
 Maximizing value is hard to do. We are not certain which of the actions available to us will have the best outcome. 
 In trying to follow it, we will often, fail. Jackson (1991), Dreier (1996), Howard-Snyder (1997), Wiland (2005), Feldman (2006), and Bacon (2022).
 Player: This has been helpful. I am going to go see if Chalmers still needs help finding the rock. Perhaps he'll be able to help me now.
-				<<jump real_value>>
+				<<jump real_value_arrival>>
 ===
 
 // Introduction Adventures in Technophilosophy
 // Part I 
 // Virtual Worlds
 // Chapter 1 Is this the Real Life?
-title: real_value
+title: real_value_arrival
 position: 705,1587
 ---
 Chalmers: Welcome back! Do you know what you want to be now?
 Player: Nope, but at least now I know why.
 Chalmers: I don't know if I would be as satisfied as you are with that outcome.
-Player: Exactly! It's all about outcomes! I don't know who I am.
+Player: Exactly! It's not about what, but who.
 Chalmers: Hmmm?
 Player: So I don't know what is valuable for me! I can either maximize expected value, but all this means is that I should do what is best for me.
 Therefore I should just maximize my value.
-Chalmers: I think I am still missing something. Sure, maximize your value.
+Chalmers: I think I am still missing something. Sure, maximize your value?
 Player: What do I value?
 Chalmers: Okay, I don't know why you don't know what you value.
-Player: I don't either. But it has something to do with causal decision theory and evidential decision theory.
+Player: It's because I don't know who I am. 
+This question can be looked at through causal decision and evidential decision theory.
 Causal decision theorists say that what I do does not effect what I value.
-On the other hand, evidential decision theorists say that what I do provides me some evidence about what state I am and therefore what I value.
-Chalmers: Oh I see. Well I see. I don't think that I could really help you there.
+On the other hand, evidential decision theorists say that what I do provides me some evidence about what state I am in, and therefore what I value.
+Both could possibly answer the question of who I am.
+Chalmers: Oh I see. Well I see and don't see. I don't think that I could really help you there.
 However, I wonder about choices you make in virtual worlds?
 Player: That seems like a digression.
 Chalmers: It very well might be, but consider this. Some choices are made in the real world. But what if you're playing a video game.
 Then you might make choices in a virtual world. Should I attack the innocent player minding his own business? Should I only focus on loot?
 Should I be more interested in playing with friends? Or maybe enjoying the art work rather than the game mechanics.
 Player: Oh I see. The question then becomes whether those decisions are based on the state that I am in.
-An evidentialist would say that what I do will provide evidence of my state
+An evidentialist would say that what I do will provide evidence of my state.
+So possibly, perhaps the game can qualify as evidence of the sort of state that I am in, and give me insight into "who" I am.
 A causalist would say that it would not.
 Chalmers: I think so, that might be something you need to ask Sam, but before you do, lets run the experiment.
 Player: Sure
