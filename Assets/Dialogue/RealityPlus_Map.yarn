@@ -1,0 +1,2278 @@
+// =====================================================================
+// REALITY+ PHILOSOPHY MAP  (Yarn Spinner 2.x / 3.x)
+// Source framework  David J. Chalmers, Reality+ (2022), Parts 1-7, Ch 1-24
+// Map scheme        PhilPapers category taxonomy (philpapers.org)
+// No text from the book is reproduced; all lines are paraphrase.
+//
+// HOW THE MAP IS ORGANISED
+// Socrates' three regions = the three PhilPapers top-level areas the book draws on.
+// Each region holds sub-areas (PhilPapers second-level categories), each staffed
+// by 2-3 philosophers. Book concepts are sorted into the area they belong to,
+// NOT by the part of the book they come from.
+//
+// REGION  METAPHYSICS AND EPISTEMOLOGY
+//   Metaphysics         Heim, Berkeley, Plato   (Chalmers appears only in technology.yarn)
+//       Ch1 Plato's cave | Ch6 five criteria of reality, virtual realism,
+//       simulation realism | Ch10 virtual digitalism vs fictionalism |
+//       Ch12 AR objects, "alternative facts", relativism | Ch23 Forms, Eden
+//   Epistemology        Descartes, Zhuangzi, Moore
+//       Ch1 butterfly dream | Ch3 senses, dreams, evil demon, master argument |
+//       Ch4 cogito, Moore's hands | Ch13 deepfakes, trusting sources |
+//       Ch24 dreams, local and temporary sims
+//   Philosophy of Mind  Elisabeth of Bohemia, Nagel, Clark
+//       Ch11 presence, place and plausibility illusions, virtual bodies |
+//       Ch14 mind-body interaction | Ch15 hard problem, other minds, AI
+//       consciousness, gradual uploading | Ch16 extended mind
+//   Philosophy of Language  Putnam, Carnap
+//       Ch4 is the sim hypothesis meaningless (verificationism) |
+//       Ch20 externalism, Earth vs Sim Earth, brain in a vat
+//   Philosophy of Religion  Anselm, Leibniz, Narada
+//       Ch1 Narada and maya | Ch7 what is a god, arguments for God,
+//       simulation theology, problem of evil
+//
+// REGION  SCIENCE, LOGIC, AND MATHEMATICS
+//   Philosophy of Computing and Information  Turing, Searle, Wheeler
+//       Ch8 varieties of information, it from bit | Ch9 it-from-bit-from-it |
+//       Ch15 thinking machines | Ch21 what is computation, dust clouds
+//   Philosophy of Physical Science  Russell, Sellars, Galileo
+//       Ch22 structuralism, is physics just mathematics, what realizes the
+//       structure | Ch23 manifest vs scientific image, colour, solidity, space
+//   Philosophy of Probability  Bostrom, Boltzmann
+//       Ch5 simulation argument, sim blockers, are we special |
+//       Ch24 chaos hypothesis, Boltzmann brains
+//
+// REGION  VALUE THEORY
+//   Value Theory Misc (Well-Being)  Nozick, Bentham
+//       Ch17 experience machine, what is value, what is missing from VR
+//   Normative Ethics    Kant, Aristotle
+//       Ch18 ethical theories (consequentialism, deontology, virtue)
+//   Applied Ethics      Singer, Slater
+//       Ch18 moral status of sims, ethics of simulation |
+//       Ch19 ethics for users and creators, virtual harm
+//   Social and Political Philosophy  Mozi, Hobbes, Rawls
+//       Ch19 anarchy, social contract, democracy in virtual worlds, justice
+//
+// UNITY HOOKS
+//   Map_Start        Socrates introduces the map (renamed from Start: technology.yarn owns Start)
+//   Talk_Socrates    any later conversation with Socrates
+//   Gate_<Area>      put this on the area's LEAD philosopher: sorting test first,
+//                    then straight into the lead's own Talk_ node (in-world)
+//   Talk_<Name>      proximity trigger for each philosopher
+//   $route_to        read this in C# to light the path / waypoint
+//   $playtest        false (Unity default) = NPCs <<stop>> so the player walks on
+//                    true  = NPCs hand back to an area menu so the whole map
+//                            plays from one trigger, for testing without NPCs placed
+// =====================================================================
+
+title: Map_Start
+tags: hub
+area: Hub
+---
+<<declare $playtest = false>>
+<<declare $met_socrates = false>>
+<<declare $route_to = "">>
+<<declare $areas_visited = 0>>
+<<declare $stamp_metaphysics = false>>
+<<declare $stamp_epistemology = false>>
+<<declare $stamp_mind = false>>
+<<declare $stamp_language = false>>
+<<declare $stamp_religion = false>>
+<<declare $stamp_computing = false>>
+<<declare $stamp_physics = false>>
+<<declare $stamp_probability = false>>
+<<declare $stamp_wellbeing = false>>
+<<declare $stamp_normative = false>>
+<<declare $stamp_applied = false>>
+<<declare $stamp_political = false>>
+<<declare $is_relativist = false>>
+<<declare $is_idealist = false>>
+<<declare $is_virtual_realist = false>>
+<<declare $is_sim_realist = false>>
+<<declare $is_platonist = false>>
+<<declare $is_skeptic = false>>
+<<declare $is_common_sense = false>>
+<<declare $is_dualist = false>>
+<<declare $is_materialist = false>>
+<<declare $is_functionalist = false>>
+<<declare $is_extended_mind = false>>
+<<declare $is_externalist = false>>
+<<declare $is_verificationist = false>>
+<<declare $is_theist = false>>
+<<declare $is_it_from_bit = false>>
+<<declare $is_structural_realist = false>>
+<<declare $is_sim_likely = false>>
+<<declare $is_hedonist = false>>
+<<declare $is_consequentialist = false>>
+<<declare $is_deontologist = false>>
+<<declare $is_virtue_ethicist = false>>
+<<declare $is_sentientist = false>>
+<<declare $is_contractarian = false>>
+<<declare $is_rawlsian = false>>
+<<set $met_socrates to true>>
+Socrates: Ah, a visitor. Walk with me a while.
+Socrates: The land ahead is a map of questions. Every grove holds a different kind of question.
+Socrates: To the north lies Metaphysics and Epistemology, where we ask what is real and how we know it.
+Socrates: To the east lies Value Theory, where we ask what is good, what is right, and what is just.
+Socrates: To the west lies Science, Logic, and Mathematics, where we ask what physics, computers, and probability tell us.
+Socrates: Most people arrive carrying one question that troubles them. A singer once put it simply. Is this the real life, or is it just fantasy?
+Socrates: My task is to help you discover what KIND of question you are really asking. Then I will send you to the people who can test it.
+<<jump Hub_Question>>
+===
+
+title: Talk_Socrates
+tags: hub
+area: Hub
+---
+<<if not $met_socrates>>
+    <<jump Map_Start>>
+<<endif>>
+Socrates: You return! You have collected {$areas_visited} of twelve stamps.
+<<if $is_relativist>>
+    Socrates: Earlier you called yourself a relativist. Do you still?
+    -> Yes, I still think reality differs from person to person.
+        Socrates: Then hold onto it, but test it. Michael Heim in Metaphysics thinks he can break it.
+    -> No. Different people can have different experiences of one reality.
+        <<set $is_relativist to false>>
+        Socrates: Then you have drawn a distinction, and distinctions are the beginning of wisdom.
+<<endif>>
+<<if $areas_visited >= 12>>
+    Socrates: You have walked every grove. Now tell me, which kind of question do you find hardest to sort?
+    -> Questions about simulations. They seem to belong everywhere.
+        Socrates: Yes. That is why Chalmers uses them. One scenario pulls on knowledge, reality, mind, value, and science at once.
+    -> Questions about consciousness.
+        Socrates: Fair. Consciousness sits in Mind, but it decides questions in Ethics and Probability too.
+    -> None. I can sort them all now.
+        Socrates: Then go and ask a harder one.
+    <<stop>>
+<<endif>>
+Socrates: What would you like to do?
+-> Ask me the big question again.
+    <<jump Hub_Question>>
+-> I have a different question.
+    <<jump Hub_OtherQuestions>>
+-> Nothing for now.
+    Socrates: Then walk on. The questions will find you.
+    <<stop>>
+===
+
+title: Hub_Question
+tags: hub
+area: Hub
+book: Part 1, Ch 1-2
+---
+Socrates: Tell me then. What is the nature of reality?
+-> It depends on one's experience.
+    <<jump Hub_Relativist>>
+-> It is whatever physics says it is. Particles and fields.
+    <<jump Hub_Physics>>
+-> For all I know, it could be a computer simulation.
+    <<jump Hub_Simulation>>
+-> Reality is what God created.
+    <<jump Hub_God>>
+-> I would rather ask a different question.
+    <<jump Hub_OtherQuestions>>
+===
+
+title: Hub_Relativist
+tags: hub diagnosis
+area: Hub
+---
+Socrates: Are you a relativist then?
+-> What is a relativist?
+    Socrates: A relativist about reality says there is no one way the world is. What is real for you may simply not be real for me.
+    Socrates: So. Are you one?
+    <<jump Hub_Relativist_Choice>>
+-> Yes, I suppose I am.
+    <<jump Hub_Relativist_Choice>>
+-> I am not sure. Let me say more.
+    <<jump Hub_Relativist_Choice>>
+===
+
+title: Hub_Relativist_Choice
+tags: hub diagnosis
+area: Hub
+---
+Socrates: Which of these is closest to what you meant?
+-> Reality itself is different for each person. What is real for me may not be real for you.
+    <<set $is_relativist to true>>
+    Socrates: Then you are a relativist, and your question is about what exists. That belongs in Metaphysics.
+    Socrates: Seek out Michael Heim there. He believes reality exists independently of us, and he will push back hard.
+    <<set $route_to to "Metaphysics">>
+    <<jump Route_Go>>
+-> We only ever reach reality THROUGH our experience.
+    Socrates: Then you are not a relativist at all! You are not saying what reality is. You are saying how we come to know it.
+    Socrates: That is a question about knowledge. It belongs in Epistemology, where Descartes asks whether experience can be trusted.
+    <<set $route_to to "Epistemology">>
+    <<jump Route_Go>>
+-> Reality is MADE of experience. There is nothing behind it.
+    <<set $is_idealist to true>>
+    Socrates: That is not relativism either. If reality is made of experiences, you are an idealist, like Bishop Berkeley.
+    Socrates: An idealist can think reality is the same for everyone. Idealism is a claim about what reality is made of, so it belongs in Metaphysics.
+    <<set $route_to to "Metaphysics">>
+    <<jump Route_Go>>
+-> Experience is what makes reality matter to me.
+    Socrates: Interesting. Now you are speaking of value, of what makes things matter in a life.
+    Socrates: Nozick and Bentham debate exactly that, in the Well-Being grove of Value Theory.
+    <<set $route_to to "WellBeing">>
+    <<jump Route_Go>>
+===
+
+title: Hub_Physics
+tags: hub diagnosis
+area: Hub
+---
+Socrates: Physics, then. Are you a physicalist? Do you think only physical things exist?
+-> Yes. If physics does not mention it, it is not there.
+    Socrates: That is a claim about everything that exists, so it begins in Metaphysics.
+    Socrates: But first ask yourself whether minds fit. If you doubt it, the Mind grove will test you.
+    -> Send me to Metaphysics.
+        <<set $route_to to "Metaphysics">>
+        <<jump Route_Go>>
+    -> Send me to Philosophy of Mind.
+        <<set $route_to to "Mind">>
+        <<jump Route_Go>>
+-> I mean physics is our best guide to what reality is.
+    Socrates: Then here is a sharper question. Does physics tell us what things ARE, or only how they behave and relate?
+    Socrates: That is a question for the Philosophy of Physical Science. Bertrand Russell waits there.
+    <<set $route_to to "PhysicalScience">>
+    <<jump Route_Go>>
+-> At bottom, physics might just be information.
+    Socrates: A physicist named Wheeler said much the same. Information and computation have their own grove, in the west.
+    <<set $route_to to "Computing">>
+    <<jump Route_Go>>
+===
+
+title: Hub_Simulation
+tags: hub diagnosis
+area: Hub
+book: Ch 2
+---
+Socrates: A simulation! A world running on a computer in the next universe up. Now, what exactly do you mean?
+-> I mean I cannot PROVE that I am not in one.
+    Socrates: Then your question is about proof and knowledge. Epistemology. Descartes asked it with an evil demon instead of a computer.
+    <<set $route_to to "Epistemology">>
+    <<jump Route_Go>>
+-> I mean it is actually LIKELY that we are in one.
+    Socrates: Likely! Then you are reasoning about probabilities. Nick Bostrom's argument lives in the Probability grove.
+    <<set $route_to to "Probability">>
+    <<jump Route_Go>>
+-> I mean that if we are, nothing around me is really real.
+    Socrates: Ah, that is a claim about what is real, not about what you know. Metaphysics.
+    Socrates: Michael Heim will argue the opposite, with Chalmers on his side. Even in a simulation, they say, the trees are real trees, made of bits.
+    <<set $route_to to "Metaphysics">>
+    <<jump Route_Go>>
+-> I mean whoever built it would be a kind of god.
+    Socrates: Then you are asking what a god is. That is the Philosophy of Religion.
+    <<set $route_to to "Religion">>
+    <<jump Route_Go>>
+===
+
+title: Hub_God
+tags: hub diagnosis
+area: Hub
+---
+Socrates: Then let me ask. Must the creator be all-good and all-powerful? Or would any creator of our world count?
+-> Only a perfect being counts as God.
+    <<set $is_theist to true>>
+    Socrates: Then you hold the classical conception. Anselm will happily argue with you about it, in the Philosophy of Religion.
+    <<set $route_to to "Religion">>
+    <<jump Route_Go>>
+-> Any creator would count, even a programmer.
+    Socrates: A bold answer. Chalmers explores it. A simulator could be all-knowing about our world and yet not good at all.
+    Socrates: Go to the Philosophy of Religion and ask whether such a being deserves worship.
+    <<set $route_to to "Religion">>
+    <<jump Route_Go>>
+-> I am not sure God exists. That is my real question.
+    Socrates: Then you are asking about arguments for and against God. Still the Philosophy of Religion. Leibniz faces the problem of evil there.
+    <<set $route_to to "Religion">>
+    <<jump Route_Go>>
+===
+
+title: Hub_OtherQuestions
+tags: hub sorting
+area: Hub
+---
+Socrates: Then tell me your question, and you will tell ME which kind it is.
+-> Could I be conscious inside a computer?
+    <<jump Sort_Conscious>>
+-> Can I live a good life in a virtual world?
+    <<jump Sort_GoodLife>>
+-> Who should make the rules in a virtual world?
+    <<jump Sort_Rules>>
+-> If I lived in a simulation, what would my word "tree" refer to?
+    <<jump Sort_Tree>>
+-> Is VR just an illusion?
+    <<jump Sort_Illusion>>
+-> Is it wrong to hurt a simulated person?
+    <<jump Sort_Hurt>>
+-> Could a cloud of dust run a computer program?
+    <<jump Sort_Dust>>
+===
+
+title: Sort_Conscious
+tags: hub sorting
+area: Hub
+---
+Socrates: Is that a question about what is good, about what minds are, or about what we can know?
+-> About what is good.
+    Socrates: Not yet. Whether it would be GOOD to be conscious in a computer comes later. First you must ask whether you could be at all.
+    <<jump Sort_Conscious>>
+-> About what minds are.
+    Socrates: Yes. Whether consciousness can run on silicon is the Philosophy of Mind. Thomas Nagel will ask you what it is like to be a bat.
+    <<set $route_to to "Mind">>
+    <<jump Route_Go>>
+-> About what we can know.
+    Socrates: Close, but not quite. You did not ask how you could KNOW you were conscious. You asked whether you COULD be. That is about the nature of minds.
+    <<jump Sort_Conscious>>
+===
+
+title: Sort_GoodLife
+tags: hub sorting
+area: Hub
+---
+Socrates: What kind of question is that? About right and wrong action, about what makes a life go well, or about what is real?
+-> About right and wrong action.
+    Socrates: No one is doing anything wrong by living in VR, are they? You asked whether the life would be GOOD FOR YOU. Try again.
+    <<jump Sort_GoodLife>>
+-> About what makes a life go well.
+    Socrates: Exactly. Philosophers call it well-being. Nozick built a famous machine to test it.
+    <<set $route_to to "WellBeing">>
+    <<jump Route_Go>>
+-> About what is real.
+    Socrates: It is connected, since many think a virtual life is not real enough to be good. But the question itself is about value. Try again.
+    <<jump Sort_GoodLife>>
+===
+
+title: Sort_Rules
+tags: hub sorting
+area: Hub
+---
+Socrates: Who should rule. Is that ethics of the individual, or politics of the group?
+-> Ethics of the individual.
+    Socrates: An individual can ask how to behave. But who holds power over everyone is a question about society. Try again.
+    <<jump Sort_Rules>>
+-> Politics of the group.
+    Socrates: Yes. Social and Political Philosophy. Hobbes, Mozi, and Rawls argue about it in the east.
+    <<set $route_to to "Political">>
+    <<jump Route_Go>>
+===
+
+title: Sort_Tree
+tags: hub sorting
+area: Hub
+---
+Socrates: You are asking what a word refers to. Is that about language, about minds, or about trees?
+-> About trees.
+    Socrates: Ha! The trees will not mind either way. You asked what your WORD picks out. Try again.
+    <<jump Sort_Tree>>
+-> About minds.
+    Socrates: Words live in minds, true. But the question of what a word hooks onto in the world is the Philosophy of Language.
+    <<set $route_to to "Language">>
+    <<jump Route_Go>>
+-> About language.
+    Socrates: Yes. Hilary Putnam will tell you about a planet where water is not water.
+    <<set $route_to to "Language">>
+    <<jump Route_Go>>
+===
+
+title: Sort_Illusion
+tags: hub sorting
+area: Hub
+---
+Socrates: An illusion is a mismatch between how things seem and how they are. Which side do you want to investigate?
+-> How things seem to me. My experience and my sense of being there.
+    Socrates: Then you are studying perception and presence. That is the Philosophy of Mind. Andy Clark will meet you there.
+    <<set $route_to to "Mind">>
+    <<jump Route_Go>>
+-> How things are. Whether virtual objects exist at all.
+    Socrates: Then you are studying what exists. Metaphysics. Michael Heim will hand you Chalmers's reality checklist.
+    <<set $route_to to "Metaphysics">>
+    <<jump Route_Go>>
+===
+
+title: Sort_Hurt
+tags: hub sorting
+area: Hub
+---
+Socrates: Is that a question about what makes actions right IN GENERAL, or about one specific kind of case?
+-> In general.
+    Socrates: Not quite. You are not asking what rightness is. You are asking about one hard case, simulated people. Try again.
+    <<jump Sort_Hurt>>
+-> One specific kind of case.
+    Socrates: Yes. Specific moral cases are Applied Ethics. Peter Singer will ask you what makes a being count.
+    <<set $route_to to "Applied">>
+    <<jump Route_Go>>
+===
+
+title: Sort_Dust
+tags: hub sorting
+area: Hub
+---
+Socrates: A strange question! What would answer it, physics, or an account of what computing is?
+-> Physics.
+    Socrates: Physics can tell you how the dust moves. Whether that motion counts as computing is a further question. Try again.
+    <<jump Sort_Dust>>
+-> An account of what computing is.
+    Socrates: Yes. The Philosophy of Computing and Information. Turing and Searle disagree about it there.
+    <<set $route_to to "Computing">>
+    <<jump Route_Go>>
+===
+
+// ---------------------------------------------------------------------
+// ROUTING  shared by Socrates and every gatekeeper
+// ---------------------------------------------------------------------
+
+title: Route_Go
+tags: routing
+area: Hub
+---
+<<if $route_to == "Metaphysics">>
+    A signpost glows. METAPHYSICS, in the northern region.
+<<elseif $route_to == "Epistemology">>
+    A signpost glows. EPISTEMOLOGY, in the northern region.
+<<elseif $route_to == "Mind">>
+    A signpost glows. PHILOSOPHY OF MIND, in the northern region.
+<<elseif $route_to == "Language">>
+    A signpost glows. PHILOSOPHY OF LANGUAGE, in the northern region.
+<<elseif $route_to == "Religion">>
+    A signpost glows. PHILOSOPHY OF RELIGION, in the northern region.
+<<elseif $route_to == "Computing">>
+    A signpost glows. COMPUTING AND INFORMATION, in the western region.
+<<elseif $route_to == "PhysicalScience">>
+    A signpost glows. PHYSICAL SCIENCE, in the western region.
+<<elseif $route_to == "Probability">>
+    A signpost glows. PROBABILITY, in the western region.
+<<elseif $route_to == "WellBeing">>
+    A signpost glows. WELL-BEING, in the eastern region.
+<<elseif $route_to == "Normative">>
+    A signpost glows. NORMATIVE ETHICS, in the eastern region.
+<<elseif $route_to == "Applied">>
+    A signpost glows. APPLIED ETHICS, in the eastern region.
+<<elseif $route_to == "Political">>
+    A signpost glows. SOCIAL AND POLITICAL PHILOSOPHY, in the eastern region.
+<<endif>>
+<<if $playtest>>
+    -> Follow the signpost.
+        <<jump Route_Jump>>
+    -> Go back to Socrates instead.
+        <<jump Talk_Socrates>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Route_Jump
+tags: routing
+area: Hub
+---
+<<if $route_to == "Metaphysics">>
+    <<jump Gate_Metaphysics>>
+<<elseif $route_to == "Epistemology">>
+    <<jump Gate_Epistemology>>
+<<elseif $route_to == "Mind">>
+    <<jump Gate_Mind>>
+<<elseif $route_to == "Language">>
+    <<jump Gate_Language>>
+<<elseif $route_to == "Religion">>
+    <<jump Gate_Religion>>
+<<elseif $route_to == "Computing">>
+    <<jump Gate_Computing>>
+<<elseif $route_to == "PhysicalScience">>
+    <<jump Gate_PhysicalScience>>
+<<elseif $route_to == "Probability">>
+    <<jump Gate_Probability>>
+<<elseif $route_to == "WellBeing">>
+    <<jump Gate_WellBeing>>
+<<elseif $route_to == "Normative">>
+    <<jump Gate_Normative>>
+<<elseif $route_to == "Applied">>
+    <<jump Gate_Applied>>
+<<elseif $route_to == "Political">>
+    <<jump Gate_Political>>
+<<else>>
+    <<jump Talk_Socrates>>
+<<endif>>
+===
+// =====================================================================
+// REGION  METAPHYSICS AND EPISTEMOLOGY
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// AREA  METAPHYSICS   staff  Chalmers (lead), Berkeley, Plato
+// ---------------------------------------------------------------------
+
+title: Gate_Metaphysics
+tags: gate
+area: Metaphysics
+---
+<<if $stamp_metaphysics and not $playtest>>
+    <<jump Talk_Heim>>
+<<endif>>
+Heim: Welcome to Metaphysics. Here we ask what exists, and what it is for something to be real.
+Heim: Not how you KNOW it is real. That is next door, in Epistemology. Let me check you can tell the difference.
+<<jump Quiz_Metaphysics>>
+===
+
+title: Quiz_Metaphysics
+tags: gate quiz
+area: Metaphysics
+---
+Heim: Which of these questions belongs here?
+-> How can I know I am not dreaming right now?
+    Heim: Good question, wrong grove. That asks about your evidence. Descartes handles it in Epistemology.
+    -> Then I should go to Epistemology.
+        <<set $route_to to "Epistemology">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Metaphysics>>
+-> If I am in a simulation, are the tables around me real?
+    Heim: Exactly. That asks about the status of the tables themselves, whatever you happen to know.
+    <<if not $stamp_metaphysics>>
+        <<set $stamp_metaphysics to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the METAPHYSICS stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Metaphysics>>
+    <<else>>
+        <<jump Talk_Heim>>
+    <<endif>>
+-> Is it wrong to delete a simulated world?
+    Heim: That one is about right and wrong. You want Applied Ethics, in the east.
+    -> Then I should go to Applied Ethics.
+        <<set $route_to to "Applied">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Metaphysics>>
+===
+
+title: Menu_Metaphysics
+tags: menu
+area: Metaphysics
+---
+Heim: Three of us work this grove. Who will you question?
+-> Michael Heim, on virtual realism and the reality checklist.
+    <<jump Talk_Heim>>
+-> George Berkeley, on whether the world is made of ideas.
+    <<jump Talk_Berkeley>>
+-> Plato, on shadows, Forms, and the fall from Eden.
+    <<jump Talk_Plato>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Metaphysics
+tags: done
+area: Metaphysics
+---
+<<if $playtest>>
+    <<jump Menu_Metaphysics>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Heim
+tags: npc
+area: Metaphysics
+speaker: Heim
+book: Ch 6, Ch 10, Ch 12
+---
+<<if $is_relativist>>
+    Heim: Socrates tells me you are a relativist. Good. Let us see if you still are in a few minutes.
+<<endif>>
+Heim: Put on a headset. A virtual kitten walks up and purrs. Is the kitten real?
+-> No. It is an illusion.
+    Heim: Then you are a virtual fictionalist. Virtual objects are like characters in a novel, not really there.
+    <<jump Chalmers_Checklist>>
+-> Yes. It is a real virtual kitten.
+    <<set $is_virtual_realist to true>>
+    Heim: Then you are a virtual realist. I coined that name, and Chalmers took it up. But careful. Is it a real KITTEN?
+    -> Yes, a kitten is a kitten.
+        Heim: Then a picture of a kitten would be a kitten too. It fails one test. It is not a genuine biological kitten. It is a genuine VIRTUAL kitten.
+        <<jump Chalmers_Checklist>>
+    -> No. A real virtual kitten is not a real kitten.
+        Heim: Exactly. Real as a digital object, not as a cat. Let me show you why that is not a contradiction.
+        <<jump Chalmers_Checklist>>
+-> It depends on who is looking.
+    <<jump Chalmers_Relativism>>
+===
+
+title: Chalmers_Checklist
+tags: npc
+area: Metaphysics
+speaker: Heim
+book: Ch 6, Ch 10
+---
+Heim: Here is Chalmers's reality checklist. Five questions to ask of anything.
+Heim: Does it exist? Does it make things happen? Is it independent of your mind? Is it the way it seems? Is it a genuine example of its kind?
+Heim: Which of these does the virtual kitten pass?
+-> It exists and makes things happen. It is a pattern of data that changes the screen, and changes me.
+    <<set $is_virtual_realist to true>>
+    Heim: That is Chalmers's view. He calls it virtual digitalism. Virtual objects are digital objects, real structures of bits on a real computer.
+    Heim: It passes existence, causal power, and mind-independence. It fails only genuineness, if you mean genuine cat.
+    <<jump Chalmers_SimRealism>>
+-> None. It is all in my head.
+    Heim: Then how can your friend, in the same virtual world, see it and pet it too? Things in your head alone are not shared.
+    -> Fair. Two people can interact with the same virtual object, so it is not just in my head.
+        Heim: Then it passes mind-independence. Count again.
+        <<jump Chalmers_Checklist>>
+    -> My friend just has a similar picture in her head.
+        Heim: Then what causes both pictures, at the same time, in the same place? Something on the server does. That something is the digital kitten.
+        <<jump Chalmers_Checklist>>
+===
+
+title: Chalmers_Relativism
+tags: npc diagnosis
+area: Metaphysics
+speaker: Heim
+book: Ch 12, Introduction
+---
+Heim: Are you a relativist then? Is the kitten real for some people and not for others?
+-> Yes. In augmented reality, I might see a kitten on the table and you might not. So we live in different realities.
+    <<set $is_relativist to true>>
+    Heim: Chalmers uses augmented reality to make this vivid. Notice what is true for BOTH of us. You see a kitten overlay. I do not. That is one fact, the same for everyone.
+    Heim: Our devices differ. Reality does not. Different glasses do not give us alternative facts.
+    -> I accept that. Different experiences, one reality.
+        <<set $is_relativist to false>>
+        Heim: Then you have just moved from relativism to realism. Reality exists independently of us, even when it contains many virtual worlds.
+        <<jump Chalmers_SimRealism>>
+    -> I still think reality is relative.
+        Heim: Then defend it! Berkeley is the closest ally you will find here, though even he is no relativist.
+        <<jump Done_Metaphysics>>
+-> No. I meant different people experience it differently.
+    Heim: Then you are not a relativist. You are making a point about experience, and you can keep one shared reality.
+    <<jump Chalmers_SimRealism>>
+===
+
+title: Chalmers_SimRealism
+tags: npc
+area: Metaphysics
+speaker: Heim
+book: Ch 6, Ch 9
+---
+Heim: Now scale up. Suppose your whole life has been inside a perfect simulation. Are the trees around you real?
+-> Yes. They would be digital trees, but they would be real.
+    <<set $is_sim_realist to true>>
+    Heim: That is what Chalmers calls simulation realism. If we are in a simulation, the objects around us are real, not an illusion. They are made of bits instead of something else.
+    Heim: Notice what that does to Descartes. If a simulation is not an illusion, his nightmare loses its sting.
+-> No. Everything would be fake.
+    Heim: That is the assumption Chalmers's whole book argues against. If you hold it, Descartes will welcome you in Epistemology.
+    Heim: But ask yourself what "fake" means here. The trees would still exist, still cast shadows, still fall on you.
+-> I cannot answer until I know whether we are in one.
+    Heim: That mixes two questions. Whether we are in one is a question for Epistemology or Probability. What follows IF we are is a question for here.
+<<jump Done_Metaphysics>>
+===
+
+title: Talk_Berkeley
+tags: npc
+area: Metaphysics
+speaker: Berkeley
+book: Ch 4, Ch 7
+---
+Berkeley: Tell me. Does the tree in the college quad exist when no one is looking at it?
+-> Of course it does.
+    Berkeley: Then tell me what your tree is made of. Its green, its shape, its hardness. Are these not all things you perceive?
+    -> It is made of matter, which causes my perceptions.
+        Berkeley: And what is this matter, apart from what you perceive? You have never met it. You only ever meet colours, shapes, and feels.
+        -> I cannot say what matter is in itself.
+            Berkeley: Then perhaps you need not believe in it at all. That is my view. To be is to be perceived.
+            Berkeley: Russell, in the Physical Science grove, worries about the same gap from the other side.
+            <<jump Berkeley_Relativism>>
+        -> Science tells us what it is.
+            Berkeley: Science tells you how it behaves. Whether it has a nature beyond that is the question I put to you.
+            <<jump Berkeley_Relativism>>
+-> Only if someone perceives it.
+    <<set $is_idealist to true>>
+    Berkeley: Then you share my view. To be is to be perceived. But then why does the tree not vanish at midnight, when the students are asleep?
+    -> Because God is always perceiving it.
+        Berkeley: That was my answer exactly. If that interests you, the Philosophy of Religion lies close by.
+        <<jump Berkeley_Relativism>>
+    -> Because a computer is always running it.
+        Berkeley: Ingenious. Chalmers notes that a simulation could do the job I gave to God. But a computer is not a mind.
+        Berkeley: So the world would be made of bits, not of ideas. That is not my idealism any more. It belongs with Wheeler, in Computing and Information.
+        <<jump Berkeley_Relativism>>
+-> Isn't that a question about how we know?
+    Berkeley: It sounds like one. But I am not asking how you KNOW the tree is there. I am asking what it IS for a tree to be there. That is why I stand in Metaphysics.
+    <<jump Talk_Berkeley>>
+===
+
+title: Berkeley_Relativism
+tags: npc diagnosis
+area: Metaphysics
+speaker: Berkeley
+---
+<<if $is_relativist>>
+    Berkeley: Socrates says you are a relativist. Do not mistake me for one.
+    Berkeley: For me, the world is the same for everyone, because one mind perceives it all. Idealism is about what reality is MADE of. Relativism is about whether it is the SAME for all.
+<<else>>
+    Berkeley: Remember the difference. Idealism says reality is made of experience. That does not make it different for different people.
+<<endif>>
+<<jump Done_Metaphysics>>
+===
+
+title: Talk_Plato
+tags: npc
+area: Metaphysics
+speaker: Plato
+book: Ch 1, Ch 23
+---
+Plato: Picture prisoners chained in a cave all their lives. They see only shadows cast on the wall. Are the shadows real?
+-> No. Only the things casting them are real.
+    <<set $is_platonist to true>>
+    Plato: Then reality comes in degrees. Shadows are less real than things, and things less real than the Forms they copy.
+-> Yes. They are real shadows, even if they are not real horses.
+    Plato: A shrewd answer. Chalmers would agree. A shadow passes his test for a real shadow and fails his test for a real horse.
+-> The prisoners cannot know they are shadows.
+    Plato: True, but that is a question about knowledge, and Descartes keeps that grove. I am asking what the shadows ARE.
+    <<jump Talk_Plato>>
+Plato: Now consider the red of a rose. Many scientists say objects are not really coloured. Colour is only in us.
+Plato: Imagine a Garden of Eden, where roses were perfectly, truly red. Have we fallen from that garden?
+-> Yes. Nothing is really coloured the way it looks.
+    Plato: Then the world you see is an imperfect copy, as my cave said. Chalmers takes a middle path. We lost the perfect red of Eden, but things can still be red in a humbler sense.
+-> No. Red just is whatever causes red experiences in us.
+    Plato: Then you define colour by what it does. Russell and Sellars, in the Physical Science grove, will like that answer.
+-> I do not know. That question seems to belong somewhere else.
+    Plato: It belongs in several places at once. Mind, Physical Science, and here. The skill is noticing which strand you are pulling. I am pulling on what is real.
+<<jump Done_Metaphysics>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  EPISTEMOLOGY   staff  Descartes (lead), Zhuangzi, Moore
+// ---------------------------------------------------------------------
+
+title: Gate_Epistemology
+tags: gate
+area: Epistemology
+---
+<<if $stamp_epistemology and not $playtest>>
+    <<jump Talk_Descartes>>
+<<endif>>
+Descartes: Welcome to Epistemology. Here we ask what you know, how you know it, and whether you know anything at all.
+<<jump Quiz_Epistemology>>
+===
+
+title: Quiz_Epistemology
+tags: gate quiz
+area: Epistemology
+---
+Descartes: Which question belongs to me?
+-> Are virtual objects made of bits?
+    Descartes: That asks what virtual objects ARE. Metaphysics, next door.
+    -> Then I should go to Metaphysics.
+        <<set $route_to to "Metaphysics">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Epistemology>>
+-> Can I know that I am not in a simulation?
+    Descartes: Yes. That asks about your evidence and your certainty. It is mine.
+    <<if not $stamp_epistemology>>
+        <<set $stamp_epistemology to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the EPISTEMOLOGY stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Epistemology>>
+    <<else>>
+        <<jump Talk_Descartes>>
+    <<endif>>
+-> Would a simulated life be worth living?
+    Descartes: That asks about value. Nozick handles it in Well-Being, in the east.
+    -> Then I should go to Well-Being.
+        <<set $route_to to "WellBeing">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Epistemology>>
+===
+
+title: Menu_Epistemology
+tags: menu
+area: Epistemology
+---
+Descartes: Who will you question?
+-> René Descartes, on the senses, dreams, demons, and deepfakes.
+    <<jump Talk_Descartes>>
+-> Zhuangzi, on the butterfly dream.
+    <<jump Talk_Zhuangzi>>
+-> G. E. Moore, on common sense and his two hands.
+    <<jump Talk_Moore>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Epistemology
+tags: done
+area: Epistemology
+---
+<<if $playtest>>
+    <<jump Menu_Epistemology>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Descartes
+tags: npc
+area: Epistemology
+speaker: Descartes
+book: Ch 3
+---
+Descartes: Your senses have fooled you before. A straight stick looks bent in water. Can you trust them now?
+-> Usually, yes.
+    Descartes: Usually is not certainly. I want certainty. So can you rule out that you are dreaming right now?
+-> No, never.
+    <<set $is_skeptic to true>>
+    Descartes: Then you are already a skeptic about the senses. Let us go further. Can you rule out that you are dreaming?
+-> Dreams feel different. Less vivid.
+    Descartes: Some dreams are vivid enough to fool you while they last. And a perfect simulation need not be less vivid than life at all.
+Descartes: Here is the modern version of my evil demon. You cannot rule out that you are in a perfect simulation.
+Descartes: And if you are in one, you know nothing about the outside world. So you do not know there is a table in front of you.
+Descartes: Where, if anywhere, does that argument go wrong?
+-> Nowhere. I must doubt everything.
+    <<set $is_skeptic to true>>
+    Descartes: Then you are a full skeptic about the external world. But even you cannot doubt one thing. You are doubting. So you exist.
+    Descartes: I think, therefore I am. It was my one solid foothold.
+    <<jump Descartes_Deepfake>>
+-> The second step. Even in a simulation, the table would still be real. A digital table.
+    Descartes: You have been talking to Heim and Chalmers! You deny my assumption that a simulation means illusion.
+    Descartes: Notice what you did. You answered a question about KNOWLEDGE with a claim about REALITY. That is legitimate. It is exactly how his book replies to me.
+    <<jump Descartes_Deepfake>>
+-> The first step. I can rule out being in a simulation.
+    Descartes: How? Any test you run, the simulation could fake. If you think the odds are against it, take that to Bostrom in the Probability grove.
+    <<jump Descartes_Deepfake>>
+===
+
+title: Descartes_Deepfake
+tags: npc
+area: Epistemology
+speaker: Descartes
+book: Ch 13
+---
+Descartes: Today you have little demons everywhere. Deepfakes. Videos of people saying things they never said.
+Descartes: You watch a video of a leader declaring war. How do you know it is real?
+-> I cannot ever know. Anything could be faked.
+    Descartes: That is global doubt again. But Chalmers argues for a limited answer. You do not need certainty about the image. You need trustworthy sources.
+    Descartes: Who published it? Do independent outlets confirm it? Knowledge can rest on a web of reliable testimony.
+-> I check the source and see whether others confirm it.
+    Descartes: Good. That is a modest, practical epistemology. Not the certainty I wanted, but enough to live by.
+-> I trust my eyes. If it looks real, it is real.
+    Descartes: That is precisely what deepfakes exploit. Looking real is no longer evidence of being real.
+<<jump Done_Epistemology>>
+===
+
+title: Talk_Zhuangzi
+tags: npc
+area: Epistemology
+speaker: Zhuangzi
+book: Ch 1, Ch 24
+---
+Zhuangzi: Last night I dreamt I was a butterfly, flitting about, happy, with no idea I was Zhuangzi.
+Zhuangzi: Then I woke. Now I wonder. Am I Zhuangzi who dreamt he was a butterfly, or a butterfly now dreaming it is Zhuangzi?
+-> You are obviously Zhuangzi.
+    Zhuangzi: Obviously! How would you tell, from the inside?
+    -> Waking life is more stable and connected than dreams.
+        Zhuangzi: A good reason. You are offering evidence, and weighing evidence is what this grove is about.
+        Zhuangzi: But a long, well-made dream could be stable too. Descartes would say that your evidence falls short of proof.
+    -> I cannot tell from the inside.
+        <<set $is_skeptic to true>>
+        Zhuangzi: Then you see my puzzle.
+-> There is no way to know.
+    <<set $is_skeptic to true>>
+    Zhuangzi: Perhaps. But tell me. Does it matter? The butterfly was happy.
+    -> It matters. I want to know what is true.
+        Zhuangzi: Then you are an epistemologist at heart. You care about knowledge for its own sake.
+    -> If both lives are good, maybe it does not matter.
+        Zhuangzi: Ah! Now your question has moved. It is no longer about knowing, but about what makes a life good.
+        Zhuangzi: That is a Value question. Nozick waits in the Well-Being grove with a machine you may want to plug into.
+-> Maybe both are real.
+    Zhuangzi: Now you have stepped out of my grove and into Metaphysics. Chalmers might say even a dream world has some reality.
+    Zhuangzi: Notice the step. "Can I know which?" is Epistemology. "Are both real?" is Metaphysics.
+<<jump Done_Epistemology>>
+===
+
+title: Talk_Moore
+tags: npc
+area: Epistemology
+speaker: Moore
+book: Ch 4
+---
+Moore: Here is one hand. And here is another. So there are at least two things in the external world. Are you convinced?
+-> Yes. That is obvious.
+    <<set $is_common_sense to true>>
+    Moore: Then you trust common sense over clever arguments. I am more certain that I have hands than I am of any premise in a skeptical argument.
+-> No. You are assuming what you need to prove.
+    Moore: Perhaps. But which do you believe more firmly? That you have hands, or that the skeptic's premises are true?
+    -> That I have hands.
+        <<set $is_common_sense to true>>
+        Moore: Then you may reasonably reject a premise, even if you cannot say which one fails.
+    -> The skeptic's premises.
+        <<set $is_skeptic to true>>
+        Moore: Then Descartes will be glad of your company.
+Moore: Now a harder case. Is it obvious that we are NOT in a simulation?
+-> Yes. The idea is absurd.
+    Moore: Chalmers doubts that. Feeling absurd is not evidence. If you want to argue about how likely it is, you need Bostrom in the Probability grove.
+-> No. But even in a simulation, I would have hands. Digital hands.
+    <<set $is_sim_realist to true>>
+    Moore: Then you can keep my proof even inside a simulation! That is simulation realism, Chalmers's view. Heim defends its cousin in Metaphysics.
+-> No. And that worries me.
+    Moore: Then you have found the real pressure point. Descartes, next to me, will make it worse.
+<<jump Done_Epistemology>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  PHILOSOPHY OF MIND   staff  Elisabeth (lead), Nagel, Clark
+// ---------------------------------------------------------------------
+
+title: Gate_Mind
+tags: gate
+area: Mind
+---
+<<if $stamp_mind and not $playtest>>
+    <<jump Talk_Elisabeth>>
+<<endif>>
+Elisabeth: Welcome to the Philosophy of Mind. I am Elisabeth of Bohemia. Here we ask what minds are, how they connect to bodies, and whether machines can have them.
+<<jump Quiz_Mind>>
+===
+
+title: Quiz_Mind
+tags: gate quiz
+area: Mind
+---
+Elisabeth: Which question belongs here?
+-> Could an AI in a virtual world be conscious?
+    Elisabeth: Yes. That is about the nature of minds.
+    <<if not $stamp_mind>>
+        <<set $stamp_mind to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the PHILOSOPHY OF MIND stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Mind>>
+    <<else>>
+        <<jump Talk_Elisabeth>>
+    <<endif>>
+-> What does the word "tree" refer to inside a simulation?
+    Elisabeth: That is about how words hook onto things. Putnam keeps it, in the Philosophy of Language.
+    -> Then I should go to Language.
+        <<set $route_to to "Language">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Mind>>
+-> Should simulated people have rights?
+    Elisabeth: Close! Whether they have minds matters to that. But the question itself is moral. Applied Ethics, in the east.
+    -> Then I should go to Applied Ethics.
+        <<set $route_to to "Applied">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Mind>>
+===
+
+title: Menu_Mind
+tags: menu
+area: Mind
+---
+Elisabeth: Who will you question?
+-> Elisabeth of Bohemia, on how mind and body interact.
+    <<jump Talk_Elisabeth>>
+-> Thomas Nagel, on consciousness and other minds.
+    <<jump Talk_Nagel>>
+-> Andy Clark, on the extended mind and virtual bodies.
+    <<jump Talk_Clark>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Mind
+tags: done
+area: Mind
+---
+<<if $playtest>>
+    <<jump Menu_Mind>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Elisabeth
+tags: npc
+area: Mind
+speaker: Elisabeth
+book: Ch 14
+---
+Elisabeth: Descartes told me the mind is an immaterial thing, with no size or location. I wrote back with a question he never answered well.
+Elisabeth: If your mind takes up no space, how does your decision make your arm move?
+-> Through the brain. The mind just is the brain.
+    <<set $is_materialist to true>>
+    Elisabeth: Then you are a materialist, and my question does not trouble you. But wait until you see what virtual worlds do to it.
+-> Mind and body are separate, but they interact somehow.
+    <<set $is_dualist to true>>
+    Elisabeth: Then you are an interactionist dualist, like Descartes. Then you owe me an answer to my question.
+-> I do not know. It seems like a real problem.
+    Elisabeth: That is what I told Descartes. Hold onto the puzzle.
+Elisabeth: Now consider a VR game. Your avatar's body is in the virtual world. Your brain is outside it, in the physical world, yet it moves the avatar.
+Elisabeth: From inside that world, it looks exactly like dualism. Something outside space reaching in. Does VR show dualism is true?
+-> No. It shows dualism is coherent. Something outside a world could act on it.
+    Elisabeth: Exactly as Chalmers argues. Virtual worlds give us a working model of interaction between a world and something beyond it.
+-> Yes. We are all avatars.
+    Elisabeth: Only if we live in a simulation with minds outside it. And even then, the outside mind could be a brain. Materialism, one level up.
+-> No. The player's brain is still physical, so nothing changes.
+    Elisabeth: Physical in ITS world, yes. But within the virtual world, it is not part of that world's physics. That is the interesting point.
+<<jump Done_Mind>>
+===
+
+title: Talk_Nagel
+tags: npc
+area: Mind
+speaker: Nagel
+book: Ch 15
+---
+Nagel: There is something it is like to be a bat. Bats have a point of view, an inner life, even if we cannot imagine it.
+Nagel: Is there something it is like to be a computer?
+-> No. Computers only process information.
+    Nagel: Then you think consciousness needs biology. But what is special about neurons, if a chip did the same job?
+-> If it works like a brain, yes.
+    <<set $is_functionalist to true>>
+    Nagel: Then you are a functionalist. What matters is the pattern of activity, not the material.
+-> We could never know.
+    Nagel: That is the problem of other minds. You cannot look inside anyone's experience, not even mine. Here, knowledge and mind meet.
+Nagel: Try this, from Chalmers. Replace your neurons, one by one, with silicon chips that do exactly the same job. What happens to your experience?
+-> It fades away gradually.
+    Nagel: Then at some point you would be half-conscious while still saying "I see bright red." Your experience would vanish without you noticing. Strange, no?
+-> It stays exactly the same.
+    <<set $is_functionalist to true>>
+    Nagel: Then a digital brain can be conscious. That is Chalmers's view, and it is why he thinks uploading could, in principle, preserve you.
+-> It suddenly switches off at some point.
+    Nagel: Which neuron would be the one? It is hard to believe a single chip makes all the difference.
+Nagel: Last question. Even with a complete map of the brain, why is there any experience at all? Chalmers called this the hard problem.
+-> Science will solve it eventually.
+    Nagel: Perhaps. But mapping what the brain DOES may never explain why it FEELS like something.
+-> Maybe consciousness is everywhere, in all matter.
+    Nagel: That is panpsychism. It sounds strange, but it is surprisingly popular now.
+-> Maybe consciousness is an illusion.
+    Nagel: That is illusionism. If it is right, there is no hard problem. But it is hard to believe your pain is not real.
+<<jump Done_Mind>>
+===
+
+title: Talk_Clark
+tags: npc
+area: Mind
+speaker: Clark
+book: Ch 16, Ch 11
+---
+Clark: Meet Otto and Inga. Both want to go to the museum. Inga remembers the address in her head. Otto has memory trouble and looks it up in his notebook.
+Clark: Before Otto opens the notebook, does he BELIEVE the museum's address?
+-> Yes. The notebook does the job memory does for Inga.
+    <<set $is_extended_mind to true>>
+    Clark: Then the mind extends beyond the skull. Chalmers and I called this the extended mind.
+-> No. Beliefs are inside the head.
+    Clark: Why should location matter, if the role is the same? The notebook is always with him, and he trusts it as she trusts memory.
+Clark: What about your phone? Is it part of your mind?
+-> Yes. It stores my memories and directions.
+    Clark: Then losing it is a bit like brain damage. And the internet becomes part of your thinking. That may make us smarter, or not.
+-> No. It is just a tool.
+    Clark: Many agree. The question is what makes a tool become part of you. Reliability, constant access, trust.
+Clark: One more. In VR, you look down and see a virtual body. Soon it feels like yours. Is that an illusion?
+-> Yes. My body is still sitting in my room.
+    Clark: Chalmers draws a line here. You really are present in a virtual place, and it really is a body you control. The illusion is only in thinking it is physical.
+-> No. It really is my virtual body.
+    Clark: That is Chalmers's view. VR need not be an illusion. Its sense of being there can be accurate.
+<<jump Done_Mind>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  PHILOSOPHY OF LANGUAGE   staff  Putnam (lead), Carnap
+// ---------------------------------------------------------------------
+
+title: Gate_Language
+tags: gate
+area: Language
+---
+<<if $stamp_language and not $playtest>>
+    <<jump Talk_Putnam>>
+<<endif>>
+Putnam: Welcome to the Philosophy of Language. Here we ask how words hook onto the world, and what makes a sentence mean anything.
+<<jump Quiz_Language>>
+===
+
+title: Quiz_Language
+tags: gate quiz
+area: Language
+---
+Putnam: Which question belongs here?
+-> When someone in a simulation says "tree," what is she talking about?
+    Putnam: Yes. That is a question about reference.
+    <<if not $stamp_language>>
+        <<set $stamp_language to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the PHILOSOPHY OF LANGUAGE stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Language>>
+    <<else>>
+        <<jump Talk_Putnam>>
+    <<endif>>
+-> Is the universe made of information?
+    Putnam: That is about the universe, not about words. Wheeler, in Computing and Information.
+    -> Then I should go to Computing and Information.
+        <<set $route_to to "Computing">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Language>>
+-> Can I prove that I have hands?
+    Putnam: That is about proof and knowledge. Moore, in Epistemology.
+    -> Then I should go to Epistemology.
+        <<set $route_to to "Epistemology">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Language>>
+===
+
+title: Menu_Language
+tags: menu
+area: Language
+---
+Putnam: Who will you question?
+-> Hilary Putnam, on Twin Earth, Sim Earth, and brains in vats.
+    <<jump Talk_Putnam>>
+-> Rudolf Carnap, on whether the simulation hypothesis means anything.
+    <<jump Talk_Carnap>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Language
+tags: done
+area: Language
+---
+<<if $playtest>>
+    <<jump Menu_Language>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Putnam
+tags: npc
+area: Language
+speaker: Putnam
+book: Ch 20
+---
+Putnam: Imagine a planet exactly like Earth, except the clear liquid in its rivers is not H2O. It is a different chemical. Call it XYZ.
+Putnam: Your twin there says "water." Does she mean what you mean?
+-> Yes. Same word, same thoughts, same meaning.
+    Putnam: But she has never met H2O. Her word was learned on XYZ. I say meaning depends partly on the world outside your head.
+-> No. Her word refers to XYZ.
+    <<set $is_externalist to true>>
+    Putnam: Then you are an externalist. What your words refer to depends on what you are actually connected to.
+Putnam: Now Sim Earth. People who have lived their whole lives in a simulation say "tree." What does their word refer to?
+-> Digital trees. The things they actually interact with.
+    <<set $is_externalist to true>>
+    Putnam: Then when they say "there is a tree in front of me," they speak the truth. Chalmers uses this to back simulation realism.
+-> Physical trees, like ours.
+    Putnam: But they have never been in contact with a physical tree. How could their word reach one?
+    <<jump Talk_Putnam>>
+Putnam: I once argued that a brain that has always been in a vat cannot truly think "I am a brain in a vat," because its word "vat" refers to virtual vats.
+Putnam: Does that refute skepticism?
+-> Yes. The skeptic's worry cannot even be stated.
+    Putnam: Chalmers thinks it helps only partly. It does not work for someone put in a simulation recently, whose words were learned outside it.
+-> Only partly. It depends on where my words were learned.
+    Putnam: That is the careful answer. Notice we reached a conclusion about knowledge by thinking about language. Groves connect.
+<<jump Done_Language>>
+===
+
+title: Talk_Carnap
+tags: npc
+area: Language
+speaker: Carnap
+book: Ch 4
+---
+Carnap: If no possible observation could ever tell whether we are in a simulation, does the simulation hypothesis mean anything at all?
+-> No. A claim that cannot be tested is meaningless.
+    <<set $is_verificationist to true>>
+    Carnap: That is verificationism, my circle's view. Chalmers pushes back. The hypothesis COULD be tested. The simulators might reveal themselves, or we might find a glitch.
+    Carnap: And anyone who has played The Sims understands what it says.
+-> Yes. I understand what it says, so it means something.
+    Carnap: Then meaning goes beyond what can be verified. Many philosophers came to agree, and my view fell out of favour.
+-> Isn't that a question about knowledge?
+    Carnap: It sounds like one. But I am not asking whether you can know it. I am asking whether the sentence SAYS anything at all. That is a question about meaning.
+    <<jump Talk_Carnap>>
+<<jump Done_Language>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  PHILOSOPHY OF RELIGION   staff  Anselm (lead), Leibniz, Narada
+// ---------------------------------------------------------------------
+
+title: Gate_Religion
+tags: gate
+area: Religion
+---
+<<if $stamp_religion and not $playtest>>
+    <<jump Talk_Anselm>>
+<<endif>>
+Anselm: Welcome to the Philosophy of Religion. Here we ask what a god is, whether one exists, and why a creator would allow evil.
+<<jump Quiz_Religion>>
+===
+
+title: Quiz_Religion
+tags: gate quiz
+area: Religion
+---
+Anselm: Which question belongs here?
+-> If our world was made by a programmer, is that programmer a god?
+    Anselm: Yes. That asks what a god is.
+    <<if not $stamp_religion>>
+        <<set $stamp_religion to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the PHILOSOPHY OF RELIGION stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Religion>>
+    <<else>>
+        <<jump Talk_Anselm>>
+    <<endif>>
+-> What makes an action right?
+    Anselm: Many believers answer with God, but the question itself belongs to Normative Ethics. Kant keeps it.
+    -> Then I should go to Normative Ethics.
+        <<set $route_to to "Normative">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Religion>>
+-> Is a simulation made of bits?
+    Anselm: That is about computing. Turing's grove, in the west.
+    -> Then I should go to Computing and Information.
+        <<set $route_to to "Computing">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Religion>>
+===
+
+title: Menu_Religion
+tags: menu
+area: Religion
+---
+Anselm: Who will you question?
+-> Anselm, on what a god is.
+    <<jump Talk_Anselm>>
+-> Gottfried Leibniz, on evil and the best of all possible worlds.
+    <<jump Talk_Leibniz>>
+-> The sage Narada, on maya and a life lived inside a god's illusion.
+    <<jump Talk_Narada>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Religion
+tags: done
+area: Religion
+---
+<<if $playtest>>
+    <<jump Menu_Religion>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Anselm
+tags: npc
+area: Religion
+speaker: Anselm
+book: Ch 7
+---
+Anselm: I defined God as the greatest being that can be conceived. Chalmers asks a humbler question. What would it take to be A god?
+Anselm: Suppose a programmer in the next universe up created ours. Is that programmer a god?
+-> Yes. Any creator of our world would count.
+    Anselm: Then a teenager with a powerful computer could be your god! Chalmers notes such a being could be all-powerful and all-knowing about our world.
+    Anselm: But would it be good? Nothing guarantees that.
+-> No. Only a perfect being counts.
+    <<set $is_theist to true>>
+    Anselm: Then a simulator would be, at most, a lesser god. Not God.
+-> Only if it was also good.
+    Anselm: Then goodness is part of what you mean by "god." That puts you in Leibniz's debate about evil.
+Anselm: Chalmers points out something odd. If we live in a simulation, then a creator exists. The simulation argument becomes a kind of argument for a god.
+Anselm: Does that make you more of a believer?
+-> Yes. If a creator is likely, so is a god.
+    Anselm: Careful. The creator might be a scientist, a gamer, or a machine. Is that the god of any religion?
+-> No. A simulator is not what religions mean by God.
+    Anselm: That is reasonable. Chalmers calls the result a naturalistic kind of god, one that needs no miracles.
+<<jump Done_Religion>>
+===
+
+title: Talk_Leibniz
+tags: npc
+area: Religion
+speaker: Leibniz
+book: Ch 7, Ch 8, Ch 18
+---
+Leibniz: If a good and all-powerful being made this world, why is there so much suffering?
+-> Perhaps this is the best of all possible worlds.
+    Leibniz: That was my answer. Some evils are the price of a world with the most good overall.
+-> Perhaps the creator is not good.
+    Leibniz: Then you have entered simulation theology. A simulator might run us for research, or entertainment, and care little for our pain.
+-> Then there is no good creator.
+    Leibniz: That is the argument from evil. It is one of the oldest objections to God.
+Leibniz: Now turn it around. If YOU build a simulation with conscious beings, do you face the problem of evil yourself?
+-> Yes. I would be responsible for their suffering.
+    Leibniz: Then your question has become a moral one. What do creators owe their creations? That is Applied Ethics, where Singer waits.
+-> No. They would not really suffer.
+    Leibniz: Only if they are not conscious. That is a question for the Philosophy of Mind.
+Leibniz: One last thing. I invented binary arithmetic. I saw in one and zero an image of creation out of nothing.
+Leibniz: Odd, is it not, that worlds may now be built out of exactly those digits?
+<<jump Done_Religion>>
+===
+
+title: Talk_Narada
+tags: npc
+area: Religion
+speaker: Narada
+book: Ch 1
+---
+Narada: I asked the god Vishnu to show me the secret of maya, his power of illusion. He sent me to fetch water.
+Narada: At the river I met a woman, married, raised children, farmed for years. Then a flood took everything. I woke beside Vishnu, who asked, "Where is my water?"
+Narada: Was my life in maya real?
+-> No. It was an illusion.
+    Narada: That is the traditional lesson. The world of maya is not the true reality.
+-> Yes. Real experiences, real people, even if Vishnu made them.
+    <<set $is_sim_realist to true>>
+    Narada: That is how Chalmers reads it. A world made by a god-like being can still be a real world. It is simulation realism, told as a myth.
+Narada: My story is about God, about knowledge, and about reality all at once. That is why Chalmers opens his book with it.
+Narada: Which strand belongs in THIS grove?
+-> Whether I could know I was in maya.
+    Narada: That is the knowledge strand. Descartes's grove. Try again.
+    <<jump Narada_Strand>>
+-> Vishnu as the maker of a world within a world.
+    Narada: Yes. A creator of nested worlds, like a simulator. That is why I stand in the Philosophy of Religion.
+-> Whether my years there were real.
+    Narada: That is the reality strand. Metaphysics. Try again.
+    <<jump Narada_Strand>>
+<<jump Done_Religion>>
+===
+
+title: Narada_Strand
+tags: npc
+area: Religion
+speaker: Narada
+---
+-> Vishnu as the maker of a world within a world.
+    Narada: Yes. A creator of nested worlds, like a simulator. That is why I stand in the Philosophy of Religion.
+-> I still think it is about whether my life was real.
+    Narada: Then take it to Michael Heim in Metaphysics. He will be glad of it.
+<<jump Done_Religion>>
+===
+// =====================================================================
+// REGION  SCIENCE, LOGIC, AND MATHEMATICS
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// AREA  PHILOSOPHY OF COMPUTING AND INFORMATION   staff  Turing (lead), Searle, Wheeler
+// ---------------------------------------------------------------------
+
+title: Gate_Computing
+tags: gate
+area: Computing
+---
+<<if $stamp_computing and not $playtest>>
+    <<jump Talk_Turing>>
+<<endif>>
+Turing: Welcome to the Philosophy of Computing and Information. Here we ask what a computation is, what information is, and whether a world could be built from them.
+<<jump Quiz_Computing>>
+===
+
+title: Quiz_Computing
+tags: gate quiz
+area: Computing
+---
+Turing: Which question belongs here?
+-> Could a cloud of dust be running a computer program?
+    Turing: Yes. That asks what it takes for something to compute.
+    <<if not $stamp_computing>>
+        <<set $stamp_computing to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the COMPUTING AND INFORMATION stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Computing>>
+    <<else>>
+        <<jump Talk_Turing>>
+    <<endif>>
+-> Does a simulated person matter morally?
+    Turing: That is a moral question. Applied Ethics, in the east.
+    -> Then I should go to Applied Ethics.
+        <<set $route_to to "Applied">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Computing>>
+-> How can I tell whether a video is a deepfake?
+    Turing: A computer made the fake, but your question is about knowing. Descartes, in Epistemology.
+    -> Then I should go to Epistemology.
+        <<set $route_to to "Epistemology">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Computing>>
+===
+
+title: Menu_Computing
+tags: menu
+area: Computing
+---
+Turing: Who will you question?
+-> Alan Turing, on what a computer is.
+    <<jump Talk_Turing>>
+-> John Searle, on whether everything is a computer.
+    <<jump Talk_Searle>>
+-> John Wheeler, on "it from bit."
+    <<jump Talk_Wheeler>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Computing
+tags: done
+area: Computing
+---
+<<if $playtest>>
+    <<jump Menu_Computing>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Turing
+tags: npc
+area: Computing
+speaker: Turing
+book: Ch 21, Ch 15
+---
+Turing: Tell me. What is a computer?
+-> A machine with a chip and a screen.
+    Turing: My universal machine had neither. It was a tape, a reading head, and a table of rules. Computing is about the steps, not the hardware.
+-> Anything that follows a program.
+    Turing: Good. But what does it take for a physical thing to FOLLOW a program?
+    -> Its states must cause one another in the pattern the program describes.
+        Turing: That is Chalmers's answer. A computer is a physical system with the right cause-and-effect structure.
+    -> Someone just has to describe it that way.
+        Turing: Then Searle, beside me, will agree with you. And it leads somewhere strange.
+Turing: I once proposed a test. If a machine's conversation cannot be told apart from a person's, should we say it thinks?
+-> Yes. Behaviour is all we ever have, even for people.
+    Turing: That was roughly my reply to doubters. But thinking is not the same as feeling. Whether such a machine is conscious is Nagel's question, in Mind.
+-> No. It could be faking.
+    Turing: Then how do you know any person is not faking? That is the problem of other minds, and Nagel keeps it.
+<<jump Done_Computing>>
+===
+
+title: Talk_Searle
+tags: npc
+area: Computing
+speaker: Searle
+book: Ch 21, Ch 15
+---
+Searle: With enough ingenuity, you could describe the wall behind me as running a word processor. Match each of its states to a step of the program.
+Searle: If so, is everything a computer?
+-> Yes. Computation is in the eye of the beholder.
+    Searle: That is my view. And notice the cost. If any world counts as a computation under some description, then "the universe is a simulation" says very little.
+-> No. The wall lacks the right cause-and-effect structure.
+    Searle: That is Chalmers's reply. A mapping is not enough. The states must reliably cause each other, including in cases that never actually happen.
+    Searle: Greg Egan's novel Permutation City imagines dust assembling into a running universe. Chalmers argues real dust almost always fails this test.
+Searle: One more. A man sits in a room with a rulebook. Chinese questions come in. He follows the rules and sends perfect Chinese answers out. He understands no Chinese.
+Searle: Does running the right program give understanding?
+-> No. The man just shuffles symbols.
+    Searle: That is my Chinese Room argument. Syntax is not meaning.
+-> The whole system understands, even if the man does not.
+    Searle: That is the famous systems reply. Whether such a system would be conscious is the hard question in Philosophy of Mind.
+<<jump Done_Computing>>
+===
+
+title: Talk_Wheeler
+tags: npc
+area: Computing
+speaker: Wheeler
+book: Ch 8, Ch 9
+---
+Wheeler: I am a physicist. I coined a slogan. It from bit. Every physical thing, every it, comes from information, from yes-or-no answers.
+Wheeler: Do you buy it?
+-> Yes. At bottom the world is information.
+    <<set $is_it_from_bit to true>>
+    Wheeler: Then Chalmers has a question for you. Is it bits all the way down? Or are the bits made of something deeper?
+    -> Bits all the way down.
+        Wheeler: That is the pure it-from-bit view. Elegant, but bits of WHAT? A difference needs something to differ.
+    -> The bits are made of something deeper.
+        Wheeler: Chalmers calls that it-from-bit-from-it. And here is his punchline.
+-> No. Information has to be information ABOUT something.
+    Wheeler: Many agree. Structure needs something to fill it. Russell, in the Physical Science grove, takes this further.
+Wheeler: If we are in a simulation, our particles are made of bits, and those bits are made of physical processes in the simulator's computer.
+Wheeler: So the simulation hypothesis is not a story of illusion. It is a story of creation. Our world built from bits.
+-> So if we are in a simulation, physics is still true.
+    <<set $is_sim_realist to true>>
+    Wheeler: Exactly. Electrons would be real. They would just be digital electrons.
+-> So everything is fake after all.
+    Wheeler: Why fake? Being made of bits is just being made of something. Ask Heim in Metaphysics.
+<<jump Done_Computing>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  PHILOSOPHY OF PHYSICAL SCIENCE   staff  Russell (lead), Sellars, Galileo
+// ---------------------------------------------------------------------
+
+title: Gate_PhysicalScience
+tags: gate
+area: PhysicalScience
+---
+<<if $stamp_physics and not $playtest>>
+    <<jump Talk_Russell>>
+<<endif>>
+Russell: Welcome to the Philosophy of Physical Science. Here we ask what physics really tells us about the world, and what it leaves out.
+<<jump Quiz_PhysicalScience>>
+===
+
+title: Quiz_PhysicalScience
+tags: gate quiz
+area: PhysicalScience
+---
+Russell: Which question belongs here?
+-> Does physics tell us what matter IS, or only how it behaves?
+    Russell: Yes. That is my question.
+    <<if not $stamp_physics>>
+        <<set $stamp_physics to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the PHYSICAL SCIENCE stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_PhysicalScience>>
+    <<else>>
+        <<jump Talk_Russell>>
+    <<endif>>
+-> Can a computer be conscious?
+    Russell: That is about minds. Nagel, in the Philosophy of Mind.
+    -> Then I should go to Philosophy of Mind.
+        <<set $route_to to "Mind">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_PhysicalScience>>
+-> Would a simulator count as a god?
+    Russell: I would rather not! But that is Anselm's grove, the Philosophy of Religion.
+    -> Then I should go to Philosophy of Religion.
+        <<set $route_to to "Religion">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_PhysicalScience>>
+===
+
+title: Menu_PhysicalScience
+tags: menu
+area: PhysicalScience
+---
+Russell: Who will you question?
+-> Bertrand Russell, on structure and what physics leaves out.
+    <<jump Talk_Russell>>
+-> Wilfrid Sellars, on the manifest and scientific images.
+    <<jump Talk_Sellars>>
+-> Galileo, on colour and the qualities physics expelled.
+    <<jump Talk_Galileo>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_PhysicalScience
+tags: done
+area: PhysicalScience
+---
+<<if $playtest>>
+    <<jump Menu_PhysicalScience>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Russell
+tags: npc
+area: PhysicalScience
+speaker: Russell
+book: Ch 22
+---
+Russell: Physics describes mass, charge, and spin by what they DO. How they push and pull on each other. Does it tell us what they ARE in themselves?
+-> Yes. Mass just is what physics says it is.
+    Russell: Then you are content with structure. Perhaps you think structure is all there is.
+-> No. Only their structure, the pattern of relations.
+    <<set $is_structural_realist to true>>
+    Russell: That is structural realism. Now here is Chalmers's twist.
+Russell: A perfect simulation of our world would have exactly the same structure as our world. Same pattern of relations, different stuff underneath.
+Russell: So if science only tells us structure, what follows?
+-> Science would be just as true inside a simulation.
+    <<set $is_sim_realist to true>>
+    Russell: Exactly. That is one of Chalmers's main routes to simulation realism. Physics survives.
+-> Science would be false inside a simulation.
+    Russell: Only if science claims to know what lies beneath the structure. If it never did, nothing is lost.
+Russell: Some go further. The physicist Max Tegmark says the universe IS a mathematical structure. Is physics just mathematics?
+-> Yes. The equations are the world.
+    Russell: Then what makes some mathematics physical, and other mathematics merely mathematics?
+-> No. Something must make the equations real.
+    Russell: Chalmers asks the same thing. What realizes the structure? We may never know. Kant called the inner nature of things unknowable. Chalmers calls our position Kantian humility.
+<<jump Done_PhysicalScience>>
+===
+
+title: Talk_Sellars
+tags: npc
+area: PhysicalScience
+speaker: Sellars
+book: Ch 23
+---
+Sellars: There are two images of the world. The manifest image is the one you live in. Coloured, solid tables in a room.
+Sellars: The scientific image says the table is mostly empty space and particles. Which is the real world?
+-> The scientific image.
+    Sellars: Then is your table not really solid? Chalmers says solidity can be rebuilt within science. The table resists your hand. That is what solid means.
+-> The manifest image. Science is just a tool for predictions.
+    Sellars: That is instrumentalism. But then why does the tool work so well?
+-> Both, at different levels.
+    Sellars: Close to Chalmers. We reconstruct the manifest image inside the scientific one. And inside VR too. A virtual table really is solid in the virtual world.
+Sellars: Now space. Is the space of a virtual world real space?
+-> No. It is just pictures on a screen.
+    Sellars: But you can walk in it, measure it, get lost in it. Chalmers argues virtual space is a real space, defined by what it does.
+-> Yes, in its own way.
+    Sellars: Then you are rebuilding the manifest image of VR, just as I asked of physics.
+<<jump Done_PhysicalScience>>
+===
+
+title: Talk_Galileo
+tags: npc
+area: PhysicalScience
+speaker: Galileo
+book: Ch 23
+---
+Galileo: I held that tastes, smells, and colours exist only in the one who perceives them. Take away the perceiver and they vanish. Shape, size, and motion remain.
+Galileo: Do you agree?
+-> Yes. Colour is in the mind.
+    Galileo: Then physics kept shape and motion and threw colour out. Chalmers wonders whether that was a fall from Eden. Plato will tell you about that garden.
+-> No. The rose really is red.
+    Galileo: In what sense? Perhaps red is the power to cause red experiences in us. That keeps red in the rose, in a humbler way.
+Galileo: Is the question "Are objects really coloured?" about physics, about the mind, or about what is real?
+-> Physics.
+    Galileo: Partly. Physics tells you about light and surfaces.
+-> The mind.
+    Galileo: Partly. Colour experience happens in perceivers.
+-> What is real.
+    Galileo: Partly. Whether things truly have colour is metaphysics.
+Galileo: Some questions cross borders. That is fine. The skill is noticing which strand you are pulling at any moment.
+<<jump Done_PhysicalScience>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  PHILOSOPHY OF PROBABILITY   staff  Bostrom (lead), Boltzmann
+// ---------------------------------------------------------------------
+
+title: Gate_Probability
+tags: gate
+area: Probability
+---
+<<if $stamp_probability and not $playtest>>
+    <<jump Talk_Bostrom>>
+<<endif>>
+Bostrom: Welcome to the Philosophy of Probability. Here we ask how to reason when certainty is impossible.
+<<jump Quiz_Probability>>
+===
+
+title: Quiz_Probability
+tags: gate quiz
+area: Probability
+---
+Bostrom: Which question belongs here?
+-> How LIKELY is it that we are in a simulation?
+    Bostrom: Yes. Likelihood is my business.
+    <<if not $stamp_probability>>
+        <<set $stamp_probability to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the PROBABILITY stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Probability>>
+    <<else>>
+        <<jump Talk_Bostrom>>
+    <<endif>>
+-> Can I PROVE that I am not in a simulation?
+    Bostrom: Notice the difference. Proof is certainty, and certainty is Descartes's question in Epistemology. I deal in odds.
+    -> Then I should go to Epistemology.
+        <<set $route_to to "Epistemology">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Probability>>
+-> Are simulated tables real tables?
+    Bostrom: That is about what exists. Michael Heim, in Metaphysics.
+    -> Then I should go to Metaphysics.
+        <<set $route_to to "Metaphysics">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Probability>>
+===
+
+title: Menu_Probability
+tags: menu
+area: Probability
+---
+Bostrom: Who will you question?
+-> Nick Bostrom, on the simulation argument.
+    <<jump Talk_Bostrom>>
+-> Ludwig Boltzmann, on brains born from chaos.
+    <<jump Talk_Boltzmann>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Probability
+tags: done
+area: Probability
+---
+<<if $playtest>>
+    <<jump Menu_Probability>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Bostrom
+tags: npc
+area: Probability
+speaker: Bostrom
+book: Ch 5
+---
+Bostrom: Suppose future civilizations run huge numbers of simulations full of conscious beings. Then simulated minds would vastly outnumber unsimulated ones.
+Bostrom: If you cannot tell which kind you are, what should you believe?
+-> I am probably simulated.
+    <<set $is_sim_likely to true>>
+    Bostrom: That follows, if you accept the premises. If most minds like yours are simulated, and nothing marks you as special, bet with the majority.
+-> I am probably not simulated.
+    Bostrom: Then you must reject a premise. Which one?
+    -> Civilizations die out before they can build such simulations.
+        Bostrom: That is one sim blocker. Extinction.
+    -> They could, but they choose not to.
+        Bostrom: Another sim blocker. Perhaps they find it unethical, or boring.
+    -> Simulated beings would not be conscious.
+        Bostrom: That blocker depends on a question in Philosophy of Mind. If consciousness needs biology, simulated minds are empty.
+    -> We are special in some way.
+        Bostrom: Chalmers asks this too. But special people might be exactly the ones simulators choose to simulate.
+-> It is fifty-fifty. Either we are or we are not.
+    Bostrom: That treats two outcomes as equally likely just because there are two. By that logic, winning the lottery is fifty-fifty too.
+Bostrom: Chalmers weighs the sim blockers and concludes there is at least about a one-in-four chance that we are sims.
+Bostrom: Whatever the number, his real conclusion is this. We cannot know that we are not in a simulation.
+<<jump Done_Probability>>
+===
+
+title: Talk_Boltzmann
+tags: npc
+area: Probability
+speaker: Boltzmann
+book: Ch 24
+---
+Boltzmann: In a universe that lasts long enough, random fluctuations could briefly assemble a brain, complete with false memories of a whole life, floating in the void.
+Boltzmann: Could you be such a brain?
+-> No. That is absurdly unlikely.
+    Boltzmann: Each one is. But in a long enough universe, such brains might outnumber ordinary observers. Many physicists treat a theory that predicts that as broken.
+-> Maybe. I cannot rule it out.
+    Boltzmann: Then most of your beliefs about the world would be false.
+Boltzmann: Here is why this is worse than the simulation case. A simulation has a real, structured world behind your experience. A Boltzmann brain has nothing behind it but chaos.
+Boltzmann: Chalmers's simulation realism cannot rescue you here. What do you make of that?
+-> This is the hardest skeptical scenario of all.
+    Boltzmann: Chalmers agrees. It is one place where his anti-skeptical project runs out of road.
+-> Then the theory that predicts Boltzmann brains must be wrong.
+    Boltzmann: That is the usual response. Use the absurdity of the conclusion as evidence against the physics.
+Boltzmann: Notice that this question lives in two groves. The odds belong here. Whether you can know anything at all belongs to Descartes.
+<<jump Done_Probability>>
+===
+// =====================================================================
+// REGION  VALUE THEORY
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// AREA  VALUE THEORY, MISC  (WELL-BEING)   staff  Nozick (lead), Bentham
+// PhilPapers files Well-Being under Value Theory, Miscellaneous > Value
+// ---------------------------------------------------------------------
+
+title: Gate_WellBeing
+tags: gate
+area: WellBeing
+---
+<<if $stamp_wellbeing and not $playtest>>
+    <<jump Talk_Nozick>>
+<<endif>>
+Nozick: Welcome to the Well-Being grove of Value Theory. Here we ask what makes a life go well for the one living it.
+<<jump Quiz_WellBeing>>
+===
+
+title: Quiz_WellBeing
+tags: gate quiz
+area: WellBeing
+---
+Nozick: Which question belongs here?
+-> Can you live a good life in a virtual world?
+    Nozick: Yes. That is a question about well-being.
+    <<if not $stamp_wellbeing>>
+        <<set $stamp_wellbeing to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the WELL-BEING stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_WellBeing>>
+    <<else>>
+        <<jump Talk_Nozick>>
+    <<endif>>
+-> Is it wrong to lie to someone in VR?
+    Nozick: That is about right and wrong action, not about how a life goes. Kant keeps it, in Normative Ethics.
+    -> Then I should go to Normative Ethics.
+        <<set $route_to to "Normative">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_WellBeing>>
+-> Is my virtual body really mine?
+    Nozick: That is about minds and bodies. Clark, in the Philosophy of Mind.
+    -> Then I should go to Philosophy of Mind.
+        <<set $route_to to "Mind">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_WellBeing>>
+===
+
+title: Menu_WellBeing
+tags: menu
+area: WellBeing
+---
+Nozick: Who will you question?
+-> Robert Nozick, on the experience machine.
+    <<jump Talk_Nozick>>
+-> Jeremy Bentham, on pleasure as the measure of a life.
+    <<jump Talk_Bentham>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_WellBeing
+tags: done
+area: WellBeing
+---
+<<if $playtest>>
+    <<jump Menu_WellBeing>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Nozick
+tags: npc
+area: WellBeing
+speaker: Nozick
+book: Ch 17
+---
+Nozick: Imagine a machine that gives you any experiences you like. Writing a great novel, making a friend, climbing a mountain. Meanwhile you float in a tank.
+Nozick: Would you plug in for life?
+-> Yes.
+    <<set $is_hedonist to true>>
+    Nozick: Then you probably think what matters is how life feels from the inside. Bentham will be pleased with you.
+-> No.
+    Nozick: Most people agree. I thought we want to actually DO things, not just feel we do. And to be a certain kind of person, in contact with reality.
+-> Only if real people could be there with me.
+    Nozick: Good. Chalmers notes that ordinary VR is not my machine. You know you are in it, and the other avatars can be real people.
+Nozick: Chalmers asks what good things a virtual life would be missing. Which worries you most?
+-> Real relationships.
+    Nozick: In a shared virtual world, your friends are real people behind their avatars. Chalmers thinks friendship survives.
+-> Real achievements.
+    Nozick: Winning a hard virtual race is still winning it. The skill and effort are real, even if the track is digital.
+-> Contact with the real world.
+    Nozick: Chalmers would ask whether virtual worlds ARE real worlds. If he is right in Metaphysics, nothing is missing here.
+Nozick: Notice your question was about what is good FOR YOU. Not about what is right. Keep that distinction when you walk east.
+<<jump Done_WellBeing>>
+===
+
+title: Talk_Bentham
+tags: npc
+area: WellBeing
+speaker: Bentham
+book: Ch 17
+---
+Bentham: Pleasure and pain. These alone are good and bad in themselves. If a virtual life feels just as pleasant as a physical one, is it just as good?
+-> Yes.
+    <<set $is_hedonist to true>>
+    Bentham: Then you are a hedonist about well-being, as I am. Nozick's machine holds no terror for you.
+-> No. Some pleasures are higher than others.
+    Bentham: That was my student Mill's correction. Quality, not just quantity. But a virtual concert can be a high pleasure too.
+-> No. Because none of it is real.
+    Bentham: The pleasure is real, whatever caused it. And Chalmers argues virtual objects are real digital objects, so the causes are real as well.
+Bentham: A warning before you leave. I am also a moral theorist. The greatest happiness of the greatest number is a theory of right ACTION.
+Bentham: That belongs in Normative Ethics. Here I speak only of what makes a life go well for the one who lives it.
+<<jump Done_WellBeing>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  NORMATIVE ETHICS   staff  Kant (lead), Aristotle
+// ---------------------------------------------------------------------
+
+title: Gate_Normative
+tags: gate
+area: Normative
+---
+<<if $stamp_normative and not $playtest>>
+    <<jump Talk_Kant>>
+<<endif>>
+Kant: Welcome to Normative Ethics. Here we ask what makes actions right or wrong, and what kind of person we ought to be.
+<<jump Quiz_Normative>>
+===
+
+title: Quiz_Normative
+tags: gate quiz
+area: Normative
+---
+Kant: Which question belongs here?
+-> What makes ANY action right or wrong?
+    Kant: Yes. That is the general question.
+    <<if not $stamp_normative>>
+        <<set $stamp_normative to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the NORMATIVE ETHICS stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Normative>>
+    <<else>>
+        <<jump Talk_Kant>>
+    <<endif>>
+-> Is a virtual life as good as a physical one?
+    Kant: Good for the one living it? That is well-being. Nozick, in the grove behind you.
+    -> Then I should go to Well-Being.
+        <<set $route_to to "WellBeing">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Normative>>
+-> Should a virtual world be a democracy?
+    Kant: That is about how a society should be governed. Hobbes and Rawls, in Social and Political Philosophy.
+    -> Then I should go to Social and Political Philosophy.
+        <<set $route_to to "Political">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Normative>>
+===
+
+title: Menu_Normative
+tags: menu
+area: Normative
+---
+Kant: Who will you question?
+-> Immanuel Kant, on duty and treating persons as ends.
+    <<jump Talk_Kant>>
+-> Aristotle, on virtue and character.
+    <<jump Talk_Aristotle>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Normative
+tags: done
+area: Normative
+---
+<<if $playtest>>
+    <<jump Menu_Normative>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Kant
+tags: npc
+area: Normative
+speaker: Kant
+book: Ch 18
+---
+Kant: Act only on a rule you could will everyone to follow. Treat persons never merely as means.
+Kant: Now. A scientist builds a simulation full of conscious beings, then infects them with a disease to test cures. Is that permissible?
+-> If the results save more lives than they cost, yes.
+    <<set $is_consequentialist to true>>
+    Kant: That is consequentialist reasoning. Bentham's family. Only outcomes count.
+    Kant: I say those beings are being used merely as means. Their suffering is not a price you may pay with their lives.
+-> No. They are persons being used.
+    <<set $is_deontologist to true>>
+    Kant: Then you reason as I do. Some things may not be done to persons, whatever the payoff.
+-> They are not real, so anything goes.
+    Kant: Are you sure? That is a claim about moral status, about which beings count at all. Singer, in Applied Ethics, will press you on it.
+Kant: Chalmers lays out three families of ethical theory. Outcomes, duties, and virtues. You have now met two. Aristotle has the third.
+<<jump Done_Normative>>
+===
+
+title: Talk_Aristotle
+tags: npc
+area: Normative
+speaker: Aristotle
+book: Ch 18, Ch 17
+---
+Aristotle: Ethics is not only rules and outcomes. It is character. What kind of person are you becoming?
+Aristotle: Suppose you spend years in a virtual world where cruelty has no consequences. What happens to you?
+-> Nothing. It is only a game.
+    Aristotle: Is it? We become what we repeatedly do. Practise cruelty and you train yourself in it.
+-> I would probably become crueler.
+    <<set $is_virtue_ethicist to true>>
+    Aristotle: Then you see why virtue ethics matters in virtual worlds. What we do there builds who we are everywhere.
+-> It depends on whether the others are real people.
+    Aristotle: That matters a great deal for harm. But even with no one harmed, your character is still being shaped.
+Aristotle: I also said the good life is a life of flourishing, of exercising your best capacities. Could a virtual life be a flourishing one?
+-> Yes, if it calls on real skill, friendship, and thought.
+    Aristotle: Then you have joined my view to Chalmers's. Notice that this last question belongs to Well-Being. The groves overlap.
+-> No. Flourishing needs the physical world.
+    Aristotle: Then tell Nozick, in the Well-Being grove. He will want to know what exactly is missing.
+<<jump Done_Normative>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  APPLIED ETHICS   staff  Singer (lead), Slater
+// ---------------------------------------------------------------------
+
+title: Gate_Applied
+tags: gate
+area: Applied
+---
+<<if $stamp_applied and not $playtest>>
+    <<jump Talk_Singer>>
+<<endif>>
+Singer: Welcome to Applied Ethics. Here we take specific moral questions. In this grove, the ethics of simulations and virtual worlds.
+<<jump Quiz_Applied>>
+===
+
+title: Quiz_Applied
+tags: gate quiz
+area: Applied
+---
+Singer: Which question belongs here?
+-> Do simulated people deserve moral consideration?
+    Singer: Yes. That is a specific moral question.
+    <<if not $stamp_applied>>
+        <<set $stamp_applied to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the APPLIED ETHICS stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Applied>>
+    <<else>>
+        <<jump Talk_Singer>>
+    <<endif>>
+-> What makes actions right in general?
+    Singer: That is the general theory. Kant, in Normative Ethics.
+    -> Then I should go to Normative Ethics.
+        <<set $route_to to "Normative">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Applied>>
+-> Could a simulated person be conscious?
+    Singer: That is the question my answer depends on, but it is about minds. Nagel, in the Philosophy of Mind.
+    -> Then I should go to Philosophy of Mind.
+        <<set $route_to to "Mind">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Applied>>
+===
+
+title: Menu_Applied
+tags: menu
+area: Applied
+---
+Singer: Who will you question?
+-> Peter Singer, on which beings count morally.
+    <<jump Talk_Singer>>
+-> Mel Slater, on whether virtual actions can harm.
+    <<jump Talk_Slater>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Applied
+tags: done
+area: Applied
+---
+<<if $playtest>>
+    <<jump Menu_Applied>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Singer
+tags: npc
+area: Applied
+speaker: Singer
+book: Ch 18, Ch 19
+---
+Singer: What gives a being moral status? What makes it count?
+-> Being human.
+    Singer: Then would a conscious alien not count? Or a conscious simulated person who thinks and feels exactly as you do?
+-> Being able to feel, to suffer and enjoy.
+    <<set $is_sentientist to true>>
+    Singer: That is my view. Chalmers agrees that consciousness is what matters most. If simulated beings are conscious, their lives matter as much as ours.
+-> Being intelligent.
+    Singer: Then would a brilliant machine that feels nothing matter more than a baby who feels a great deal?
+Singer: Now imagine you are the one running a simulation full of conscious beings. What do you owe them?
+-> Nothing. I made them.
+    Singer: Parents make children too. Making a being does not give you the right to do anything to it.
+-> Not to cause them pointless suffering.
+    Singer: A good start. And is switching the simulation off a kind of killing?
+    -> Yes, if they are conscious.
+        Singer: Then simulators carry a heavy responsibility. Leibniz, in the Philosophy of Religion, faced the same problem about God.
+    -> No. They would not feel it.
+        Singer: Perhaps. But they would lose all the future life they could have had.
+-> The truth about their world, if they ask for it.
+    Singer: An interesting duty. Chalmers wonders whether creators owe their creations honesty.
+<<jump Done_Applied>>
+===
+
+title: Talk_Slater
+tags: npc
+area: Applied
+speaker: Slater
+book: Ch 19, Ch 11
+---
+Slater: I study people in VR. In one experiment, people were told to give shocks to a virtual learner. Many did, and they felt real distress, even knowing it was not real.
+Slater: Can actions in a virtual world cause real harm?
+-> No. Nothing real happened.
+    Slater: The distress was real. And in shared worlds, other avatars are controlled by real people with real feelings.
+-> Yes.
+    Slater: Chalmers agrees. Insulting someone's avatar, stealing their virtual goods, harassing them. These harm the real people behind them.
+Slater: In LambdaMOO, one of the first text-based virtual worlds, a user hijacked other people's characters and made them act out degrading scenes. The real users were deeply hurt.
+Slater: What should happen to him?
+-> Nothing. It was only words on a screen.
+    Slater: The people hurt by it did not think so. And words on a screen are how most harassment happens today.
+-> He should be banished from the world.
+    Slater: That is what happened. But WHO had the authority to banish him? The owners, or the users?
+    Slater: Now you are asking about power and legitimacy. That is Social and Political Philosophy. Hobbes waits next door.
+-> The community should decide together.
+    Slater: Then you are already thinking about democracy in virtual worlds. Rawls and Hobbes argue about it next door.
+<<jump Done_Applied>>
+===
+
+// ---------------------------------------------------------------------
+// AREA  SOCIAL AND POLITICAL PHILOSOPHY   staff  Hobbes (lead), Mozi, Rawls
+// ---------------------------------------------------------------------
+
+title: Gate_Political
+tags: gate
+area: Political
+---
+<<if $stamp_political and not $playtest>>
+    <<jump Talk_Hobbes>>
+<<endif>>
+Hobbes: Welcome to Social and Political Philosophy. Here we ask how societies should be organized, and who has the right to rule.
+<<jump Quiz_Political>>
+===
+
+title: Quiz_Political
+tags: gate quiz
+area: Political
+---
+Hobbes: Which question belongs here?
+-> Who should make the rules in a virtual world?
+    Hobbes: Yes. Authority and legitimacy are my subject.
+    <<if not $stamp_political>>
+        <<set $stamp_political to true>>
+        <<set $areas_visited to $areas_visited + 1>>
+        Your passport receives the SOCIAL AND POLITICAL PHILOSOPHY stamp.
+    <<endif>>
+    <<if $playtest>>
+        <<jump Menu_Political>>
+    <<else>>
+        <<jump Talk_Hobbes>>
+    <<endif>>
+-> Is it wrong to steal a virtual sword?
+    Hobbes: That is one specific wrong. Applied Ethics, next door.
+    -> Then I should go to Applied Ethics.
+        <<set $route_to to "Applied">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Political>>
+-> Is my phone part of my mind?
+    Hobbes: That is about minds. Clark, in the Philosophy of Mind.
+    -> Then I should go to Philosophy of Mind.
+        <<set $route_to to "Mind">>
+        <<jump Route_Go>>
+    -> Let me try again.
+        <<jump Quiz_Political>>
+===
+
+title: Menu_Political
+tags: menu
+area: Political
+---
+Hobbes: Who will you question?
+-> Mozi, on a world without rulers.
+    <<jump Talk_Mozi>>
+-> Thomas Hobbes, on the social contract.
+    <<jump Talk_Hobbes>>
+-> John Rawls, on justice behind a veil of ignorance.
+    <<jump Talk_Rawls>>
+-> Return to Socrates.
+    <<jump Talk_Socrates>>
+===
+
+title: Done_Political
+tags: done
+area: Political
+---
+<<if $playtest>>
+    <<jump Menu_Political>>
+<<else>>
+    <<stop>>
+<<endif>>
+===
+
+title: Talk_Mozi
+tags: npc
+area: Political
+speaker: Mozi
+book: Ch 19
+---
+Mozi: Long before Hobbes, I described a time with no laws and no rulers. Each person followed their own idea of what was right. The result was conflict.
+Mozi: A new virtual world opens tomorrow with no rules at all. What happens?
+-> People cooperate naturally.
+    Mozi: Some early virtual worlds hoped so. Most soon needed rules and someone to enforce them.
+-> Chaos, until someone sets rules.
+    Mozi: Then you agree with me, and with Hobbes, about the cost of anarchy.
+Mozi: So someone must set the rules. Who?
+-> The company that owns the servers.
+    Mozi: That is rule by the owner. Effective, but answerable to no one. Hobbes will tell you why people accept it anyway.
+-> The users, together.
+    Mozi: That is democracy. Rawls will ask you what rules they should choose.
+<<jump Done_Political>>
+===
+
+title: Talk_Hobbes
+tags: npc
+area: Political
+speaker: Hobbes
+book: Ch 19
+---
+Hobbes: Without a power to keep everyone in check, life becomes a war of all against all. Short, poor, and miserable.
+Hobbes: So people give up some freedom to a sovereign, in exchange for peace. That is the social contract.
+Hobbes: In a virtual world, the company is sovereign. It can change the laws of physics, or delete you. Is its rule legitimate?
+-> Yes. It is their server.
+    Hobbes: That is corporate autocracy. Chalmers worries about virtual worlds run this way.
+-> Only if the users consent to the rules.
+    <<set $is_contractarian to true>>
+    Hobbes: Then you are a social contract theorist. But clicking "I agree" on terms you never read. Is that consent?
+-> No. Users should govern themselves.
+    Hobbes: Some worlds have tried. LambdaMOO handed power to its users for a time. EVE Online has an elected player council.
+Hobbes: Notice what we have been doing. Not asking whether one act is wrong, but who has the right to decide. That is politics.
+<<jump Done_Political>>
+===
+
+title: Talk_Rawls
+tags: npc
+area: Political
+speaker: Rawls
+book: Ch 19
+---
+Rawls: Choose the rules for a new virtual world from behind a veil of ignorance. You do not know whether you will be rich or poor, skilled or clumsy, early or late to join.
+Rawls: What rules do you choose?
+-> A total free market. May the best player win.
+    Rawls: Would you choose that not knowing whether you would be a weak player who joins late?
+    <<jump Talk_Rawls>>
+-> Equal basic freedoms, and inequalities only when they help the worst off.
+    <<set $is_rawlsian to true>>
+    Rawls: That is my answer, justice as fairness.
+-> Everyone gets exactly the same.
+    Rawls: Then no one may earn more, even if allowing it would make everyone better off. Is that fair to the worst off?
+Rawls: Following Hume, I said justice is needed because goods are scarce. In a virtual world, goods can be copied without limit.
+Rawls: If nothing is scarce, do we still need justice?
+-> No. Everyone can have everything.
+    Rawls: But status, attention, and prime virtual land can still be scarce. And companies can create scarcity on purpose.
+-> Yes. Scarcity never disappears completely.
+    Rawls: Chalmers thinks the same. Virtual worlds change WHAT is scarce. They do not abolish justice.
+<<jump Done_Political>>
+===

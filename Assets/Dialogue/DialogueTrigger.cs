@@ -34,6 +34,8 @@ public class DialogueTrigger : MonoBehaviour
     };
     [Tooltip("The node that runs once Socrates has sat down at the plane tree.")]
     [SerializeField] private string arrivalNode = "PlaneTree";
+    [Tooltip("Optional. Runs when the player walks away from Socrates after the plane-tree conversation and comes back. Set to Talk_Socrates to open the Reality+ map. Leave blank to disable.")]
+    [SerializeField] private string revisitNode = "";
 
     [Header("Player")]
     [Tooltip("Drag the object that actually MOVES when you walk - the one carrying your camera and movement script. Leave empty to fall back to tag lookup.")]
@@ -109,6 +111,7 @@ public class DialogueTrigger : MonoBehaviour
     private bool waitingForDialogue;
     private float dialogueGrace;
     private bool hasCalledOut;
+    private bool revisitArmed;
 
     private Vector3 desiredMove;
 
@@ -176,7 +179,7 @@ public class DialogueTrigger : MonoBehaviour
             case SocState.Walking:     TickWalking(dt);     break;
             case SocState.Checkpoint:  TickCheckpoint(dt);  break;
             case SocState.SittingDown: TickSittingDown(dt); break;
-            case SocState.Arrived:     FaceThePlayer(dt);   break;
+            case SocState.Arrived:     FaceThePlayer(dt); TickArrived(); break;
         }
 
         ApplyMotion(dt);
@@ -342,6 +345,23 @@ public class DialogueTrigger : MonoBehaviour
         {
             EnterState(SocState.Arrived);
             RunNode(arrivalNode);
+        }
+    }
+
+    private void TickArrived()
+    {
+        // Revisits: once the player has walked off and returns, Socrates speaks again.
+        if (string.IsNullOrEmpty(revisitNode) || player == null || waitingForDialogue) return;
+
+        float d = FlatDistance(transform.position, player.position);
+        if (d > triggerRadius + 2f)
+        {
+            revisitArmed = true;
+        }
+        else if (revisitArmed && d <= triggerRadius)
+        {
+            revisitArmed = false;
+            RunNode(revisitNode);
         }
     }
 
