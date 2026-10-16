@@ -22,7 +22,7 @@
 // In this scene, Socrates, walking with the player to the "Plane tree", sets the scene for the entire game. This scene is based on Plato's Phaedrus where Socrates questions the young Phaedrus. At first it appears that the questioning is about the true nature of love, but by the end of the dialogue, we come to discover that what Socrates means by love is "love of Wisdom", the highest form of love their is. Along the way, Socrates addresses questions about what "good" philosophy looks like, is it written? Spoken? Sung? In the end, true philosophy isn't one of these things but rather a desire to discover truth whatever that may be. This is good for this project since we are using games to discover truth and thereby using video games to do real philosophy.
 
 title: technology
-position: 12,12
+position: -319,-678
 ---
 Socrates: Who goes there?! Come over this way and let me see who you are! Please!!!
 ===
@@ -47,7 +47,7 @@ You: That sounds like an excellent idea Socrates. You are correct, I am barefoot
 title: Walk_Checkpoint_1
 position: 975,12
 ---
-Chalmers: So as you know, I first wanted to ask you about love since you have learned so much from our dear friend and who happens to be the premier expert of lov, and who also happens to be there in your pocket. However, we've already agreed that we shall pepper him with our questions as we bathe our feet in the cool grass beneath the plane tree flowing. Let me do something else instead. 
+Socrates: So as you know, I first wanted to ask you about love since you have learned so much from our dear friend and who happens to be the premier expert of lov, and who also happens to be there in your pocket. However, we've already agreed that we shall pepper him with our questions as we bathe our feet in the cool grass beneath the plane tree flowing. Let me do something else instead. 
 As we begin our journey, let me first ask you something more basic. Now you are the perfect victim here, for I know of a young student who once heard a speech. This young student then pestered the speaker to repeat the speech not only once, but no, multiple times a hundred times! This young student then went and found a copy of the very same speech, since hearing it multiple times a hundred was not enough for him. After getting his hands on the speech, he then went for a walk outside of the Athenian walls where he sought out solitude so that he could rehearse the speech to himself. 
 Unfortunately he was discovered by one who suffers from a love of discourse and when he found him, he accosted him and forced him to share his speech he so coveted. Now Phaedrus, in the end you are going to speak anyway, so please, tell me, before we discuss the true nature of love, what form should our discussion of love take?
 -> You: (Looking around) What is the proper way to speak of love my dear Socrates? How do you mean?!
