@@ -9,10 +9,11 @@ How to read this file:
 - **Who**: `auto` = a scheduled run may pick it up · `jim` = needs the Unity Editor, a headset, an account, or a judgment call
 - **Size**: `S` fits in one run. Anything `M` or `L` must be split into `S` tasks before a scheduled run touches it.
 - Scheduled runs take the **first** `todo / auto / S` task whose dependencies are `done`. Jim reorders by moving lines.
+- **Issue**: each track (and each bug) has a GitHub issue with one checkbox per task. Runs tick the box when a task reaches `review`; Jim checks it off in Notion when he merges it, and closes the issue when every box is done.
 
 ---
 
-## Track 1 — Shared walk-and-talk system
+## Track 1 — Shared walk-and-talk system (issue #1)
 
 The goal: every philosopher walks with the player the way Socrates and the Chalmers figure already do, and can hand the player off to another philosopher depending on their choices.
 
@@ -25,17 +26,17 @@ The goal: every philosopher walks with the player the way Socrates and the Chalm
 | W5 | todo | jim | S | In Unity: bake a NavMesh for the forest, run the W4 menu item on Socrates, play-test the plane-tree walk. Report anything off in the Notes column below. | W4 | Socrates walk behaves as before |
 | W6 | todo | jim | S | Same as W5 for the Chalmers figure; then delete or disable the old walker scripts. | W5 | Both figures run on the shared system |
 
-## Track 2 — Spread the philosophers out and connect them
+## Track 2 — Spread the philosophers out and connect them (issue #2)
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
 | P1 | todo | jim | S | Decide the roster: which 2–3 philosophers stand in each area (Metaphysics, Epistemology, Value Theory), and which pairs should be able to hand off to each other. A rough list in this file is enough. | — | Roster table filled in below |
 | P2 | todo | auto | S | From the roster, write `Docs/layout-plan.md`: suggested distance between each connected pair, sized so the walk lasts about as long as the dialogue segment spoken during it (estimate words ÷ reading speed). | P1 | Plan lists every edge with a target distance in metres |
 | P3 | todo | jim | M | Place the philosophers in the scene following the layout plan. | P2, W6 | All figures placed and reachable on the NavMesh |
-| P4 | todo | auto | S | Write a handoff dialogue node for ONE philosopher pair (first edge in the roster): the player's choice decides whether the walk continues to philosopher B or stays. Follows existing conventions in `technology.yarn`. No copyrighted text. | W3, P1 | Node added in its own `.yarn` file; passes Y1 validation |
+| P4 | todo | auto | S | Write a handoff dialogue node for ONE philosopher pair (first edge in the roster): the player's choice decides whether the walk continues to philosopher B or stays. Follows existing conventions in `technology.yarn`. No copyrighted text. | W3, P1, Y1 | Node added in its own `.yarn` file; passes Y1 validation |
 | P5 | todo | auto | S | Repeat P4 for the next edge in the roster. (A run copies this row for each remaining edge.) | P4 | — |
 
-## Track 3 — Carryable map / study-guide notebook
+## Track 3 — Carryable map / study-guide notebook (issue #3)
 
 Students' assignments cited the examples used in the game, so the map should double as a record of what they encountered.
 
@@ -48,7 +49,7 @@ Students' assignments cited the examples used in the game, so the map should dou
 | M5 | todo | jim | S | In Unity: capture or draw the map image, create the registry asset, wire up the UI. | M3 | Map opens in play mode |
 | M6 | todo | auto | S | Write a "notebook export" feature: one button that copies the notebook as plain text so students can paste it into their notes. | M3 | — |
 
-## Track 4 — Platform
+## Track 4 — Platform (issues #4 web, #5 Quest, #6 privacy/support, #7 Roblox)
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
@@ -59,13 +60,25 @@ Students' assignments cited the examples used in the game, so the map should dou
 | D5 | todo | jim | M | Add the Meta XR / OpenXR packages and a VR rig; first Quest build to a private release channel for testers. | D3 | Build runs on a Quest |
 | D6 | todo | jim | L | Roblox edition — **parked**. Full rewrite in Luau; nothing carries over except design and dialogue text. Revisit after the Quest build. | — | — |
 
-## Track 5 — Tooling that makes the runs safer
+## Track 5 — Tooling that makes the runs safer (issue #8)
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
 | Y1 | todo | auto | S | Write `Tools/validate_yarn.py`: checks every `.yarn` file for missing jump targets, orphaned nodes, duplicate node titles, and the colon-dash parser issue found earlier. Runs with plain Python, no Unity needed. | — | Script runs clean on current dialogue or reports real issues |
 
 **Suggested first order:** Y1 → W1 → W2 → W3 → W4 → D1 → D3 → (Jim: P1, W5) → M1 …
+
+## Track 6 — Bugs
+
+Each bug has its own GitHub issue written with the bug template.
+
+| ID | Status | Who | Size | Task | Depends on | Done when |
+|---|---|---|---|---|---|---|
+| X1 | todo | jim | S | Bug #9 (B1): play-test the Chalmers walk and decide how `state_ambivalence` should end, so `real_value_arrival` plays once. Jim's dialogue, so runs don't edit it. | — | Arrival plays once |
+| X2 | todo | auto | S | Bug #10 (B2): in `DialogueTrigger.OnGUI`, also require `Debug.isDebugBuild` so the debug overlay never shows in release builds. Code only; no scene edits. | — | Overlay hidden in release builds |
+| X3 | todo | auto | S | Bug #11 (B3): empty `DialogueTrigger`'s default node names and log a warning naming any required node field left blank. Low priority; skip (mark `done`, note "superseded") if W6 is already `done`. | — | No default points at a missing node |
+| X4 | todo | auto | S | Bug #12 (B4): `PhilosopherNPC` reads talk input from an `InputActionReference` (keyboard E, gamepad south, XR primary button) with the current keys as fallback, plus an optional on-screen Talk button for touch; prompt names the right control. | — | Talk works without a keyboard; setup steps in the header comment |
+| X5 | todo | auto | S | Bug #13 (B5): add `New Terrain*.asset binary` under the `LightingData.asset binary` line in `.gitattributes`. | — | Fresh clone shows a clean `git status` |
 
 ---
 

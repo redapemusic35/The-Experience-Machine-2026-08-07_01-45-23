@@ -46,6 +46,7 @@ WEEKLY_RUN_CAP  = 2
    - If a check fails and one fix attempt doesn't solve it, stop: set the task to `blocked`, write what went wrong in the Notes column, commit what you have.
 5. Mark the task `review` (or `blocked`). If the task finishes a whole track step that needs Jim, say which `jim` task is now unblocked.
 6. Commit on `claude/auto` with message `auto: <ID> <short title>`. Push the branch.
+7. Update the task's GitHub issue (the number is in the track heading, or in the task text for bugs). If the task reached `review`, tick its checkbox in the issue's **Tasks** list (edit the issue body; change only that one `- [ ]` to `- [x]`). If it is `blocked`, leave the box unticked and add one short comment saying why. Never close, reopen, retitle or relabel issues; Jim closes them after merging.
 
 ## 3. Log and report
 
