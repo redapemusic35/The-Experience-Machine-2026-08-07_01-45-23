@@ -65,6 +65,7 @@
 // =====================================================================
 
 title: Map_Start
+position: 6103,1377
 tags: hub
 area: Hub
 ---
@@ -110,16 +111,17 @@ area: Hub
 <<declare $is_rawlsian = false>>
 <<set $met_socrates to true>>
 Socrates: Ah, a visitor. Walk with me a while.
-Socrates: The land ahead is a map of questions. Every grove holds a different kind of question.
-Socrates: To the north lies Metaphysics and Epistemology, where we ask what is real and how we know it.
+Socrates: Behold, the land lies before you. Could you tell me what you think this land is? Questions, questions and possibilities, of many many different kinds of questions. Every grove is different, every grove holds new questions, new possibilities, and not merely a few impossibilities.
+Socrates: Look over there, to the north of us, do you see trees? Of course you do. There are trees to the north of us, but also to the north of us lies Metaphysics and Epistemology.
 Socrates: To the east lies Value Theory, where we ask what is good, what is right, and what is just.
-Socrates: To the west lies Science, Logic, and Mathematics, where we ask what physics, computers, and probability tell us.
+Socrates: Over there to the west lies Science, Logic, and Mathematics, where we ask about physics, computers, and probability, and what tell us.
 Socrates: Most people arrive carrying one question that troubles them. A singer once put it simply. Is this the real life, or is it just fantasy?
 Socrates: My task is to help you discover what KIND of question you are really asking. Then I will send you to the people who can test it.
 <<jump Hub_Question>>
 ===
 
 title: Talk_Socrates
+position: 6136,1152
 tags: hub
 area: Hub
 ---
@@ -156,6 +158,7 @@ Socrates: What would you like to do?
 ===
 
 title: Hub_Question
+position: 6213,1602
 tags: hub
 area: Hub
 book: Part 1, Ch 1-2
@@ -174,6 +177,7 @@ Socrates: Tell me then. What is the nature of reality?
 ===
 
 title: Hub_Relativist
+position: 3788,277
 tags: hub diagnosis
 area: Hub
 ---
@@ -189,6 +193,7 @@ Socrates: Are you a relativist then?
 ===
 
 title: Hub_Relativist_Choice
+position: 3778,502
 tags: hub diagnosis
 area: Hub
 ---
@@ -218,6 +223,7 @@ Socrates: Which of these is closest to what you meant?
 ===
 
 title: Hub_Physics
+position: 5749,502
 tags: hub diagnosis
 area: Hub
 ---
@@ -243,6 +249,7 @@ Socrates: Physics, then. Are you a physicalist? Do you think only physical thing
 ===
 
 title: Hub_Simulation
+position: 6260,502
 tags: hub diagnosis
 area: Hub
 book: Ch 2
@@ -268,6 +275,7 @@ Socrates: A simulation! A world running on a computer in the next universe up. N
 ===
 
 title: Hub_God
+position: 6781,502
 tags: hub diagnosis
 area: Hub
 ---
@@ -289,10 +297,11 @@ Socrates: Then let me ask. Must the creator be all-good and all-powerful? Or wou
 ===
 
 title: Hub_OtherQuestions
+position: 4099,277
 tags: hub sorting
 area: Hub
 ---
-Socrates: Then tell me your question, and you will tell ME which kind it is.
+Socrates: Pick a question from the options below, and you will tell ME which kind it is.
 -> Could I be conscious inside a computer?
     <<jump Sort_Conscious>>
 -> Can I live a good life in a virtual world?
@@ -310,6 +319,7 @@ Socrates: Then tell me your question, and you will tell ME which kind it is.
 ===
 
 title: Sort_Conscious
+position: 4019,502
 tags: hub sorting
 area: Hub
 ---
@@ -327,6 +337,7 @@ Socrates: Is that a question about what is good, about what minds are, or about 
 ===
 
 title: Sort_GoodLife
+position: 4319,502
 tags: hub sorting
 area: Hub
 ---
@@ -344,6 +355,7 @@ Socrates: What kind of question is that? About right and wrong action, about wha
 ===
 
 title: Sort_Rules
+position: 4609,502
 tags: hub sorting
 area: Hub
 ---
@@ -358,6 +370,7 @@ Socrates: Who should rule. Is that ethics of the individual, or politics of the 
 ===
 
 title: Sort_Tree
+position: 4899,502
 tags: hub sorting
 area: Hub
 ---
@@ -376,6 +389,7 @@ Socrates: You are asking what a word refers to. Is that about language, about mi
 ===
 
 title: Sort_Illusion
+position: 5179,502
 tags: hub sorting
 area: Hub
 ---
@@ -391,6 +405,7 @@ Socrates: An illusion is a mismatch between how things seem and how they are. Wh
 ===
 
 title: Sort_Hurt
+position: 5469,502
 tags: hub sorting
 area: Hub
 ---
@@ -405,6 +420,7 @@ Socrates: Is that a question about what makes actions right IN GENERAL, or about
 ===
 
 title: Sort_Dust
+position: 6039,502
 tags: hub sorting
 area: Hub
 ---
@@ -423,6 +439,7 @@ Socrates: A strange question! What would answer it, physics, or an account of wh
 // ---------------------------------------------------------------------
 
 title: Route_Go
+position: 5469,887
 tags: routing
 area: Hub
 ---
@@ -462,6 +479,7 @@ area: Hub
 ===
 
 title: Route_Jump
+position: 99,12
 tags: routing
 area: Hub
 ---
@@ -502,6 +520,7 @@ area: Hub
 // ---------------------------------------------------------------------
 
 title: Gate_Metaphysics
+position: 7418,270
 tags: gate
 area: Metaphysics
 ---
@@ -514,6 +533,7 @@ Heim: Not how you KNOW it is real. That is next door, in Epistemology. Let me ch
 ===
 
 title: Quiz_Metaphysics
+position: 7385,502
 tags: gate quiz
 area: Metaphysics
 ---
@@ -547,6 +567,7 @@ Heim: Which of these questions belongs here?
 ===
 
 title: Menu_Metaphysics
+position: 7405,887
 tags: menu
 area: Metaphysics
 ---
@@ -562,6 +583,7 @@ Heim: Three of us work this grove. Who will you question?
 ===
 
 title: Done_Metaphysics
+position: 7602,1827
 tags: done
 area: Metaphysics
 ---
@@ -573,6 +595,7 @@ area: Metaphysics
 ===
 
 title: Talk_Heim
+position: 7942,1152
 tags: npc
 area: Metaphysics
 speaker: Heim
@@ -599,6 +622,7 @@ Heim: Put on a headset. A virtual kitten walks up and purrs. Is the kitten real?
 ===
 
 title: Chalmers_Checklist
+position: 8182,1377
 tags: npc
 area: Metaphysics
 speaker: Heim
@@ -623,6 +647,7 @@ Heim: Which of these does the virtual kitten pass?
 ===
 
 title: Chalmers_Relativism
+position: 7882,1377
 tags: npc diagnosis
 area: Metaphysics
 speaker: Heim
@@ -646,6 +671,7 @@ Heim: Are you a relativist then? Is the kitten real for some people and not for 
 ===
 
 title: Chalmers_SimRealism
+position: 8132,1602
 tags: npc
 area: Metaphysics
 speaker: Heim
@@ -665,6 +691,7 @@ Heim: Now scale up. Suppose your whole life has been inside a perfect simulation
 ===
 
 title: Talk_Berkeley
+position: 7602,1152
 tags: npc
 area: Metaphysics
 speaker: Berkeley
@@ -698,6 +725,7 @@ Berkeley: Tell me. Does the tree in the college quad exist when no one is lookin
 ===
 
 title: Berkeley_Relativism
+position: 7602,1377
 tags: npc diagnosis
 area: Metaphysics
 speaker: Berkeley
@@ -712,6 +740,7 @@ speaker: Berkeley
 ===
 
 title: Talk_Plato
+position: 7371,1602
 tags: npc
 area: Metaphysics
 speaker: Plato
@@ -742,6 +771,7 @@ Plato: Imagine a Garden of Eden, where roses were perfectly, truly red. Have we 
 // ---------------------------------------------------------------------
 
 title: Gate_Epistemology
+position: 9790,277
 tags: gate
 area: Epistemology
 ---
@@ -753,6 +783,7 @@ Descartes: Welcome to Epistemology. Here we ask what you know, how you know it, 
 ===
 
 title: Quiz_Epistemology
+position: 9756,502
 tags: gate quiz
 area: Epistemology
 ---
@@ -786,6 +817,7 @@ Descartes: Which question belongs to me?
 ===
 
 title: Menu_Epistemology
+position: 9776,887
 tags: menu
 area: Epistemology
 ---
@@ -801,6 +833,7 @@ Descartes: Who will you question?
 ===
 
 title: Done_Epistemology
+position: 9873,1602
 tags: done
 area: Epistemology
 ---
@@ -812,6 +845,7 @@ area: Epistemology
 ===
 
 title: Talk_Descartes
+position: 10244,1152
 tags: npc
 area: Epistemology
 speaker: Descartes
@@ -843,6 +877,7 @@ Descartes: Where, if anywhere, does that argument go wrong?
 ===
 
 title: Descartes_Deepfake
+position: 10244,1377
 tags: npc
 area: Epistemology
 speaker: Descartes
@@ -861,6 +896,7 @@ Descartes: You watch a video of a leader declaring war. How do you know it is re
 ===
 
 title: Talk_Zhuangzi
+position: 9964,1377
 tags: npc
 area: Epistemology
 speaker: Zhuangzi
@@ -891,6 +927,7 @@ Zhuangzi: Then I woke. Now I wonder. Am I Zhuangzi who dreamt he was a butterfly
 ===
 
 title: Talk_Moore
+position: 9743,1377
 tags: npc
 area: Epistemology
 speaker: Moore
@@ -924,6 +961,7 @@ Moore: Now a harder case. Is it obvious that we are NOT in a simulation?
 // ---------------------------------------------------------------------
 
 title: Gate_Mind
+position: 493,277
 tags: gate
 area: Mind
 ---
@@ -935,6 +973,7 @@ Elisabeth: Welcome to the Philosophy of Mind. I am Elisabeth of Bohemia. Here we
 ===
 
 title: Quiz_Mind
+position: 611,502
 tags: gate quiz
 area: Mind
 ---
@@ -968,6 +1007,7 @@ Elisabeth: Which question belongs here?
 ===
 
 title: Menu_Mind
+position: 864,887
 tags: menu
 area: Mind
 ---
@@ -983,6 +1023,7 @@ Elisabeth: Who will you question?
 ===
 
 title: Done_Mind
+position: 851,1377
 tags: done
 area: Mind
 ---
@@ -994,6 +1035,7 @@ area: Mind
 ===
 
 title: Talk_Elisabeth
+position: 551,1152
 tags: npc
 area: Mind
 speaker: Elisabeth
@@ -1021,6 +1063,7 @@ Elisabeth: From inside that world, it looks exactly like dualism. Something outs
 ===
 
 title: Talk_Nagel
+position: 1052,1152
 tags: npc
 area: Mind
 speaker: Nagel
@@ -1054,6 +1097,7 @@ Nagel: Last question. Even with a complete map of the brain, why is there any ex
 ===
 
 title: Talk_Clark
+position: 831,1152
 tags: npc
 area: Mind
 speaker: Clark
@@ -1084,6 +1128,7 @@ Clark: One more. In VR, you look down and see a virtual body. Soon it feels like
 // ---------------------------------------------------------------------
 
 title: Gate_Language
+position: 2884,277
 tags: gate
 area: Language
 ---
@@ -1095,6 +1140,7 @@ Putnam: Welcome to the Philosophy of Language. Here we ask how words hook onto t
 ===
 
 title: Quiz_Language
+position: 3296,502
 tags: gate quiz
 area: Language
 ---
@@ -1128,6 +1174,7 @@ Putnam: Which question belongs here?
 ===
 
 title: Menu_Language
+position: 3546,887
 tags: menu
 area: Language
 ---
@@ -1141,6 +1188,7 @@ Putnam: Who will you question?
 ===
 
 title: Done_Language
+position: 3526,1377
 tags: done
 area: Language
 ---
@@ -1152,6 +1200,7 @@ area: Language
 ===
 
 title: Talk_Putnam
+position: 3236,1152
 tags: npc
 area: Language
 speaker: Putnam
@@ -1181,6 +1230,7 @@ Putnam: Does that refute skepticism?
 ===
 
 title: Talk_Carnap
+position: 3526,1152
 tags: npc
 area: Language
 speaker: Carnap
@@ -1204,6 +1254,7 @@ Carnap: If no possible observation could ever tell whether we are in a simulatio
 // ---------------------------------------------------------------------
 
 title: Gate_Religion
+position: 2289,277
 tags: gate
 area: Religion
 ---
@@ -1215,6 +1266,7 @@ Anselm: Welcome to the Philosophy of Religion. Here we ask what a god is, whethe
 ===
 
 title: Quiz_Religion
+position: 2740,502
 tags: gate quiz
 area: Religion
 ---
@@ -1248,6 +1300,7 @@ Anselm: Which question belongs here?
 ===
 
 title: Menu_Religion
+position: 2680,887
 tags: menu
 area: Religion
 ---
@@ -1263,6 +1316,7 @@ Anselm: Who will you question?
 ===
 
 title: Done_Religion
+position: 2724,1602
 tags: done
 area: Religion
 ---
@@ -1274,6 +1328,7 @@ area: Religion
 ===
 
 title: Talk_Anselm
+position: 2946,1152
 tags: npc
 area: Religion
 speaker: Anselm
@@ -1299,6 +1354,7 @@ Anselm: Does that make you more of a believer?
 ===
 
 title: Talk_Leibniz
+position: 2835,1377
 tags: npc
 area: Religion
 speaker: Leibniz
@@ -1322,6 +1378,7 @@ Leibniz: Odd, is it not, that worlds may now be built out of exactly those digit
 ===
 
 title: Talk_Narada
+position: 2614,1152
 tags: npc
 area: Religion
 speaker: Narada
@@ -1349,6 +1406,7 @@ Narada: Which strand belongs in THIS grove?
 ===
 
 title: Narada_Strand
+position: 2597,1377
 tags: npc
 area: Religion
 speaker: Narada
@@ -1368,6 +1426,7 @@ speaker: Narada
 // ---------------------------------------------------------------------
 
 title: Gate_Computing
+position: 9160,277
 tags: gate
 area: Computing
 ---
@@ -1379,6 +1438,7 @@ Turing: Welcome to the Philosophy of Computing and Information. Here we ask what
 ===
 
 title: Quiz_Computing
+position: 9127,502
 tags: gate quiz
 area: Computing
 ---
@@ -1412,6 +1472,7 @@ Turing: Which question belongs here?
 ===
 
 title: Menu_Computing
+position: 9147,887
 tags: menu
 area: Computing
 ---
@@ -1427,6 +1488,7 @@ Turing: Who will you question?
 ===
 
 title: Done_Computing
+position: 9243,1377
 tags: done
 area: Computing
 ---
@@ -1438,6 +1500,7 @@ area: Computing
 ===
 
 title: Talk_Turing
+position: 9614,1152
 tags: npc
 area: Computing
 speaker: Turing
@@ -1461,6 +1524,7 @@ Turing: I once proposed a test. If a machine's conversation cannot be told apart
 ===
 
 title: Talk_Searle
+position: 9334,1152
 tags: npc
 area: Computing
 speaker: Searle
@@ -1483,6 +1547,7 @@ Searle: Does running the right program give understanding?
 ===
 
 title: Talk_Wheeler
+position: 9113,1152
 tags: npc
 area: Computing
 speaker: Wheeler
@@ -1514,6 +1579,7 @@ Wheeler: So the simulation hypothesis is not a story of illusion. It is a story 
 // ---------------------------------------------------------------------
 
 title: Gate_PhysicalScience
+position: 1775,277
 tags: gate
 area: PhysicalScience
 ---
@@ -1525,6 +1591,7 @@ Russell: Welcome to the Philosophy of Physical Science. Here we ask what physics
 ===
 
 title: Quiz_PhysicalScience
+position: 1893,502
 tags: gate quiz
 area: PhysicalScience
 ---
@@ -1558,6 +1625,7 @@ Russell: Which question belongs here?
 ===
 
 title: Menu_PhysicalScience
+position: 2146,887
 tags: menu
 area: PhysicalScience
 ---
@@ -1573,6 +1641,7 @@ Russell: Who will you question?
 ===
 
 title: Done_PhysicalScience
+position: 2133,1377
 tags: done
 area: PhysicalScience
 ---
@@ -1584,6 +1653,7 @@ area: PhysicalScience
 ===
 
 title: Talk_Russell
+position: 1833,1152
 tags: npc
 area: PhysicalScience
 speaker: Russell
@@ -1611,6 +1681,7 @@ Russell: Some go further. The physicist Max Tegmark says the universe IS a mathe
 ===
 
 title: Talk_Sellars
+position: 2334,1152
 tags: npc
 area: PhysicalScience
 speaker: Sellars
@@ -1633,6 +1704,7 @@ Sellars: Now space. Is the space of a virtual world real space?
 ===
 
 title: Talk_Galileo
+position: 2113,1152
 tags: npc
 area: PhysicalScience
 speaker: Galileo
@@ -1660,6 +1732,7 @@ Galileo: Some questions cross borders. That is fine. The skill is noticing which
 // ---------------------------------------------------------------------
 
 title: Gate_Probability
+position: 12,277
 tags: gate
 area: Probability
 ---
@@ -1671,6 +1744,7 @@ Bostrom: Welcome to the Philosophy of Probability. Here we ask how to reason whe
 ===
 
 title: Quiz_Probability
+position: 110,502
 tags: gate quiz
 area: Probability
 ---
@@ -1704,6 +1778,7 @@ Bostrom: Which question belongs here?
 ===
 
 title: Menu_Probability
+position: 350,887
 tags: menu
 area: Probability
 ---
@@ -1717,6 +1792,7 @@ Bostrom: Who will you question?
 ===
 
 title: Done_Probability
+position: 330,1377
 tags: done
 area: Probability
 ---
@@ -1728,6 +1804,7 @@ area: Probability
 ===
 
 title: Talk_Bostrom
+position: 50,1152
 tags: npc
 area: Probability
 speaker: Bostrom
@@ -1756,6 +1833,7 @@ Bostrom: Whatever the number, his real conclusion is this. We cannot know that w
 ===
 
 title: Talk_Boltzmann
+position: 330,1152
 tags: npc
 area: Probability
 speaker: Boltzmann
@@ -1786,6 +1864,7 @@ Boltzmann: Notice that this question lives in two groves. The odds belong here. 
 // ---------------------------------------------------------------------
 
 title: Gate_WellBeing
+position: 6534,277
 tags: gate
 area: WellBeing
 ---
@@ -1797,6 +1876,7 @@ Nozick: Welcome to the Well-Being grove of Value Theory. Here we ask what makes 
 ===
 
 title: Quiz_WellBeing
+position: 6501,502
 tags: gate quiz
 area: WellBeing
 ---
@@ -1830,6 +1910,7 @@ Nozick: Which question belongs here?
 ===
 
 title: Menu_WellBeing
+position: 6521,887
 tags: menu
 area: WellBeing
 ---
@@ -1843,6 +1924,7 @@ Nozick: Who will you question?
 ===
 
 title: Done_WellBeing
+position: 6611,1377
 tags: done
 area: WellBeing
 ---
@@ -1854,6 +1936,7 @@ area: WellBeing
 ===
 
 title: Talk_Nozick
+position: 6722,1152
 tags: npc
 area: WellBeing
 speaker: Nozick
@@ -1880,6 +1963,7 @@ Nozick: Notice your question was about what is good FOR YOU. Not about what is r
 ===
 
 title: Talk_Bentham
+position: 6501,1152
 tags: npc
 area: WellBeing
 speaker: Bentham
@@ -1903,6 +1987,7 @@ Bentham: That belongs in Normative Ethics. Here I speak only of what makes a lif
 // ---------------------------------------------------------------------
 
 title: Gate_Normative
+position: 1007,277
 tags: gate
 area: Normative
 ---
@@ -1914,6 +1999,7 @@ Kant: Welcome to Normative Ethics. Here we ask what makes actions right or wrong
 ===
 
 title: Quiz_Normative
+position: 1392,502
 tags: gate quiz
 area: Normative
 ---
@@ -1947,6 +2033,7 @@ Kant: Which question belongs here?
 ===
 
 title: Menu_Normative
+position: 1632,887
 tags: menu
 area: Normative
 ---
@@ -1960,6 +2047,7 @@ Kant: Who will you question?
 ===
 
 title: Done_Normative
+position: 1612,1377
 tags: done
 area: Normative
 ---
@@ -1971,6 +2059,7 @@ area: Normative
 ===
 
 title: Talk_Kant
+position: 1332,1152
 tags: npc
 area: Normative
 speaker: Kant
@@ -1992,6 +2081,7 @@ Kant: Chalmers lays out three families of ethical theory. Outcomes, duties, and 
 ===
 
 title: Talk_Aristotle
+position: 1612,1152
 tags: npc
 area: Normative
 speaker: Aristotle
@@ -2019,6 +2109,7 @@ Aristotle: I also said the good life is a life of flourishing, of exercising you
 // ---------------------------------------------------------------------
 
 title: Gate_Applied
+position: 7055,277
 tags: gate
 area: Applied
 ---
@@ -2030,6 +2121,7 @@ Singer: Welcome to Applied Ethics. Here we take specific moral questions. In thi
 ===
 
 title: Quiz_Applied
+position: 7022,502
 tags: gate quiz
 area: Applied
 ---
@@ -2063,6 +2155,7 @@ Singer: Which question belongs here?
 ===
 
 title: Menu_Applied
+position: 7042,887
 tags: menu
 area: Applied
 ---
@@ -2076,6 +2169,7 @@ Singer: Who will you question?
 ===
 
 title: Done_Applied
+position: 7132,1377
 tags: done
 area: Applied
 ---
@@ -2087,6 +2181,7 @@ area: Applied
 ===
 
 title: Talk_Singer
+position: 7243,1152
 tags: npc
 area: Applied
 speaker: Singer
@@ -2115,6 +2210,7 @@ Singer: Now imagine you are the one running a simulation full of conscious being
 ===
 
 title: Talk_Slater
+position: 7022,1152
 tags: npc
 area: Applied
 speaker: Slater
@@ -2143,6 +2239,7 @@ Slater: What should happen to him?
 // ---------------------------------------------------------------------
 
 title: Gate_Political
+position: 8279,277
 tags: gate
 area: Political
 ---
@@ -2154,6 +2251,7 @@ Hobbes: Welcome to Social and Political Philosophy. Here we ask how societies sh
 ===
 
 title: Quiz_Political
+position: 8246,502
 tags: gate quiz
 area: Political
 ---
@@ -2187,6 +2285,7 @@ Hobbes: Which question belongs here?
 ===
 
 title: Menu_Political
+position: 8266,887
 tags: menu
 area: Political
 ---
@@ -2202,6 +2301,7 @@ Hobbes: Who will you question?
 ===
 
 title: Done_Political
+position: 8462,1377
 tags: done
 area: Political
 ---
@@ -2213,6 +2313,7 @@ area: Political
 ===
 
 title: Talk_Mozi
+position: 8553,1152
 tags: npc
 area: Political
 speaker: Mozi
@@ -2233,6 +2334,7 @@ Mozi: So someone must set the rules. Who?
 ===
 
 title: Talk_Hobbes
+position: 8833,1152
 tags: npc
 area: Political
 speaker: Hobbes
@@ -2253,6 +2355,7 @@ Hobbes: Notice what we have been doing. Not asking whether one act is wrong, but
 ===
 
 title: Talk_Rawls
+position: 8232,1152
 tags: npc
 area: Political
 speaker: Rawls
