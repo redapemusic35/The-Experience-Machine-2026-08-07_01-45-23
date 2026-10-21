@@ -7,6 +7,9 @@
 //     * compression format  = Gzip
 //     * decompression fallback = ON  (the loader decompresses in JavaScript, so no
 //                                      server headers are needed)
+//     * maximum memory size    = 2048 MB (Unity 6's default; the project's 512 MB
+//                                      cap crashed the forest scene with OOM once the
+//                                      terrain data was in the build)
 //   It then builds every scene that is enabled in File > Build Profiles / Build Settings.
 //
 // HOW TO USE
@@ -27,6 +30,7 @@ using UnityEngine;
 public static class WebGLBuild
 {
     const string DefaultOutput = "build/WebGL/WebGL";
+    const int MaximumMemoryMB = 2048;
 
     [MenuItem("MIHLab/Build WebGL (GitHub Pages)")]
     public static void BuildFromMenu()
@@ -59,11 +63,15 @@ public static class WebGLBuild
 
         var oldCompression = PlayerSettings.WebGL.compressionFormat;
         var oldFallback = PlayerSettings.WebGL.decompressionFallback;
+        var oldMaxMemory = PlayerSettings.WebGL.maximumMemorySize;
 
         try
         {
             PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
             PlayerSettings.WebGL.decompressionFallback = true;
+            if (PlayerSettings.WebGL.maximumMemorySize < MaximumMemoryMB)
+                PlayerSettings.WebGL.maximumMemorySize = MaximumMemoryMB;
+            Debug.Log($"[WebGLBuild] Maximum memory {PlayerSettings.WebGL.maximumMemorySize} MB");
 
             var options = new BuildPlayerOptions
             {
@@ -82,6 +90,7 @@ public static class WebGLBuild
         {
             PlayerSettings.WebGL.compressionFormat = oldCompression;
             PlayerSettings.WebGL.decompressionFallback = oldFallback;
+            PlayerSettings.WebGL.maximumMemorySize = oldMaxMemory;
         }
     }
 
