@@ -1,4 +1,7 @@
-# Builds the Unity project for WebGL and publishes it to GitHub Pages under /play.
+# Builds the Unity project for WebGL and publishes it to mihlab.org/play.
+# mihlab.org is served from MIHLab-Org/mihlab-org.github.io, so this workflow
+# copies the build into that repo's play/ folder and pushes. Nothing else in
+# the site repo is touched.
 # Runs only when started by hand (Actions tab > "Deploy WebGL" > Run workflow).
 # Setup and caveats: Docs/deploy-webgl.md
 
@@ -6,18 +9,24 @@ name: Deploy WebGL
 
 on:
   workflow_dispatch:
+    inputs:
+      site_branch:
+        description: Branch of mihlab-org.github.io that GitHub Pages publishes from
+        default: main
+        required: true
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: deploy-webgl
   cancel-in-progress: false
 
+env:
+  SITE_REPO: MIHLab-Org/mihlab-org.github.io
+
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -26,7 +35,7 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
           df -h /
 
-      - name: Checkout (with LFS)
+      - name: Checkout game (with LFS)
         uses: actions/checkout@v4
         with:
           lfs: true
@@ -47,33 +56,44 @@ jobs:
         with:
           targetPlatform: WebGL
           buildMethod: WebGLBuild.BuildFromCommandLine
-          # unityVersion is read from ProjectSettings/ProjectVersion.txt (6000.5.7f1).
+          # unityVersion is read from ProjectSettings/ProjectVersion.txt.
 
-      - name: Assemble site
+      - name: Check build size
         run: |
-          mkdir -p _site/play
-          cp -r build/WebGL/WebGL/. _site/play/
-          touch _site/.nojekyll
-          # Site root sends visitors to the game until mihlab.org has its own page here.
-          if [ ! -f _site/index.html ]; then
-            printf '<!doctype html><meta http-equiv="refresh" content="0; url=play/">\n' > _site/index.html
+          du -sh build/WebGL/WebGL
+          # GitHub rejects any single file over 100 MB in a normal git push.
+          big=$(find build/WebGL/WebGL -type f -size +95M)
+          if [ -n "$big" ]; then
+            echo "::error::These build files are over 95 MB and can't be pushed to the site repo:"
+            echo "$big"
+            exit 1
           fi
-          # Keep the custom domain if one is configured for this repo's Pages.
-          if [ -f CNAME ]; then cp CNAME _site/CNAME; fi
-          du -sh _site/play
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Checkout site repo
+        uses: actions/checkout@v4
         with:
-          path: _site
+          repository: ${{ env.SITE_REPO }}
+          ref: ${{ inputs.site_branch }}
+          token: ${{ secrets.SITE_DEPLOY_TOKEN }}
+          path: site
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}play/
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Copy build into site/play
+        run: |
+          mkdir -p site/play
+          # --delete only inside play/, so old build files don't pile up.
+          rsync -a --delete build/WebGL/WebGL/ site/play/
+          du -sh site/play
+
+      - name: Commit and push to site repo
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add play
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+            exit 0
+          fi
+          git commit -m "Update /play WebGL build from ${GITHUB_REPOSITORY}@${GITHUB_SHA::7}"
+          git push origin HEAD:${{ inputs.site_branch }}
+          echo "Published. Pages usually updates within a few minutes: https://mihlab.org/play/"
