@@ -1,6 +1,8 @@
 # Deploying the WebGL build to mihlab.org/play
 
-mihlab.org is served from **MIHLab-Org/mihlab-org.github.io**. The workflow builds the game here, copies the build into that repo's `play/` folder, and pushes. Nothing else on the site is touched.
+mihlab.org is served from **MIHLab-Org/mihlab-org.github.io**, which is a Vite (React) app. The workflow builds the game here, copies it into that repo's **`public/play/`** folder, and pushes. Vite copies everything in `public/` into the built site unchanged, so the site's own deploy publishes the game at `/play/`. Nothing else on the site is touched.
+
+The first run (2026-10-21) put the build in a top-level `play/` folder instead. Vite ignores that folder, so the React app's catch-all page showed a blank screen at `/play/`. That `play/` folder in the site repo can be deleted.
 
 Files involved:
 
@@ -27,11 +29,12 @@ You don't need to change any Pages settings, and this repo doesn't need Pages tu
 
 ## Running it
 
-Actions tab → **Deploy WebGL** → **Run workflow**. Leave `site_branch` as `main` unless the site repo publishes from a different branch (check its Settings → Pages). The workflow only runs when started by hand. The first run takes the longest because there's no `Library` cache yet; expect 30–90 minutes. A few minutes after it finishes, the game is at `https://mihlab.org/play/`.
+Actions tab → **Deploy WebGL** → **Run workflow**. Leave `site_branch` as `main` and `site_folder` as `public/play`, unless the site repo publishes from a different branch or its Vite config sets a different `publicDir`. The workflow only runs when started by hand. The first run takes the longest because there's no `Library` cache yet; expect 30–90 minutes. A few minutes after it finishes, the game is at `https://mihlab.org/play/`.
 
 ## Things to check before the first run
 
-- **Existing `play/` folder.** If the site repo already has a `play/` folder, the workflow replaces its contents with the build.
+- **Existing `public/play/` folder.** If the site repo already has one, the workflow replaces its contents with the build.
+- **Site redeploy.** The push uses `SITE_DEPLOY_TOKEN` (a personal token), so it triggers the site repo's own deploy workflow. A push made with the default Actions token wouldn't.
 - **100 MB file limit.** The build goes into the site repo as normal git files, and GitHub rejects any single file over 100 MB. The workflow checks for this and stops with a clear message. If it happens, cut texture sizes or the terrain resolution for WebGL.
 - **Site repo growth.** Each publish adds a full build to the site repo's history, so publish when you mean to, not on every change.
 - **Unity 6000.5 image.** GameCI needs a Docker image for your exact editor version (`6000.5.7f1`). If the build step says the image doesn't exist, set `unityVersion:` in the workflow to the closest 6000.5 version listed at <https://game.ci/docs/docker/versions>, or upgrade the project to that version.
