@@ -1,0 +1,79 @@
+# Builds the Unity project for WebGL and publishes it to GitHub Pages under /play.
+# Runs only when started by hand (Actions tab > "Deploy WebGL" > Run workflow).
+# Setup and caveats: Docs/deploy-webgl.md
+
+name: Deploy WebGL
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - name: Checkout (with LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-WebGL-${{ hashFiles('Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: Library-WebGL-
+
+      - name: Build WebGL
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
+          buildMethod: WebGLBuild.BuildFromCommandLine
+          # unityVersion is read from ProjectSettings/ProjectVersion.txt (6000.5.7f1).
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site/play
+          cp -r build/WebGL/WebGL/. _site/play/
+          touch _site/.nojekyll
+          # Site root sends visitors to the game until mihlab.org has its own page here.
+          if [ ! -f _site/index.html ]; then
+            printf '<!doctype html><meta http-equiv="refresh" content="0; url=play/">\n' > _site/index.html
+          fi
+          # Keep the custom domain if one is configured for this repo's Pages.
+          if [ -f CNAME ]; then cp CNAME _site/CNAME; fi
+          du -sh _site/play
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}play/
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

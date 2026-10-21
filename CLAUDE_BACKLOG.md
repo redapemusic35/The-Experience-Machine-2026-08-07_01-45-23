@@ -53,7 +53,7 @@ Students' assignments cited the examples used in the game, so the map should dou
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
-| D1 | todo | auto | S | Write a GitHub Actions workflow + `Docs/deploy-webgl.md` to publish a WebGL build to mihlab.org (GitHub Pages) at `/play`, with the compression fallback Pages needs. Claude writes it; Jim runs the first build. | — | Workflow file + doc |
+| D1 | review | auto | S | Write a GitHub Actions workflow + `Docs/deploy-webgl.md` to publish a WebGL build to mihlab.org (GitHub Pages) at `/play`, with the compression fallback Pages needs. Claude writes it; Jim runs the first build. | — | Workflow file + doc — done 2026-10-21: workflow, doc, and Assets/Editor/WebGLBuild.cs (sets Gzip + decompression fallback per build). Unblocks D2. |
 | D2 | todo | jim | S | Make a WebGL build, push it, confirm students can load mihlab.org/play on a lab computer and a phone. | D1 | Link works |
 | D3 | todo | auto | S | Write `Docs/quest-readiness.md`: checklist against Meta's current store requirements (IL2CPP, ARM64, frame rate, 45-minute no-crash playthrough, locomotion options, privacy policy URL, website). Mark each item met / unmet / unknown for this project. | — | Checklist exists |
 | D4 | todo | auto | S | Draft the privacy policy and support page text for mihlab.org (overlaps with Gate C). Draft only; Jim reviews before anything is published. | — | Drafts in `Docs/legal-drafts/` |
