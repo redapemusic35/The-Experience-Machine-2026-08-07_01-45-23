@@ -78,7 +78,7 @@ Each bug has its own GitHub issue written with the bug template.
 | X2 | todo | auto | S | Bug #10 (B2): in `DialogueTrigger.OnGUI`, also require `Debug.isDebugBuild` so the debug overlay never shows in release builds. Code only; no scene edits. | — | Overlay hidden in release builds |
 | X3 | todo | auto | S | Bug #11 (B3): empty `DialogueTrigger`'s default node names and log a warning naming any required node field left blank. Low priority; skip (mark `done`, note "superseded") if W6 is already `done`. | — | No default points at a missing node |
 | X4 | todo | auto | S | Bug #12 (B4): `PhilosopherNPC` reads talk input from an `InputActionReference` (keyboard E, gamepad south, XR primary button) with the current keys as fallback, plus an optional on-screen Talk button for touch; prompt names the right control. | — | Talk works without a keyboard; setup steps in the header comment |
-| X5 | todo | auto | S | Bug #13 (B5): add `New Terrain*.asset binary` under the `LightingData.asset binary` line in `.gitattributes`. | — | Fresh clone shows a clean `git status` |
+| X5 | review | auto | S | Bug #13 (B5): add `New Terrain*.asset binary` under the `LightingData.asset binary` line in `.gitattributes`. | — | Fresh clone shows a clean `git status` — done 2026-10-21 (interactive, Jim): pattern is `New[[:space:]]Terrain*.asset binary` because gitattributes patterns cannot contain spaces. Was blocking the WebGL CI build ("Branch is dirty"). |
 
 ---
 
