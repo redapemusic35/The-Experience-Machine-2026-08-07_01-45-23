@@ -149,4 +149,7 @@ Packages/packages-lock.json linguist-generated
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
 New[[:space:]]Terrain*.asset binary
+# Terrain data is saved in Unity's binary format; eol=lf from unity-yaml corrupts it.
+TerrainData*.asset     binary
+UNS_Terrain.asset      binary
 *.glb filter=lfs diff=lfs merge=lfs -text
