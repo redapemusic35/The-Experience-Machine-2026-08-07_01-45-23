@@ -104,5 +104,15 @@ jobs:
             exit 0
           fi
           git commit -m "Update WebGL build in ${SITE_FOLDER} from ${GITHUB_REPOSITORY}@${GITHUB_SHA::7}"
-          git push origin HEAD:${{ inputs.site_branch }}
+          # The Unity build takes 30-90 min, so the site branch may have moved since
+          # checkout. Rebase onto it and retry instead of failing on a non-fast-forward.
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${{ inputs.site_branch }}" && \
+              git push origin HEAD:${{ inputs.site_branch }} && break
+            if [ "$attempt" = 3 ]; then
+              echo "::error::Could not push to ${{ inputs.site_branch }} after 3 attempts."
+              exit 1
+            fi
+            sleep 10
+          done
           echo "Published. The site's own build will redeploy it in a few minutes: https://mihlab.org/play/"
