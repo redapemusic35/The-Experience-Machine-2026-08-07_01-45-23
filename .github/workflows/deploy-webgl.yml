@@ -1,4 +1,4 @@
-# Builds the Unity project for WebGL and publishes it to mihlab.org/play.
+# Builds the Unity project for WebGL (desktop + phone textures) and publishes it to mihlab.org/play.
 # mihlab.org is served from MIHLab-Org/mihlab-org.github.io, so this workflow
 # copies the build into that repo's public/play/ folder and pushes. The site is a
 # Vite (React) app: Vite copies public/ into the built site as-is, so the game ends
@@ -52,7 +52,10 @@ jobs:
           key: Library-WebGL-${{ hashFiles('Packages/packages-lock.json', 'ProjectSettings/ProjectVersion.txt') }}
           restore-keys: Library-WebGL-
 
-      - name: Build WebGL
+      # Two builds of the same commit and quality, differing only in texture format:
+      # DXT for desktop GPUs, ASTC for phones. Only the ASTC build's .data file is
+      # kept; index.html picks it on browsers that support ASTC. See WebGLBuild.cs.
+      - name: Build WebGL (desktop textures, DXT)
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -61,13 +64,30 @@ jobs:
         with:
           targetPlatform: WebGL
           buildMethod: WebGLBuild.BuildFromCommandLine
+          customParameters: -textureSubtarget DXT
           # unityVersion is read from ProjectSettings/ProjectVersion.txt.
+
+      - name: Build WebGL (phone textures, ASTC)
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
+          buildMethod: WebGLBuild.BuildFromCommandLine
+          customParameters: -textureSubtarget ASTC
+          # Lands in build/astc/WebGL/WebGL, inside the git-ignored build/ folder.
+          buildsPath: build/astc
+          # The first build can leave Unity's own rewrites of settings files behind;
+          # this is still the same commit, so don't refuse to build over them.
+          allowDirtyBuild: true
 
       - name: Check build size
         run: |
-          du -sh build/WebGL/WebGL
+          du -sh build/WebGL/WebGL build/astc/WebGL/WebGL
           # GitHub rejects any single file over 100 MB in a normal git push.
-          big=$(find build/WebGL/WebGL -type f -size +95M)
+          big=$(find build/WebGL/WebGL build/astc/WebGL/WebGL/Build -type f -size +95M)
           if [ -n "$big" ]; then
             echo "::error::These build files are over 95 MB and can't be pushed to the site repo:"
             echo "$big"
@@ -89,6 +109,8 @@ jobs:
           mkdir -p "site/$SITE_FOLDER"
           # --delete only inside that folder, so old build files don't pile up.
           rsync -a --delete --exclude '*_DoNotShip/' build/WebGL/WebGL/ "site/$SITE_FOLDER/"
+          # Add the phone (ASTC) data file and patch index.html to choose it.
+          python3 Tools/webgl_add_phone_build.py "site/$SITE_FOLDER" build/astc/WebGL/WebGL
           du -sh "site/$SITE_FOLDER"
 
       - name: Commit and push to site repo
