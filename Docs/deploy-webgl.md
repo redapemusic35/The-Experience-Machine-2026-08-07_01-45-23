@@ -1,35 +1,43 @@
 # Deploying the WebGL build to mihlab.org/play
 
+mihlab.org is served from **MIHLab-Org/mihlab-org.github.io**. The workflow builds the game here, copies the build into that repo's `play/` folder, and pushes. Nothing else on the site is touched.
+
 Files involved:
 
-- `.github/workflows/deploy-webgl.yml` — builds with GameCI and publishes to GitHub Pages.
+- `.github/workflows/deploy-webgl.yml` — builds with GameCI and pushes the result to the site repo.
 - `Assets/Editor/WebGLBuild.cs` — the build entry point. Sets **Gzip + Decompression Fallback** for the build only, then restores your Player Settings. Also adds **MIHLab → Build WebGL (GitHub Pages)** for a local test build.
 
 ## Why the compression fallback
 
-GitHub Pages serves files as-is and can't add the `Content-Encoding: gzip` header Unity's compressed builds expect, so a normal compressed build fails to load there. With Decompression Fallback on, Unity's loader unpacks the files in JavaScript instead. Load time is a little slower, but it works on any static host.
+GitHub Pages serves files as they are and can't add the `Content-Encoding: gzip` header that Unity's compressed builds expect, so a normal compressed build won't load there. With Decompression Fallback on, Unity's loader unpacks the files in JavaScript instead. Load time is a little slower, but it works on any static host.
 
 ## One-time setup (Jim)
 
-1. **Unity licence secrets.** Repo → Settings → Secrets and variables → Actions → add:
-   - `UNITY_EMAIL` and `UNITY_PASSWORD` (your Unity ID), and
-   - `UNITY_LICENSE` — the contents of your `.ulf` file (Personal licence). GameCI's "Activation" guide explains how to get it: <https://game.ci/docs/github/activation>.
-2. **Turn on Pages.** Repo → Settings → Pages → *Source: GitHub Actions*.
-3. **Custom domain.** In the same Pages screen, set `mihlab.org` and add the DNS records GitHub lists. Also commit a file named `CNAME` (containing `mihlab.org`) to the repo root; the workflow copies it into the site.
-4. **Build scenes.** Make sure the forest scene is ticked in File → Build Profiles (the script builds every enabled scene, and stops if none are).
+All of these go in **this** repo (The-Experience-Machine) → Settings → Secrets and variables → Actions:
+
+1. **Unity licence:** `UNITY_EMAIL`, `UNITY_PASSWORD` (your Unity ID), and `UNITY_LICENSE` (the contents of your `.ulf` file). GameCI's activation guide explains how to get the file: <https://game.ci/docs/github/activation>.
+2. **Site push token:** `SITE_DEPLOY_TOKEN`. Create a *fine-grained* personal access token at GitHub → Settings → Developer settings:
+   - Resource owner: **MIHLab-Org** (the org may need to allow fine-grained tokens first)
+   - Repository access: only `mihlab-org.github.io`
+   - Permissions: **Contents: Read and write**. Nothing else.
+   - Pick an expiry date and note it, because the workflow stops working when the token expires.
+3. **Build scenes:** make sure the forest scene is ticked in File → Build Profiles. The script builds every enabled scene and stops if none are.
+
+You don't need to change any Pages settings, and this repo doesn't need Pages turned on.
 
 ## Running it
 
-Actions tab → **Deploy WebGL** → **Run workflow**. It only runs when started by hand. The first run takes the longest (no `Library` cache yet), so expect 30–90 minutes. When it finishes, the game is at `https://mihlab.org/play/`.
+Actions tab → **Deploy WebGL** → **Run workflow**. Leave `site_branch` as `main` unless the site repo publishes from a different branch (check its Settings → Pages). The workflow only runs when started by hand. The first run takes the longest because there's no `Library` cache yet; expect 30–90 minutes. A few minutes after it finishes, the game is at `https://mihlab.org/play/`.
 
 ## Things to check before the first run
 
-- **Is mihlab.org already a site?** `deploy-pages` replaces this repo's *whole* Pages site. If mihlab.org is served from a different repo (or another host), don't use the Pages steps as they are. Instead, copy the `build/WebGL/WebGL` folder into that site's `play/` folder. Ask a run to adapt the workflow once you know which repo hosts the site.
-- **Unity 6000.5 image.** GameCI needs a Docker image for your exact editor version (`6000.5.7f1`). If the build step says the image doesn't exist, set `unityVersion:` in the workflow to the closest available 6000.5 version listed at <https://game.ci/docs/docker/versions>. Or upgrade the project to that version.
-- **Git LFS quota.** The repo has about 340 LFS files. Every CI checkout downloads them, and GitHub's free LFS bandwidth is limited, so run the workflow only when you mean to publish.
+- **Existing `play/` folder.** If the site repo already has a `play/` folder, the workflow replaces its contents with the build.
+- **100 MB file limit.** The build goes into the site repo as normal git files, and GitHub rejects any single file over 100 MB. The workflow checks for this and stops with a clear message. If it happens, cut texture sizes or the terrain resolution for WebGL.
+- **Site repo growth.** Each publish adds a full build to the site repo's history, so publish when you mean to, not on every change.
+- **Unity 6000.5 image.** GameCI needs a Docker image for your exact editor version (`6000.5.7f1`). If the build step says the image doesn't exist, set `unityVersion:` in the workflow to the closest 6000.5 version listed at <https://game.ci/docs/docker/versions>, or upgrade the project to that version.
+- **Git LFS quota.** This repo has about 340 LFS files, and every CI checkout downloads them. GitHub's free LFS bandwidth is limited.
 - **Actions minutes.** Public repos build for free. Private repos use the monthly minutes allowance, and a Unity build uses a lot of them.
-- **Pages size limit.** A Pages site should stay under 1 GB. The workflow prints the build size in the "Assemble site" step.
 
 ## Local test (optional)
 
-Run MIHLab → Build WebGL (GitHub Pages), then serve the folder: `python -m http.server` inside `build/WebGL/WebGL`. Open `http://localhost:8000` in a browser. If it loads there, it will load on Pages.
+Run MIHLab → Build WebGL (GitHub Pages). Then, inside `build/WebGL/WebGL`, run `python -m http.server` and open `http://localhost:8000`. If it loads there, it will load on Pages.
