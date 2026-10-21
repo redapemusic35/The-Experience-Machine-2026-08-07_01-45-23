@@ -1,7 +1,8 @@
 # Builds the Unity project for WebGL and publishes it to mihlab.org/play.
 # mihlab.org is served from MIHLab-Org/mihlab-org.github.io, so this workflow
-# copies the build into that repo's play/ folder and pushes. Nothing else in
-# the site repo is touched.
+# copies the build into that repo's public/play/ folder and pushes. The site is a
+# Vite (React) app: Vite copies public/ into the built site as-is, so the game ends
+# up at /play/. Nothing else in the site repo is touched.
 # Runs only when started by hand (Actions tab > "Deploy WebGL" > Run workflow).
 # Setup and caveats: Docs/deploy-webgl.md
 
@@ -13,6 +14,10 @@ on:
       site_branch:
         description: Branch of mihlab-org.github.io that GitHub Pages publishes from
         default: main
+        required: true
+      site_folder:
+        description: Folder in the site repo that becomes /play/ on the live site
+        default: public/play
         required: true
 
 permissions:
@@ -77,23 +82,27 @@ jobs:
           token: ${{ secrets.SITE_DEPLOY_TOKEN }}
           path: site
 
-      - name: Copy build into site/play
+      - name: Copy build into the site repo
+        env:
+          SITE_FOLDER: ${{ inputs.site_folder }}
         run: |
-          mkdir -p site/play
-          # --delete only inside play/, so old build files don't pile up.
-          rsync -a --delete build/WebGL/WebGL/ site/play/
-          du -sh site/play
+          mkdir -p "site/$SITE_FOLDER"
+          # --delete only inside that folder, so old build files don't pile up.
+          rsync -a --delete --exclude '*_DoNotShip/' build/WebGL/WebGL/ "site/$SITE_FOLDER/"
+          du -sh "site/$SITE_FOLDER"
 
       - name: Commit and push to site repo
         working-directory: site
+        env:
+          SITE_FOLDER: ${{ inputs.site_folder }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add play
+          git add "$SITE_FOLDER"
           if git diff --cached --quiet; then
             echo "No changes to publish."
             exit 0
           fi
-          git commit -m "Update /play WebGL build from ${GITHUB_REPOSITORY}@${GITHUB_SHA::7}"
+          git commit -m "Update WebGL build in ${SITE_FOLDER} from ${GITHUB_REPOSITORY}@${GITHUB_SHA::7}"
           git push origin HEAD:${{ inputs.site_branch }}
-          echo "Published. Pages usually updates within a few minutes: https://mihlab.org/play/"
+          echo "Published. The site's own build will redeploy it in a few minutes: https://mihlab.org/play/"
