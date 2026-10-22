@@ -102,6 +102,12 @@ jobs:
           token: ${{ secrets.SITE_DEPLOY_TOKEN }}
           path: site
 
+      # UnityPy lets the next step confirm the phone build really has ASTC textures.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install UnityPy==1.25.4
+
       - name: Copy build into the site repo
         env:
           SITE_FOLDER: ${{ inputs.site_folder }}
@@ -109,7 +115,8 @@ jobs:
           mkdir -p "site/$SITE_FOLDER"
           # --delete only inside that folder, so old build files don't pile up.
           rsync -a --delete --exclude '*_DoNotShip/' build/WebGL/WebGL/ "site/$SITE_FOLDER/"
-          # Add the phone (ASTC) data file and patch index.html to choose it.
+          # Add the phone (ASTC) data file and patch index.html to choose it. Fails, and
+          # nothing is pushed, if the phone build doesn't actually contain ASTC textures.
           python3 Tools/webgl_add_phone_build.py "site/$SITE_FOLDER" build/astc/WebGL/WebGL
           du -sh "site/$SITE_FOLDER"
 

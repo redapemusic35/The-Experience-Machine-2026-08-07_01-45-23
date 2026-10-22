@@ -108,6 +108,10 @@ public static class WebGLBuild
                 scenes = scenes,
                 locationPathName = outputPath,
                 target = BuildTarget.WebGL,
+                // Must be set here too: with target set and subtarget left at 0, Unity
+                // builds the platform's default subtarget and ignores webGLBuildSubtarget
+                // (the first dual build shipped DXT textures in both data files).
+                subtarget = (int)subtarget,
                 options = BuildOptions.None,
             };
 
