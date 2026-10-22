@@ -77,7 +77,7 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private float sitDownDuration = 1.4f;
 
     [Header("Debug")]
-    [Tooltip("Draws a live state readout in the top-left during play. Turn off when the walk behaves.")]
+    [Tooltip("Draws a live state readout in the top-left during play. Shown only in the Editor and in Development builds, never in release builds such as mihlab.org/play.")]
     [SerializeField] private bool showDebug = true;
 
     [Header("Grounding")]
@@ -602,7 +602,9 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!showDebug || !Application.isPlaying) return;
+        // Debug.isDebugBuild is true in the Editor and in Development builds, false in
+        // release builds, so the overlay never reaches players (X2 / bug #10).
+        if (!showDebug || !Application.isPlaying || !Debug.isDebugBuild) return;
 
         string playerName = player != null ? player.name : "<none>";
         float toDest = (player != null && destination != null)
