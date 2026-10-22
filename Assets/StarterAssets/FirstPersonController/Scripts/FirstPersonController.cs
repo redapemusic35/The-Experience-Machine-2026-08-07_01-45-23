@@ -18,6 +18,8 @@ namespace StarterAssets
 		public float SprintSpeed = 6.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
+		[Tooltip("How fast the left/right arrow keys turn the player, in degrees per second")]
+		public float TurnSpeed = 120.0f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
@@ -148,6 +150,12 @@ namespace StarterAssets
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
+			}
+
+			// Keyboard turning: left/right arrow keys (the "Turn" action). A/D strafe via Move.
+			if (Mathf.Abs(_input.turn) >= _threshold)
+			{
+				transform.Rotate(Vector3.up * (_input.turn * TurnSpeed * Time.deltaTime));
 			}
 		}
 

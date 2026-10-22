@@ -10,6 +10,8 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
+		[Tooltip("Keyboard turning from the left/right arrow keys (-1 to 1). Added for X4c.")]
+		public float turn;
 		public bool jump;
 		public bool sprint;
 
@@ -34,6 +36,12 @@ namespace StarterAssets
 			}
 		}
 
+		// Sent by PlayerInput for the "Turn" action (left/right arrow keys).
+		public void OnTurn(InputValue value)
+		{
+			TurnInput(value.Get<float>());
+		}
+
 		public void OnJump(InputValue value)
 		{
 			JumpInput(value.isPressed);
@@ -54,6 +62,11 @@ namespace StarterAssets
 		public void LookInput(Vector2 newLookDirection)
 		{
 			look = newLookDirection;
+		}
+
+		public void TurnInput(float newTurn)
+		{
+			turn = newTurn;
 		}
 
 		public void JumpInput(bool newJumpState)
