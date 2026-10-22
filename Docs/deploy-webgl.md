@@ -9,6 +9,21 @@ Files involved:
 - `.github/workflows/deploy-webgl.yml` — builds with GameCI and pushes the result to the site repo.
 - `Assets/Editor/WebGLBuild.cs` — the build entry point. Sets **Gzip + Decompression Fallback** for the build only, then restores your Player Settings. Also adds **MIHLab → Build WebGL (GitHub Pages)** for a local test build.
 
+## Desktop and phone builds
+
+The workflow builds the game twice from the same commit, at the same quality. The only difference is the texture format:
+
+- **DXT** for desktop graphics cards. This is the normal build.
+- **ASTC** for phones and tablets. Only its `.data` file is kept, saved as `Build/WebGL.astc.data.unityweb` next to the desktop one. The code files are identical in both builds.
+
+`Tools/webgl_add_phone_build.py` adds that file and patches `index.html`. The page loads the ASTC file when the browser supports ASTC textures (phones, tablets, Apple-silicon Macs) and the DXT file otherwise. Without this, a phone given DXT textures unpacks every texture to full size in memory. The forest scene already needs about 1 GB with compressed textures, so phones ran out.
+
+To test a specific build, add `?textures=astc` or `?textures=dxt` to the URL. The browser console shows `[MIHLab] Loading ASTC textures` or `DXT`.
+
+For a local build, use **MIHLab → Build WebGL for Phones (ASTC)**. Both menu items restore your texture setting afterwards.
+
+Costs: each run takes longer, because Unity re-imports the textures for the second format. Each publish also adds a second data file (about 50 MB) to the site repo's history.
+
 ## Why the compression fallback
 
 GitHub Pages serves files as they are and can't add the `Content-Encoding: gzip` header that Unity's compressed builds expect, so a normal compressed build won't load there. With Decompression Fallback on, Unity's loader unpacks the files in JavaScript instead. Load time is a little slower, but it works on any static host.

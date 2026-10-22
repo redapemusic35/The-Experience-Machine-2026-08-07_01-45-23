@@ -10,14 +10,28 @@
 //     * maximum memory size    = 2048 MB (Unity 6's default; the project's 512 MB
 //                                      cap crashed the forest scene with OOM once the
 //                                      terrain data was in the build)
+//     * texture format         = DXT (desktop) or ASTC (phones), see below
 //   It then builds every scene that is enabled in File > Build Profiles / Build Settings.
 //
-// HOW TO USE
-//   CI:     game-ci calls  WebGLBuild.BuildFromCommandLine  (buildMethod in the workflow).
-//   Editor: MIHLab > Build WebGL (GitHub Pages)  builds to  build/WebGL/WebGL  locally.
+// TWO TEXTURE FORMATS (desktop + phone)
+//   Desktop GPUs read DXT textures; phone GPUs read ASTC. A browser that can't read a
+//   build's format unpacks every texture to full size in memory, which is what kept
+//   the game from loading on phones. So CI builds the game twice, same quality:
+//     -textureSubtarget DXT   -> the normal build, served to desktops
+//     -textureSubtarget ASTC  -> only its .data file is kept, served to phones
+//   The code (.wasm/.framework.js) is the same in both; only the .data file differs
+//   (Unity's documented dual-build pattern: Manual > WebGL texture compression).
+//   The workflow adds the ASTC data file next to the desktop one and patches index.html
+//   to pick it when the browser supports WEBGL_compressed_texture_astc.
 //
-// The PlayerSettings changes are made in memory for the build and restored afterwards,
-// so ProjectSettings/ProjectSettings.asset is left as it was.
+// HOW TO USE
+//   CI:     game-ci calls  WebGLBuild.BuildFromCommandLine  (buildMethod in the workflow),
+//           with  -textureSubtarget DXT|ASTC  in customParameters.
+//   Editor: MIHLab > Build WebGL (GitHub Pages)        builds DXT  to build/WebGL/WebGL
+//           MIHLab > Build WebGL for Phones (ASTC)     builds ASTC to build/astc/WebGL/WebGL
+//
+// All settings changed here are restored after the build, so ProjectSettings and your
+// Build Profile's texture setting are left as they were.
 //
 // Editor-only (lives in an Editor folder); never compiled into the game.
 
@@ -30,25 +44,39 @@ using UnityEngine;
 public static class WebGLBuild
 {
     const string DefaultOutput = "build/WebGL/WebGL";
+    const string DefaultAstcOutput = "build/astc/WebGL/WebGL";
     const int MaximumMemoryMB = 2048;
 
     [MenuItem("MIHLab/Build WebGL (GitHub Pages)")]
-    public static void BuildFromMenu()
+    public static void BuildFromMenu() => BuildFromMenu(WebGLTextureSubtarget.DXT, DefaultOutput);
+
+    [MenuItem("MIHLab/Build WebGL for Phones (ASTC)")]
+    public static void BuildAstcFromMenu() => BuildFromMenu(WebGLTextureSubtarget.ASTC, DefaultAstcOutput);
+
+    static void BuildFromMenu(WebGLTextureSubtarget subtarget, string output)
     {
-        bool ok = Build(DefaultOutput);
+        bool ok = Build(output, subtarget);
         EditorUtility.DisplayDialog("WebGL build",
-            ok ? "Build succeeded:\n" + DefaultOutput : "Build failed — see the Console.", "OK");
+            ok ? $"{subtarget} build succeeded:\n{output}" : "Build failed — see the Console.", "OK");
     }
 
-    // Called by game-ci. game-ci passes -customBuildPath <path>; fall back to the default.
+    // Called by game-ci. game-ci passes -customBuildPath <path>; the workflow passes
+    // -textureSubtarget DXT|ASTC. Defaults: build/WebGL/WebGL, DXT.
     public static void BuildFromCommandLine()
     {
         string output = GetArg("-customBuildPath") ?? DefaultOutput;
-        bool ok = Build(output);
+        string subtargetArg = GetArg("-textureSubtarget") ?? "DXT";
+        if (!Enum.TryParse(subtargetArg, true, out WebGLTextureSubtarget subtarget))
+        {
+            Debug.LogError($"[WebGLBuild] Unknown -textureSubtarget '{subtargetArg}'. Use DXT or ASTC.");
+            EditorApplication.Exit(1);
+            return;
+        }
+        bool ok = Build(output, subtarget);
         EditorApplication.Exit(ok ? 0 : 1);
     }
 
-    static bool Build(string outputPath)
+    static bool Build(string outputPath, WebGLTextureSubtarget subtarget)
     {
         string[] scenes = EditorBuildSettings.scenes
             .Where(s => s.enabled)
@@ -64,6 +92,7 @@ public static class WebGLBuild
         var oldCompression = PlayerSettings.WebGL.compressionFormat;
         var oldFallback = PlayerSettings.WebGL.decompressionFallback;
         var oldMaxMemory = PlayerSettings.WebGL.maximumMemorySize;
+        var oldSubtarget = EditorUserBuildSettings.webGLBuildSubtarget;
 
         try
         {
@@ -71,7 +100,8 @@ public static class WebGLBuild
             PlayerSettings.WebGL.decompressionFallback = true;
             if (PlayerSettings.WebGL.maximumMemorySize < MaximumMemoryMB)
                 PlayerSettings.WebGL.maximumMemorySize = MaximumMemoryMB;
-            Debug.Log($"[WebGLBuild] Maximum memory {PlayerSettings.WebGL.maximumMemorySize} MB");
+            EditorUserBuildSettings.webGLBuildSubtarget = subtarget;
+            Debug.Log($"[WebGLBuild] Textures {subtarget}, maximum memory {PlayerSettings.WebGL.maximumMemorySize} MB");
 
             var options = new BuildPlayerOptions
             {
@@ -82,7 +112,7 @@ public static class WebGLBuild
             };
 
             BuildReport report = BuildPipeline.BuildPlayer(options);
-            Debug.Log($"[WebGLBuild] {report.summary.result}: {report.summary.totalSize / (1024 * 1024)} MB, " +
+            Debug.Log($"[WebGLBuild] {subtarget} {report.summary.result}: {report.summary.totalSize / (1024 * 1024)} MB, " +
                       $"{report.summary.totalErrors} errors, output {outputPath}");
             return report.summary.result == BuildResult.Succeeded;
         }
@@ -91,6 +121,7 @@ public static class WebGLBuild
             PlayerSettings.WebGL.compressionFormat = oldCompression;
             PlayerSettings.WebGL.decompressionFallback = oldFallback;
             PlayerSettings.WebGL.maximumMemorySize = oldMaxMemory;
+            EditorUserBuildSettings.webGLBuildSubtarget = oldSubtarget;
         }
     }
 
