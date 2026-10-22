@@ -19,7 +19,7 @@ The goal: every philosopher walks with the player the way Socrates and the Chalm
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
-| W1 | review | auto | S | Read `Assets/Dialogue/DialogueTrigger.cs` (Socrates' walker), `Assets/Dialogue/PhilosopherNPC.cs` (stationary philosophers), and whichever component drives the Chalmers figure (search the `.unity` scene files for its GameObject and component GUIDs; read-only). Write `Docs/walk-system-audit.md` listing what each does, what they duplicate, and what is hard-coded to one NPC. No code changes. | — | Audit file exists and names every hard-coded reference |
+| W1 | done | auto | S | Read `Assets/Dialogue/DialogueTrigger.cs` (Socrates' walker), `Assets/Dialogue/PhilosopherNPC.cs` (stationary philosophers), and whichever component drives the Chalmers figure (search the `.unity` scene files for its GameObject and component GUIDs; read-only). Write `Docs/walk-system-audit.md` listing what each does, what they duplicate, and what is hard-coded to one NPC. No code changes. | — | Audit file exists and names every hard-coded reference Approved by Jim 2026-10-22. |
 | W2 | todo | auto | S | Write `PhilosopherWalker.cs`: one reusable component (follow offset, walk speed, stop-when-player-lags, IsWalking animator param). Uses NavMeshAgent so NPCs path around trees instead of walking in straight lines. Leaves the old scripts untouched. | W1 | Script compiles in principle (no undeclared types); public fields documented in a header comment |
 | W3 | todo | auto | S | Write `YarnWalkCommands.cs`: Yarn commands `<<walk_to DESTINATION>>`, `<<stop_walk>>`, `<<handoff PHILOSOPHER>>`, `<<resume_walk>>`. Handoff walks the player to the named philosopher and starts that philosopher's entry node with `$came_from` set. | W2 | Commands registered; a sample `.yarn` snippet in the header comment shows usage |
 | W4 | todo | auto | S | Write `Editor/MIHLabSetup.cs` with a menu item **MIHLab → Convert selected NPC to Walker** that adds `PhilosopherWalker` + `NavMeshAgent` to the selected GameObject and copies settings from the old script if present. (Editor script, so Claude never edits `.unity` scene files directly.) | W2 | Menu item exists; instructions in `Docs/how-to-convert-npc.md` |
@@ -30,7 +30,7 @@ The goal: every philosopher walks with the player the way Socrates and the Chalm
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
-| P1 | todo | jim | S | Decide the roster: which 2–3 philosophers stand in each area (Metaphysics, Epistemology, Value Theory), and which pairs should be able to hand off to each other. A rough list in this file is enough. | — | Roster table filled in below |
+| P1 | review | jim | S | Decide the roster: which 2–3 philosophers stand in each area (Metaphysics, Epistemology, Value Theory), and which pairs should be able to hand off to each other. A rough list in this file is enough. | — | Roster table filled in below 2026-10-22: draft roster below (Claude), built from the areas and leads already in `RealityPlus_Map.yarn`, checked against PhilPapers and the SEP entries Jim named; handoffs E1-E8 each cite an SEP section. Jim: confirm or edit, then mark done. |
 | P2 | todo | auto | S | From the roster, write `Docs/layout-plan.md`: suggested distance between each connected pair, sized so the walk lasts about as long as the dialogue segment spoken during it (estimate words ÷ reading speed). | P1 | Plan lists every edge with a target distance in metres |
 | P3 | todo | jim | M | Place the philosophers in the scene following the layout plan. | P2, W6 | All figures placed and reachable on the NavMesh |
 | P4 | todo | auto | S | Write a handoff dialogue node for ONE philosopher pair (first edge in the roster): the player's choice decides whether the walk continues to philosopher B or stays. Follows existing conventions in `technology.yarn`. No copyrighted text. | W3, P1, Y1 | Node added in its own `.yarn` file; passes Y1 validation |
@@ -88,14 +88,44 @@ Each bug has its own GitHub issue written with the bug template.
 
 ---
 
-## Roster (filled in by Jim — task P1)
+## Roster (task P1) — DRAFT for Jim to confirm
 
-| Area | Philosophers | Can hand off to |
-|---|---|---|
-| Plane tree | Socrates | (area guides) |
-| Metaphysics | | |
-| Epistemology | | |
-| Value Theory | | |
+Sources (Jim, 2026-10-22): areas follow the PhilPapers taxonomy (philpapers.org: top-level *Metaphysics and Epistemology*, *Value Theory*, *Science, Logic, and Mathematics*, with their subcategories). Handoffs are drawn from the SEP entries [Metaphysics](https://plato.stanford.edu/entries/metaphysics/), [Epistemology](https://plato.stanford.edu/entries/epistemology/) and [Value Theory](https://plato.stanford.edu/entries/value-theory/).
+
+The areas, philosophers and leads (**bold**, where each area's `Gate_` node lands) are the ones Jim already wrote in `Assets/Dialogue/RealityPlus_Map.yarn`; nothing here changes that file. "SEP" marks who the three entries cite.
+
+| Region (PhilPapers) | Area | Philosophers (lead first) | SEP cites | Can hand off to |
+|---|---|---|---|---|
+| Hub | Plane tree | **Socrates** | — | every area's lead (Gate_ nodes, already written) |
+| Metaphysics and Epistemology | Metaphysics | **Heim**, Plato, Berkeley | Plato (forms, cave) | Plato -> Descartes (E2) |
+| Metaphysics and Epistemology | Epistemology | **Descartes**, Moore, Zhuangzi | Descartes, Moore, Plato | Descartes -> Elisabeth (E1); Moore -> Nozick (E5) |
+| Metaphysics and Epistemology | Philosophy of Mind | **Elisabeth of Bohemia**, Nagel, Clark | Nagel (value theory entry) | Nagel -> Bentham (E7, optional) |
+| Metaphysics and Epistemology | Philosophy of Language | **Putnam**, Carnap | — | within area only |
+| Metaphysics and Epistemology | Philosophy of Religion | **Anselm**, Leibniz, Narada | Anselm, Leibniz | Anselm -> Kant (E3); Leibniz -> Heim (E6) |
+| Science, Logic, and Mathematics | Computing and Information | **Turing**, Searle, Wheeler | not covered by the three entries | within area only |
+| Science, Logic, and Mathematics | Physical Science | **Russell**, Sellars, Galileo | Russell | within area only |
+| Science, Logic, and Mathematics | Probability | **Bostrom**, Boltzmann | not covered | within area only |
+| Value Theory | Well-Being (Value Theory, Misc) | **Nozick**, Bentham | Bentham | Bentham -> Kant (E8) |
+| Value Theory | Normative Ethics | **Kant**, Aristotle | Kant, Aristotle | Aristotle -> Plato (E4) |
+| Value Theory | Applied Ethics | **Singer**, Slater | — | within area only |
+| Value Theory | Social and Political | **Hobbes**, Mozi, Rawls | Rawls | within area only |
+
+Within every area, the lead hands off to the others listed (lead -> each). Cross-area handoffs, each with the SEP passage it rests on:
+
+| Edge | From -> To | Shared question | SEP basis |
+|---|---|---|---|
+| E1 | Descartes -> Elisabeth | How can an immaterial mind move a body? | Metaphysics §3.5 (the mental and the physical) |
+| E2 | Plato -> Descartes | Is what we see real, and what turns true opinion into knowledge? | Epistemology intro (Plato: knowledge vs true opinion); Metaphysics §2.2, §4 (forms, the cave) |
+| E3 | Anselm -> Kant | Is existence a perfection, or not a real predicate at all? | Metaphysics §2.1 (Anselm, Descartes, Kant on being) |
+| E4 | Aristotle -> Plato | Do universals exist apart from things, or only in them? | Metaphysics §2.2 (ante rem vs in re) |
+| E5 | Moore -> Nozick | Is knowledge good in itself, or only for what it gets us? | Value Theory §2.2 (Moore on knowledge as intrinsically valuable) |
+| E6 | Leibniz -> Heim | From possible worlds to virtual worlds | Metaphysics §3.1 (modality; Leibniz coined "possible world") |
+| E7 | Nagel -> Bentham | Good from whose point of view? (optional, weakest link) | Value Theory §1.1.1 (Nagel's point-of-view theory) |
+| E8 | Bentham -> Kant | Can every value be priced, or do persons have dignity? | Value Theory §2.2, §2.3.2 (monism; Kant's dignity vs price) |
+
+Suggested first edge for P4: **E1 (Descartes -> Elisabeth)**. Both already have dialogue, and the mind-body problem is the clearest hand-over.
+
+Gaps (optional, Jim's call; each would need new dialogue): SEP's central figures with no NPC yet are Hume (causation, substance, whether metaphysics is possible), David Lewis (modal realism), Mill (higher and lower pleasures; Value Theory §2.2), and Gettier (knowledge as justified true belief). Heim, Zhuangzi, Nozick, Clark, Slater, Singer, Mozi and Hobbes come from *Reality+* rather than these three SEP entries. That's fine, since their PhilPapers areas still fit.
 
 ## Notes from Jim
 
