@@ -90,7 +90,7 @@ Bodies: Mr Herbert (`Ch42`, 24 MB; already in the build as Socrates), shorts-shi
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
-| Y1 | todo | auto | S | Write `Tools/validate_yarn.py`: checks every `.yarn` file for missing jump targets, orphaned nodes, duplicate node titles, and the colon-dash parser issue found earlier. Runs with plain Python, no Unity needed. | — | Script runs clean on current dialogue or reports real issues |
+| Y1 | review | auto | S | Write `Tools/validate_yarn.py`: checks every `.yarn` file for missing jump targets, orphaned nodes, duplicate node titles, and the colon-dash parser issue found earlier. Runs with plain Python, no Unity needed. | — | Script runs clean on current dialogue or reports real issues 2026-10-22: written. On the current dialogue (2 files, 125 nodes): 0 errors, 1 warning, a dash line in `mv` (technology.yarn:258) for Jim to look at. Checked against a test file with one of each problem: all caught. Entry points come from node titles found in scene/prefab values (startNode, walkingNodes...). |
 
 **Suggested first order:** Y1 → W1 → W2 → W3 → W4 → D1 → D3 → (Jim: P1, W5) → M1 …
 
