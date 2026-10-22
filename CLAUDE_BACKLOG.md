@@ -30,7 +30,7 @@ The goal: every philosopher walks with the player the way Socrates and the Chalm
 
 | ID | Status | Who | Size | Task | Depends on | Done when |
 |---|---|---|---|---|---|---|
-| P1 | review | jim | S | Decide the roster: which 2–3 philosophers stand in each area (Metaphysics, Epistemology, Value Theory), and which pairs should be able to hand off to each other. A rough list in this file is enough. | — | Roster table filled in below 2026-10-22: draft roster below (Claude), built from the areas and leads already in `RealityPlus_Map.yarn`, checked against PhilPapers and the SEP entries Jim named; handoffs E1-E8 each cite an SEP section. Jim: confirm or edit, then mark done. |
+| P1 | done | jim | S | Decide the roster: which 2–3 philosophers stand in each area (Metaphysics, Epistemology, Value Theory), and which pairs should be able to hand off to each other. A rough list in this file is enough. | — | Roster table filled in below 2026-10-22: draft roster below (Claude), built from the areas and leads already in `RealityPlus_Map.yarn`, checked against PhilPapers and the SEP entries Jim named; handoffs E1-E8 each cite an SEP section. Jim: confirm or edit, then mark done. Confirmed by Jim 2026-10-22, adding Hume, Lewis, Mill and Gettier (N1-N4). |
 | P2 | todo | auto | S | From the roster, write `Docs/layout-plan.md`: suggested distance between each connected pair, sized so the walk lasts about as long as the dialogue segment spoken during it (estimate words ÷ reading speed). | P1 | Plan lists every edge with a target distance in metres |
 | P3 | todo | jim | M | Place the philosophers in the scene following the layout plan. | P2, W6 | All figures placed and reachable on the NavMesh |
 | P4 | todo | auto | S | Write a handoff dialogue node for ONE philosopher pair (first edge in the roster): the player's choice decides whether the walk continues to philosopher B or stays. Follows existing conventions in `technology.yarn`. No copyrighted text. | W3, P1, Y1 | Node added in its own `.yarn` file; passes Y1 validation |
@@ -48,6 +48,31 @@ Students' assignments cited the examples used in the game, so the map should dou
 | M4 | todo | jim | S | Decide fast travel: none / only to places already visited / anywhere. (Fast travel to anywhere removes the walk as reward; visited-only keeps it.) | — | Decision written here |
 | M5 | todo | jim | S | In Unity: capture or draw the map image, create the registry asset, wire up the UI. | M3 | Map opens in play mode |
 | M6 | todo | auto | S | Write a "notebook export" feature: one button that copies the notebook as plain text so students can paste it into their notes. | M3 | — |
+
+## Track 2b — New philosophers from the SEP check (issue #2)
+
+New dialogue goes in its own file, `Assets/Dialogue/SEP_Additions.yarn`, so Jim's `RealityPlus_Map.yarn` is not altered. Paraphrase only; no quoted text.
+
+| ID | Status | Who | Size | Task | Depends on | Done when |
+|---|---|---|---|---|---|---|
+| N1 | todo | auto | S | `Talk_Hume` in `SEP_Additions.yarn`: causation as constant conjunction, no impression of substance, doubts about metaphysics (SEP Metaphysics §2.3, §3.4, §5). Ends with the E9 handoff choice (-> Lewis) using W3's `<<handoff>>`, or a `TODO(handoff)` comment if W3 isn't done. | Y1 | Node passes Y1; one line in Jim's `Menu_Metaphysics` is listed for Jim to add (runs don't edit his file) |
+| N2 | todo | auto | S | `Talk_Lewis`: modal realism and counterfactual causation (SEP Metaphysics §3.1, §3.4), tied to the simulation argument for the Probability area. E10 handoff (-> Leibniz). | Y1 | As N1, for `Menu_Probability` |
+| N3 | todo | auto | S | `Talk_Mill`: higher and lower pleasures, pushing back on Bentham and on the experience machine (SEP Value Theory §2.2). E12 handoff (-> Moore). | Y1 | As N1, for `Menu_WellBeing` |
+| N4 | todo | auto | S | `Talk_Gettier`: a Gettier case built from in-game events (for example, a true belief about where Socrates is, reached by luck). E11 handoff (-> Plato). | Y1 | As N1, for `Menu_Epistemology` |
+| N5 | todo | jim | S | Add the four NPCs to the scene (PhilosopherNPC with `startNode` Talk_Hume etc.) during P3 placement, add the menu lines from N1-N4, then play-test. | N1-N4, C2 | All four reachable and talking in play mode |
+
+## Track 2c — Bodies for the philosophers, reusing existing models (issue #2)
+
+All 31 stationary philosophers are grey capsules today. Jim wants no new character models, to keep the build small. Reuse the four Mixamo bodies already in the project, and make each figure distinct with colour, hair and height. NPCs sharing a body share its mesh and textures in memory; recolours use `MaterialPropertyBlock`, so they add no new files.
+
+Bodies: Mr Herbert (`Ch42`, 24 MB; already in the build as Socrates), shorts-shirt-guy (51 MB; in the build), business-lady (56 MB; not in the build yet), hiker-lady (50 MB; not in the build). Prefer the two already in the build; use one of the lady models only for women in the roster (Elisabeth of Bohemia today), and check the build size when it's added.
+
+| ID | Status | Who | Size | Task | Depends on | Done when |
+|---|---|---|---|---|---|---|
+| C1 | todo | auto | S | Write `Assets/Dialogue/NPCLook.cs`: sets per-renderer colours with `MaterialPropertyBlock` (clothing slots; don't recolour skin), switches between existing hair/child meshes by name, and sets height (0.92-1.08 scale). Settings come from a small `NPCLookPreset` ScriptableObject so looks can be reused. No new textures or meshes. | — | Compiles in principle; header comment lists each body's renderer and hair slot names (read from the prefab/FBX meta files) |
+| C2 | todo | auto | S | Editor menu **MIHLab → Give selected philosophers a body**: for each selected capsule NPC, hides the capsule mesh, adds the chosen body prefab as a child with the idle animator, and adds `NPCLook`. `PhilosopherNPC` and its collider are untouched. Editor script, so runs never edit the scene. | C1 | Menu item exists; steps in `Docs/how-to-give-npc-a-body.md` |
+| C3 | todo | auto | S | `Docs/character-looks.md`: for every roster philosopher (35 + N1-N4), a body, a clothing palette, hair and height, chosen so area-mates look clearly different. Period hints where cheap (for example, dark coat for 17th-18th century figures). | P1 | Table covers every roster name |
+| C4 | todo | jim | S | Run C2 on the capsules using C3's table, look at it in play mode, run Deploy WebGL, and compare the build size with today's (~54 MB data file). | C2, C3 | Every philosopher has a body; build size noted here |
 
 ## Track 4 — Platform (issues #4 web, #5 Quest, #6 privacy/support, #7 Roblox)
 
@@ -97,15 +122,15 @@ The areas, philosophers and leads (**bold**, where each area's `Gate_` node land
 | Region (PhilPapers) | Area | Philosophers (lead first) | SEP cites | Can hand off to |
 |---|---|---|---|---|
 | Hub | Plane tree | **Socrates** | — | every area's lead (Gate_ nodes, already written) |
-| Metaphysics and Epistemology | Metaphysics | **Heim**, Plato, Berkeley | Plato (forms, cave) | Plato -> Descartes (E2) |
-| Metaphysics and Epistemology | Epistemology | **Descartes**, Moore, Zhuangzi | Descartes, Moore, Plato | Descartes -> Elisabeth (E1); Moore -> Nozick (E5) |
+| Metaphysics and Epistemology | Metaphysics | **Heim**, Plato, Berkeley, Hume (new, N1) | Plato (forms, cave); Hume (causation, substance, can metaphysics be done) | Plato -> Descartes (E2); Hume -> Lewis (E9) |
+| Metaphysics and Epistemology | Epistemology | **Descartes**, Moore, Zhuangzi, Gettier (new, N4) | Descartes, Moore, Plato; Gettier (Gettier cases) | Descartes -> Elisabeth (E1); Moore -> Nozick (E5); Gettier -> Plato (E11) |
 | Metaphysics and Epistemology | Philosophy of Mind | **Elisabeth of Bohemia**, Nagel, Clark | Nagel (value theory entry) | Nagel -> Bentham (E7, optional) |
 | Metaphysics and Epistemology | Philosophy of Language | **Putnam**, Carnap | — | within area only |
 | Metaphysics and Epistemology | Philosophy of Religion | **Anselm**, Leibniz, Narada | Anselm, Leibniz | Anselm -> Kant (E3); Leibniz -> Heim (E6) |
 | Science, Logic, and Mathematics | Computing and Information | **Turing**, Searle, Wheeler | not covered by the three entries | within area only |
 | Science, Logic, and Mathematics | Physical Science | **Russell**, Sellars, Galileo | Russell | within area only |
-| Science, Logic, and Mathematics | Probability | **Bostrom**, Boltzmann | not covered | within area only |
-| Value Theory | Well-Being (Value Theory, Misc) | **Nozick**, Bentham | Bentham | Bentham -> Kant (E8) |
+| Science, Logic, and Mathematics | Probability | **Bostrom**, Boltzmann, Lewis (new, N2) | Lewis (modal realism, counterfactual causation; Metaphysics §3.1, §3.4) | Lewis -> Leibniz (E10) |
+| Value Theory | Well-Being (Value Theory, Misc) | **Nozick**, Bentham, Mill (new, N3) | Bentham; Mill (higher and lower pleasures) | Bentham -> Kant (E8); Mill -> Moore (E12) |
 | Value Theory | Normative Ethics | **Kant**, Aristotle | Kant, Aristotle | Aristotle -> Plato (E4) |
 | Value Theory | Applied Ethics | **Singer**, Slater | — | within area only |
 | Value Theory | Social and Political | **Hobbes**, Mozi, Rawls | Rawls | within area only |
@@ -122,10 +147,14 @@ Within every area, the lead hands off to the others listed (lead -> each). Cross
 | E6 | Leibniz -> Heim | From possible worlds to virtual worlds | Metaphysics §3.1 (modality; Leibniz coined "possible world") |
 | E7 | Nagel -> Bentham | Good from whose point of view? (optional, weakest link) | Value Theory §1.1.1 (Nagel's point-of-view theory) |
 | E8 | Bentham -> Kant | Can every value be priced, or do persons have dignity? | Value Theory §2.2, §2.3.2 (monism; Kant's dignity vs price) |
+| E9 | Hume -> Lewis | Is causation just constant conjunction, or counterfactual dependence? | Metaphysics §3.4 (Hume; Stalnaker and Lewis) |
+| E10 | Lewis -> Leibniz | Are possible worlds as real as ours, or only possible creations? | Metaphysics §3.1 (Leibniz coined the term; Lewis's modal realism) |
+| E11 | Gettier -> Plato | Is knowledge justified true belief? | Epistemology intro and §2.3 (Plato on knowledge vs true opinion; Gettier cases) |
+| E12 | Mill -> Moore | Is knowledge only instrumentally good, or good in itself? | Value Theory §2.2 (Mill: instrumental; Moore: intrinsic) |
 
 Suggested first edge for P4: **E1 (Descartes -> Elisabeth)**. Both already have dialogue, and the mind-body problem is the clearest hand-over.
 
-Gaps (optional, Jim's call; each would need new dialogue): SEP's central figures with no NPC yet are Hume (causation, substance, whether metaphysics is possible), David Lewis (modal realism), Mill (higher and lower pleasures; Value Theory §2.2), and Gettier (knowledge as justified true belief). Heim, Zhuangzi, Nozick, Clark, Slater, Singer, Mozi and Hobbes come from *Reality+* rather than these three SEP entries. That's fine, since their PhilPapers areas still fit.
+Added 2026-10-22 (Jim): Hume, David Lewis, Mill and Gettier, which SEP treats as central and which had no NPC (tasks N1-N4). Metaphysics and Epistemology now have four figures each, one more than the 2-3 originally planned. Lewis sits in Probability (his work on chance and self-locating belief fits Bostrom's simulation argument) to keep Metaphysics from growing to five. Heim, Zhuangzi, Nozick, Clark, Slater, Singer, Mozi and Hobbes come from *Reality+* rather than these three SEP entries; their PhilPapers areas still fit.
 
 ## Notes from Jim
 
