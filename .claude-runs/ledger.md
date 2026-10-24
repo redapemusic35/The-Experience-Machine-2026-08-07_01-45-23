@@ -9,3 +9,4 @@
 | 2026-10-22 | X4b, X8 | done | CLAUDE_BACKLOG.md | X4b done by Jim (dialogue on F, live); X8 verified on the live build (ASTC in the phone data file); D7 unblocked |
 | 2026-10-22 | X2, X4c | review | Assets/Dialogue/DialogueTrigger.cs, Assets/StarterAssets/InputSystem/StarterAssets.inputactions, StarterAssetsInputs.cs, FirstPersonController.cs | Interactive: overlay hidden outside debug builds; arrow keys turn (new Turn action), A/D strafe; compile-checked in Jim's editor, 0 errors |
 | 2026-10-22 | Y1 | review | Tools/validate_yarn.py, CLAUDE_BACKLOG.md | Interactive: Yarn validator (missing targets, duplicates, stray ---, unclosed, orphans, dash lines); current dialogue 0 errors / 1 warning |
+| 2026-10-24 | — | skipped: weekly cap | .claude-runs/ledger.md | G2: 2+ completed runs in the last 7 days (W1 10-20, D1 10-21, plus interactive rows); G3 would also fail (Y1, X2, X4c in review) |
