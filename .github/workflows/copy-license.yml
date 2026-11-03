@@ -1,0 +1,11 @@
+name: Copy Unity licence to VR fork
+on: workflow_dispatch
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy UNITY_LICENSE
+        env:
+          GH_TOKEN: ${{ secrets.FORK_SECRETS_TOKEN }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        run: printf '%s' "$UNITY_LICENSE" | gh secret set UNITY_LICENSE --repo MIHLab-Org/experience-machine-vr
