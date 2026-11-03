@@ -13,6 +13,10 @@ Runs happen in a cloud session against the GitHub repo, not on Jim's computer. E
 - Do not edit Jim's own prose (dialogue he wrote, notes, docs he authored). New dialogue goes in new `.yarn` files.
 - No copyrighted text from *Reality+* or any other book in dialogue.
 
+## Repository changes
+
+A scheduled task can only push to the repositories that were attached when it was created; naming a repo in its prompt doesn't grant access. So runs never create, fork, rename or transfer repositories, and never switch to a different repo. Whenever the project moves to another repository (a new fork, a rename, a new org), whoever makes the move must also recreate the scheduled task from a session that has the new repo selected, disable the old task, and update the repo named in the task prompt and in CLAUDE_BACKLOG.md. Runs check write access before doing any work (task prompt step 2).
+
 ## 1. Guards — check all of these before doing any work
 
 Clone the repo, then `git fetch origin claude/auto` and check out `claude/auto` if it exists (otherwise stay on `main`). Read `.claude-runs/ledger.md` and `CLAUDE_BACKLOG.md` from that branch. The ledger on `claude/auto` is the authoritative one. Log skipped runs there too (commit + push only the ledger change).
@@ -25,6 +29,8 @@ Clone the repo, then `git fetch origin claude/auto` and check out `claude/auto` 
 | G4 Unmerged pile-up | If `claude/auto` is more than **UNMERGED_CAP** task commits ahead of `main` (`git rev-list --count origin/main..claude/auto`, counting only `auto:` commits), Jim hasn't merged recent work: stop. | Append `skipped: unmerged work piling up`. End. |
 | G5 Nothing eligible | If no task meets the rules in §0, stop. | Append `skipped: no eligible task`. End. |
 | G6 Pause switch | If a file named `.claude-runs/PAUSE` exists on `main` or `claude/auto`, stop. (Jim pauses runs by committing an empty `PAUSE` file on main.) | Append `skipped: paused`. End. |
+
+**Compile check first:** after the guards pass, read the latest **Compile check** workflow run on `claude/auto` (GitHub MCP `actions_list`; the summary job lists the `error CS` lines). If it is red with compiler errors, this run's task is fixing them (log it as `CC <date> fix compile errors`, commit message `auto: CC fix compile errors`), not a backlog task. If it is red for another reason (licence, image, disk) or has never run, note that in the ledger row and carry on with the backlog. Setup: `Docs/compile-check.md`.
 
 Settings (Jim edits these):
 
